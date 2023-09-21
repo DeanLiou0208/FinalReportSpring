@@ -18,6 +18,21 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-core</artifactId>
+		    <version>6.3.1.Final</version>
+		    <type>pom</type>
+		</dependency>
+
+
+		<dependency>
+		    <groupId>jstl</groupId>
+		    <artifactId>jstl</artifactId>
+	    	<version>1.2</version>
+		</dependency>
+
 		
 		<dependency>
 		    <groupId>org.json</groupId>
