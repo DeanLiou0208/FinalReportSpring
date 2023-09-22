@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
+
 @SpringBootTest
 public class DataSourceTests {
     @Autowired
@@ -32,6 +33,7 @@ public class DataSourceTests {
 
             for(int i = 1; i <= cc; i++) {
                 rowData.put(md.getColumnName(i), rset.getObject(i));
+
             }
             System.out.println(rowData);
         }
