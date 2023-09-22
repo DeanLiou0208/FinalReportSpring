@@ -2,8 +2,8 @@ package tw.ispan.eeit168.company.dao;
 
 import java.util.List;
 
-import tw.ispan.eeit168.company.domain.CompanyBean;
+import tw.ispan.eeit168.company.domain.ProductManageView;
 
 public interface ProductManageViewDao {
-	List<CompanyBean> select();
+	List<ProductManageView> select();
 }

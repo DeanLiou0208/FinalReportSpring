@@ -6,10 +6,10 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
-import tw.ispan.eeit168.company.domain.CompanyBean;
+import tw.ispan.eeit168.company.domain.ProductManageView;
 
 @Repository
-public class ProductManageViewDaoHibernate implements CompanyDao {
+public class ProductManageViewDaoHibernate implements ProductManageViewDao {
 	@PersistenceContext
 	private Session session;
 
@@ -18,8 +18,8 @@ public class ProductManageViewDaoHibernate implements CompanyDao {
 	}
 
 	@Override
-	public List<CompanyBean> select() {
-		return this.getSession().createQuery("from CompanyBean", CompanyBean.class).list();
+	public List<ProductManageView> select() {
+		return this.getSession().createQuery("from ProductManageView", ProductManageView.class).list();
 	}
 
 }
