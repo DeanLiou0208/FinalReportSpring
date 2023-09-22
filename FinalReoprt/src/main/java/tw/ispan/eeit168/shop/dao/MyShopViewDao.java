@@ -21,5 +21,6 @@ public class MyShopViewDao implements MyShopViewDaoInterface{
 	public List<MyShopView> select(){
 		return this.getSession().createQuery("from MyShopView", MyShopView.class).list();
 	}
+	
 
 }

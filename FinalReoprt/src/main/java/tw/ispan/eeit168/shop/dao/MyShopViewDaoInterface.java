@@ -1,5 +1,10 @@
 package tw.ispan.eeit168.shop.dao;
 
-public interface MyShopViewDaoInterface {
+import java.util.List;
 
+import tw.ispan.eeit168.shop.domain.MyShopView;
+
+public interface MyShopViewDaoInterface {
+	
+	public abstract List<MyShopView> select();
 }
