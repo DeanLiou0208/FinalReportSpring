@@ -1,11 +1,11 @@
-package tw.ispan.eeit168.dao;
+package tw.ispan.eeit168.company.dao;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
-import tw.ispan.eeit168.domain.CompanyBean;
+import tw.ispan.eeit168.company.domain.CompanyBean;
 
 @Repository
 public class CompanyDaoHibernate implements CompanyDao {

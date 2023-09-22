@@ -1,4 +1,4 @@
-package tw.ispan.eeit168.domain;
+package tw.ispan.eeit168.forum.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

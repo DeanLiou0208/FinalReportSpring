@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import tw.ispan.eeit168.domain.ProductBean;
+import tw.ispan.eeit168.company.dao.ProductDao;
+import tw.ispan.eeit168.company.domain.ProductBean;
 
 @SpringBootTest
 public class ProductDaoHibernateTests {

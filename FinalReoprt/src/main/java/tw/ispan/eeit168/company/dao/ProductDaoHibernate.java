@@ -1,4 +1,4 @@
-package tw.ispan.eeit168.dao;
+package tw.ispan.eeit168.company.dao;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
-import tw.ispan.eeit168.domain.ProductBean;
+import tw.ispan.eeit168.company.domain.ProductBean;
 
 @Repository
 public class ProductDaoHibernate implements ProductDao {

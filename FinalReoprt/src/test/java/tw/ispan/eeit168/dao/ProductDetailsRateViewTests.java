@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import tw.ispan.eeit168.domain.ProductDetailsRateView;
+import tw.ispan.eeit168.company.dao.ProductDetailsRateViewDao;
+import tw.ispan.eeit168.company.domain.ProductDetailsRateView;
 
 @SpringBootTest
 public class ProductDetailsRateViewTests {
