@@ -8,7 +8,7 @@ class FinalReoprtApplicationTests {
 
 	@Test
 	void contextLoads() {
-		
+		System.out.println("ok");
 		
 		// test
 	}

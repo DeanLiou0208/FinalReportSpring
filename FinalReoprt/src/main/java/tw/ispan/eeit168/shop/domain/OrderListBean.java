@@ -1,4 +1,4 @@
-package tw.ispan.eeit168.domain;
+package tw.ispan.eeit168.shop.domain;
 
 import java.sql.Timestamp;
 
