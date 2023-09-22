@@ -9,7 +9,7 @@ import jakarta.persistence.PersistenceContext;
 import tw.ispan.eeit168.company.domain.CompanyBean;
 
 @Repository
-public class CompanyDaoHibernate implements CompanyDao {
+public class ProductManageViewDaoHibernate implements CompanyDao {
 	@PersistenceContext
 	private Session session;
 
