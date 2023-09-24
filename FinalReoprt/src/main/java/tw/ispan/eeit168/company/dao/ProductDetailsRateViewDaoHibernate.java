@@ -9,7 +9,7 @@ import jakarta.persistence.PersistenceContext;
 import tw.ispan.eeit168.company.domain.ProductDetailsRateView;
 
 @Repository
-public class ProductDetailsRateViewHibernate implements ProductDetailsRateViewDao {
+public class ProductDetailsRateViewDaoHibernate implements ProductDetailsRateViewDao {
 	@PersistenceContext
 	private Session session;
 
