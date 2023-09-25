@@ -6,4 +6,9 @@ import tw.ispan.eeit168.company.domain.CompanyBean;
 
 public interface CompanyDao {
 	List<CompanyBean> select();
+	CompanyBean select(Integer id);
+	CompanyBean insert(CompanyBean bean);
+	CompanyBean update(CompanyBean bean);
+	boolean delete(Integer id);
+
 }

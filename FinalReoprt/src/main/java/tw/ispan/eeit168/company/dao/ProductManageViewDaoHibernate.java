@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
+import tw.ispan.eeit168.company.domain.ProductBean;
 import tw.ispan.eeit168.company.domain.ProductManageView;
 
 @Repository
@@ -21,5 +22,11 @@ public class ProductManageViewDaoHibernate implements ProductManageViewDao {
 	public List<ProductManageView> select() {
 		return this.getSession().createQuery("from ProductManageView", ProductManageView.class).list();
 	}
-
+	@Override
+	public ProductManageView select(Integer id) {
+		if (id != null) {
+			return this.getSession().get(ProductManageView.class, id);
+		}
+		return null;
+	}
 }

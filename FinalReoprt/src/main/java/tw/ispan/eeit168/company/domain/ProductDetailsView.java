@@ -90,8 +90,7 @@ public class ProductDetailsView {
 				+ ", getUid()=" + getUid() + ", getCompanyShopName()=" + getCompanyShopName() + ", getMemberShopName()="
 				+ getMemberShopName() + ", getPrice()=" + getPrice() + ", getName()=" + getName() + ", getType()="
 				+ getType() + ", getInventory()=" + getInventory() + ", getDescription()=" + getDescription()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]"+"\n";
+				+  "]"+"\n";
 	}
 
 	

@@ -54,8 +54,7 @@ public class ProductDetailsRateView {
 		return "ProductDetailsRateView [id=" + id + ", userName=" + userName + ", fkProductId=" + fkProductId
 				+ ", rateScore=" + rateScore + ", rateComment=" + rateComment + ", getId()=" + getId()
 				+ ", getUserName()=" + getUserName() + ", getFkProductId()=" + getFkProductId() + ", getRateScore()="
-				+ getRateScore() + ", getRateComment()=" + getRateComment() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]"+"\n";
+				+ getRateScore() + ", getRateComment()=" + getRateComment()  + "]"+"\n";
 	}
 	
 	

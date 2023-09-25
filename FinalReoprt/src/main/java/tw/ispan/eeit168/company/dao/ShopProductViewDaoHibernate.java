@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
+import tw.ispan.eeit168.company.domain.ProductBean;
 import tw.ispan.eeit168.company.domain.ShopProductView;
 
 @Repository
@@ -21,5 +22,11 @@ public class ShopProductViewDaoHibernate implements ShopProductViewDao {
 	public List<ShopProductView> select() {
 		return this.getSession().createQuery("from ShopProductView", ShopProductView.class).list();
 	}
-
+	@Override
+	public ShopProductView select(Integer id) {
+		if (id != null) {
+			return this.getSession().get(ShopProductView.class, id);
+		}
+		return null;
+	}
 }

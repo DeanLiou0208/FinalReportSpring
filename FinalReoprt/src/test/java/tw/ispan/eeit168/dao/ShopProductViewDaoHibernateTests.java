@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import tw.ispan.eeit168.company.dao.ShopProductViewDao;
+import tw.ispan.eeit168.company.domain.ProductBean;
 import tw.ispan.eeit168.company.domain.ShopProductView;
 
 @SpringBootTest
@@ -15,10 +16,16 @@ public class ShopProductViewDaoHibernateTests {
 	@Autowired
 	private ShopProductViewDao shopProductViewDao;
 
-	@Test
+	// @Test
 	public void testSelectAll() {
 		List<ShopProductView> selects = shopProductViewDao.select();
 		System.out.println("selects=" + selects);
+	}
+
+	@Test
+	public void testSelect() {
+		ShopProductView select = shopProductViewDao.select(10);
+		System.out.println("select=" + select);
 	}
 
 }

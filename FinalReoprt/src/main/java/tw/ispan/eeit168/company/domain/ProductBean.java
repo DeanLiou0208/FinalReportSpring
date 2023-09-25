@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -12,12 +14,13 @@ import jakarta.persistence.Table;
 public class ProductBean {
 	@Id
 	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "fk_company_id")
 	private Integer fkCompanyId;
 	@Column(name = "fk_member_id")
 	private Integer fkMemberId;
-	@Column(name = "uid")
+	@Column(name = "uid",insertable = false, updatable = false)
 	private String uid;
 	@Column(name = "name")
 	private String name;
@@ -31,7 +34,7 @@ public class ProductBean {
 	private String description;
 	@Column(name = "status")
 	private Boolean status;
-	@Column(name = "create_at")
+	@Column(name = "create_at",insertable = false, updatable = false)
 	private Timestamp createAt;
 	public Integer getId() {
 		return id;

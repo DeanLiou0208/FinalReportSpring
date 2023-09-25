@@ -43,8 +43,7 @@ public class ProductManageView {
 	@Override
 	public String toString() {
 		return "ProductManage [id=" + id + ", typename=" + typename + ", value=" + value + ", getId()=" + getId()
-				+ ", getTypename()=" + getTypename() + ", getValue()=" + getValue() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]"+"\n";
+				+ ", getTypename()=" + getTypename() + ", getValue()=" + getValue() +  "]"+"\n";
 	}
 
 }
