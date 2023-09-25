@@ -43,8 +43,8 @@ public class DomainTest {
 				OrderListBean oLB = new OrderListBean();
 				oLB.setId(rset.getInt("id"));
 				oLB.setFkMemberId(rset.getInt("fk_member_id"));
-				oLB.setTotalPrice(rset.getDouble("total_price"));
-				oLB.setBonus(rset.getDouble("bonus"));
+				oLB.setTotalPrice(rset.getInt("total_price"));
+				oLB.setBonus(rset.getInt("bonus"));
 				oLB.setCreateAt(rset.getTimestamp("create_at"));
 				
 				result.add(oLB);	

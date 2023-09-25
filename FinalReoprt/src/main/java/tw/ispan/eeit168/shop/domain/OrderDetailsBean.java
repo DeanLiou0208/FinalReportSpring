@@ -7,24 +7,24 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
+@Entity
 @Table(name="order_details")
 public class OrderDetailsBean {
 	@Id
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	
 	@Column(name="fk_order_id")
-	private int fkOrderId;
+	private Integer fkOrderId;
 	
 	@Column(name="shop_name")
 	private String shopName;
 	
 	@Column(name="product_id")
-	private int productId;
+	private Integer productId;
 	
 	@Column(name="quantity")
-	private int  quantity;
+	private Integer  quantity;
 	
 	@Column(name="state")
 	private String state;
@@ -32,19 +32,19 @@ public class OrderDetailsBean {
 	@Column(name="state_change_time")
 	private Timestamp stateChangeTime;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getFkOrderId() {
+	public Integer getFkOrderId() {
 		return fkOrderId;
 	}
 
-	public void setFkOrderId(int fkOrderId) {
+	public void setFkOrderId(Integer fkOrderId) {
 		this.fkOrderId = fkOrderId;
 	}
 
@@ -56,19 +56,19 @@ public class OrderDetailsBean {
 		this.shopName = shopName;
 	}
 
-	public int getProductId() {
+	public Integer getProductId() {
 		return productId;
 	}
 
-	public void setProductId(int productId) {
+	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
@@ -90,11 +90,9 @@ public class OrderDetailsBean {
 
 	@Override
 	public String toString() {
-		return "OrderListBean [id=" + id + ", fkOrderId=" + fkOrderId + ", shopName=" + shopName + ", productId="
+		return "OrderDetailsBean [id=" + id + ", fkOrderId=" + fkOrderId + ", shopName=" + shopName + ", productId="
 				+ productId + ", quantity=" + quantity + ", state=" + state + ", stateChangeTime=" + stateChangeTime
 				+ "]";
-	} 
-
+	}
 	
-		
 }

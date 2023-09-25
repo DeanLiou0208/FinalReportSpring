@@ -8,34 +8,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 
-
+@Entity
 @Table(name="my_shop")
 public class MyShopView {
 
 	@Id
-	@Column(name="p.id")
-	private int pId;
+	@Column(name="id")
+	private Integer pId;
 	
-	@Column(name="p.name")
+	@Column(name="name")
 	private String pName;
 	
-	@Column(name="p.price")
-	private double pPrice;
+	@Column(name="price")
+	private Integer pPrice;
 	
-	@Column(name="p.description")
+	@Column(name="description")
 	private String pDescription;
 	
-	@Column(name="c.shop_name")
+	@Column(name="shop_name")
 	private String shopName;
 	
-	@Column(name="p.create_at")
+	@Column(name="create_at")
 	private Timestamp pCreateAt;
 
-	public int getpId() {
+	public Integer getpId() {
 		return pId;
 	}
 
-	public void setpId(int pId) {
+	public void setpId(Integer pId) {
 		this.pId = pId;
 	}
 
@@ -47,11 +47,11 @@ public class MyShopView {
 		this.pName = pName;
 	}
 
-	public double getpPrice() {
+	public Integer getpPrice() {
 		return pPrice;
 	}
 
-	public void setpPrice(double pPrice) {
+	public void setpPrice(Integer pPrice) {
 		this.pPrice = pPrice;
 	}
 
@@ -81,7 +81,10 @@ public class MyShopView {
 
 	@Override
 	public String toString() {
-		return "myShopView [pId=" + pId + ", pName=" + pName + ", pPrice=" + pPrice + ", pDescription=" + pDescription
+		return "MyShopView [pId=" + pId + ", pName=" + pName + ", pPrice=" + pPrice + ", pDescription=" + pDescription
 				+ ", shopName=" + shopName + ", pCreateAt=" + pCreateAt + "]";
-	}	
+	}
+
+	
+	
 }

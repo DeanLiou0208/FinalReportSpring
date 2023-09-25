@@ -7,54 +7,50 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
+@Entity
 @Table(name="order_list")
 public class OrderListBean {
 	@Id
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	
 	@Column(name="fk_member_id")
-	private int fkMemberId;
+	private Integer fkMemberId;
 	
 	@Column(name="total_price")
-	private double totalPrice;
+	private Integer totalPrice;
 	
 	@Column(name="bonus")
-	private double bonus;
+	private Integer bonus;
 	
 	@Column(name="create_at")
 	private Timestamp createAt;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getFkMemberId() {
+	public Integer getFkMemberId() {
 		return fkMemberId;
 	}
 
-	public void setFkMemberId(int fkMemberId) {
+	public void setFkMemberId(Integer fkMemberId) {
 		this.fkMemberId = fkMemberId;
 	}
 
-	public double getTotalPrice() {
+	public Integer getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(double totalPrice) {
+	public void setTotalPrice(Integer totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
-	public double getBonus() {
+	public Integer getBonus() {
 		return bonus;
 	}
 
-	public void setBonus(double bonus) {
+	public void setBonus(Integer bonus) {
 		this.bonus = bonus;
 	}
 
@@ -66,12 +62,14 @@ public class OrderListBean {
 		this.createAt = createAt;
 	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderListBean [id=" + id + ", fkMemberId=" + fkMemberId + ", totalPrice=" + totalPrice + ", bonus="
 				+ bonus + ", createAt=" + createAt + "]";
 	}
-	
-	
 	
 }

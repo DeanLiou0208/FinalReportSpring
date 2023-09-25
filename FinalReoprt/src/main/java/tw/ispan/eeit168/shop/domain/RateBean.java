@@ -7,25 +7,25 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
+@Entity
 @Table(name="rate")
 public class RateBean {
 	
 	@Id
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	
 	@Column(name="fk_member_id")
-	private int fkMemberId;
+	private Integer fkMemberId;
 	
 	@Column(name="fk_product_id")
-	private int fkProductId;
+	private Integer fkProductId;
 	
 	@Column(name="fk_order_id")
-	private int fkOrderId;
+	private Integer fkOrderId;
 	
 	@Column(name="rate_score")
-	private Double rateScore;
+	private Integer rateScore;
 	
 	@Column(name="rate_comment")
 	private String rateComment;
@@ -33,43 +33,43 @@ public class RateBean {
 	@Column(name="created_at")
 	private Timestamp createdAt;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getFkMemberId() {
+	public Integer getFkMemberId() {
 		return fkMemberId;
 	}
 
-	public void setFkMemberId(int fkMemberId) {
+	public void setFkMemberId(Integer fkMemberId) {
 		this.fkMemberId = fkMemberId;
 	}
 
-	public int getFkProductId() {
+	public Integer getFkProductId() {
 		return fkProductId;
 	}
 
-	public void setFkProductId(int fkProductId) {
+	public void setFkProductId(Integer fkProductId) {
 		this.fkProductId = fkProductId;
 	}
 
-	public int getFkOrderId() {
+	public Integer getFkOrderId() {
 		return fkOrderId;
 	}
 
-	public void setFkOrderId(int fkOrderId) {
+	public void setFkOrderId(Integer fkOrderId) {
 		this.fkOrderId = fkOrderId;
 	}
 
-	public Double getRateScore() {
+	public Integer getRateScore() {
 		return rateScore;
 	}
 
-	public void setRateScore(Double rateScore) {
+	public void setRateScore(Integer rateScore) {
 		this.rateScore = rateScore;
 	}
 
@@ -94,5 +94,5 @@ public class RateBean {
 		return "RateBean [id=" + id + ", fkMemberId=" + fkMemberId + ", fkProductId=" + fkProductId + ", fkOrderId="
 				+ fkOrderId + ", rateScore=" + rateScore + ", rateComment=" + rateComment + ", createdAt=" + createdAt
 				+ "]";
-	}	
+	}
 }
