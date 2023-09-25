@@ -21,16 +21,16 @@ public class MemberBean {
 	private String password;
 	
 	@Column(name = "first_name", columnDefinition = "nvarchar")
-	private String first_name;
+	private String firstName;
 	
 	@Column(name = "last_name", columnDefinition = "nvarchar")
-	private String last_name;
+	private String lastName;
 	
 	@Column(name = "user_name", columnDefinition = "nvarchar")
-	private String user_name;
+	private String userName;
 	
 	@Column(name = "shop_name", columnDefinition = "nvarchar")
-	private String shop_name;
+	private String shopName;
 	
 	@Column(name = "gender")
 	private Boolean gender;
@@ -54,21 +54,21 @@ public class MemberBean {
 	private Integer bonus;
 	
 	@Column(name = "create_at", columnDefinition = "datetime")
-	private Timestamp create_at;
+	private Timestamp createAt;
 	
 	@Column(name = "update_at", columnDefinition = "datetime")
-	private Timestamp update_at;
+	private Timestamp updateAt;
 	
 	@Column(name = "img")
 	private String img;
 
 	@Override
 	public String toString() {
-		return "MemberBean [id=" + id + ", account=" + account + ", password=" + password + ", first_name=" + first_name
-				+ ", last_name=" + last_name + ", user_name=" + user_name + ", shop_name=" + shop_name + ", gender="
-				+ gender + ", birth=" + birth + ", phone=" + phone + ", address=" + address + ", email=" + email
-				+ ", cash=" + cash + ", bonus=" + bonus + ", create_at=" + create_at + ", update_at=" + update_at
-				+ ", img=" + img + "]";
+		return "MemberBean [id=" + id + ", account=" + account + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", userName=" + userName + ", shopName=" + shopName + ", gender=" + gender
+				+ ", birth=" + birth + ", phone=" + phone + ", address=" + address + ", email=" + email + ", cash="
+				+ cash + ", bonus=" + bonus + ", createAt=" + createAt + ", updateAt=" + updateAt + ", img=" + img
+				+ "]";
 	}
 
 	public Integer getId() {
@@ -95,36 +95,36 @@ public class MemberBean {
 		this.password = password;
 	}
 
-	public String getFirst_name() {
-		return first_name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLast_name() {
-		return last_name;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getUser_name() {
-		return user_name;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getShop_name() {
-		return shop_name;
+	public String getShopName() {
+		return shopName;
 	}
 
-	public void setShop_name(String shop_name) {
-		this.shop_name = shop_name;
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
 	}
 
 	public Boolean getGender() {
@@ -183,20 +183,20 @@ public class MemberBean {
 		this.bonus = bonus;
 	}
 
-	public Timestamp getCreate_at() {
-		return create_at;
+	public Timestamp getCreateAt() {
+		return createAt;
 	}
 
-	public void setCreate_at(Timestamp create_at) {
-		this.create_at = create_at;
+	public void setCreateAt(Timestamp createAt) {
+		this.createAt = createAt;
 	}
 
-	public Timestamp getUpdate_at() {
-		return update_at;
+	public Timestamp getUpdateAt() {
+		return updateAt;
 	}
 
-	public void setUpdate_at(Timestamp update_at) {
-		this.update_at = update_at;
+	public void setUpdateAt(Timestamp updateAt) {
+		this.updateAt = updateAt;
 	}
 
 	public String getImg() {
@@ -206,6 +206,8 @@ public class MemberBean {
 	public void setImg(String img) {
 		this.img = img;
 	}
+
+	
 	
 	
 	
