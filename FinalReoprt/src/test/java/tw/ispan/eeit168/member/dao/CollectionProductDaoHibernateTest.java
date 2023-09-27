@@ -1,4 +1,4 @@
-package tw.ispan.eeit168.forum.dao;
+package tw.ispan.eeit168.member.dao;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package tw.ispan.eeit168.shop.dao;
+package tw.ispan.eeit168.forum.dao;
 
 import java.util.List;
 

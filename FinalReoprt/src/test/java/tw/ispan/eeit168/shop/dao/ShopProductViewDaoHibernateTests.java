@@ -1,4 +1,4 @@
-package tw.ispan.eeit168.dao;
+package tw.ispan.eeit168.shop.dao;
 
 import java.util.List;
 
@@ -7,24 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import tw.ispan.eeit168.company.domain.ProductBean;
-import tw.ispan.eeit168.shop.dao.ShopCartViewDao;
-import tw.ispan.eeit168.shop.domain.ShopCartView;
+import tw.ispan.eeit168.shop.dao.ShopProductViewDao;
+import tw.ispan.eeit168.shop.domain.ShopProductView;
 
 @SpringBootTest
-public class ShopCartViewDaoHibernateTests {
+public class ShopProductViewDaoHibernateTests {
 
 	@Autowired
-	private ShopCartViewDao shopCartViewDao;
+	private ShopProductViewDao shopProductViewDao;
 
-	//@Test
+	// @Test
 	public void testSelectAll() {
-		List<ShopCartView> selects = shopCartViewDao.select();
+		List<ShopProductView> selects = shopProductViewDao.select();
 		System.out.println("selects=" + selects);
 	}
 
 	@Test
 	public void testSelect() {
-		ShopCartView select = shopCartViewDao.select(10);
+		ShopProductView select = shopProductViewDao.select(10);
 		System.out.println("select=" + select);
 	}
+
 }

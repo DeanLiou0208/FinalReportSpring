@@ -1,4 +1,4 @@
-package tw.ispan.eeit168.member.dao;
+package tw.ispan.eeit168.shop.dao;
 
 import java.util.List;
 
@@ -8,26 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.ispan.eeit168.company.dao.CompanyOrderDAO;
-import tw.ispan.eeit168.company.domain.CompanyOrderView;
+import tw.ispan.eeit168.shop.dao.IndexProductsPhotoDAO;
+import tw.ispan.eeit168.shop.domain.IndexProductsPhotoView;
 
 @SpringBootTest
 @Transactional
-public class CompanyOrderDAOHibernateTest {
+public class IndexProductsPhotoDAOHibernateTest {
 	@Autowired
 	private SessionFactory sessionFactory;
 	@Autowired
-	private CompanyOrderDAO companyOrderDAO;
+	private IndexProductsPhotoDAO indexProductsPhotoDAO;
 	
 	@Test
 	public void testSelect() {
-		CompanyOrderView select = companyOrderDAO.select(1);
+		IndexProductsPhotoView select = indexProductsPhotoDAO.select(1);
 		System.out.println("select first =" + select);
 	}
 	
 	@Test
 	public void testSelectAll() {
-		List<CompanyOrderView> selects = companyOrderDAO.select();
+		List<IndexProductsPhotoView> selects = indexProductsPhotoDAO.select();
 		System.out.println("selects="+selects);
 	}
 }
