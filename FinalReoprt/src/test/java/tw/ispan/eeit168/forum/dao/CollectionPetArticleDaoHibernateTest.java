@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import tw.ispan.eeit168.forum.domain.CollectionPetArticleView;
+import tw.ispan.eeit168.member.dao.CollectionPetArticleDao;
+import tw.ispan.eeit168.member.domain.CollectionPetArticleView;
 
 @SpringBootTest
 public class CollectionPetArticleDaoHibernateTest {

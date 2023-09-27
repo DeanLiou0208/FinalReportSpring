@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.ispan.eeit168.member.domain.CompanyOrderView;
+import tw.ispan.eeit168.company.dao.CompanyOrderDAO;
+import tw.ispan.eeit168.company.domain.CompanyOrderView;
 
 @SpringBootTest
 @Transactional

@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.ispan.eeit168.member.domain.PetArticleSelectBean;
+import tw.ispan.eeit168.forum.dao.PetArticleSelectDAO;
+import tw.ispan.eeit168.forum.domain.PetArticleSelectBean;
 import tw.ispan.eeit168.member.domain.PetLikesBean;
 
 @SpringBootTest

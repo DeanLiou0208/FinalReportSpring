@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.ispan.eeit168.member.domain.IndexProductsPhotoView;
+import tw.ispan.eeit168.shop.dao.IndexProductsPhotoDAO;
+import tw.ispan.eeit168.shop.domain.IndexProductsPhotoView;
 
 @SpringBootTest
 @Transactional

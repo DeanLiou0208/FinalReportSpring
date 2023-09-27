@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import tw.ispan.eeit168.company.dao.ShopCartViewDao;
 import tw.ispan.eeit168.company.domain.ProductBean;
-import tw.ispan.eeit168.company.domain.ShopCartView;
+import tw.ispan.eeit168.shop.dao.ShopCartViewDao;
+import tw.ispan.eeit168.shop.domain.ShopCartView;
 
 @SpringBootTest
 public class ShopCartViewDaoHibernateTests {

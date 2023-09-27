@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import jakarta.transaction.Transactional;
-import tw.ispan.eeit168.shop.domain.ArticleLikesBean;
+import tw.ispan.eeit168.forum.dao.ArticleLikesBeanDao;
+import tw.ispan.eeit168.forum.domain.ArticleLikesBean;
 import tw.ispan.eeit168.shop.util.DoublePrimaryKey;
 
 @SpringBootTest

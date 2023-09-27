@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import tw.ispan.eeit168.shop.domain.PetPhotoOrderView;
+import tw.ispan.eeit168.member.dao.PetPhotoOrderViewDao;
+import tw.ispan.eeit168.member.domain.PetPhotoOrderView;
 
 @SpringBootTest
 public class PetPhotoOrderViewDaoTest {
