@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="tw.ispan.eeit168.company.domain.CompanyBean"/>
     <fullyQualifiedTypeName name="java.sql.SQLException"/>
     <fullyQualifiedTypeName name="org.hibernate.annotations.ValueGenerationType"/>
     <fullyQualifiedTypeName name="org.springframework.data.annotation.Transient"/>
     <fullyQualifiedTypeName name="org.hibernate.annotations.GeneratorType"/>
-    <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
     <fullyQualifiedTypeName name="java.sql.Timestamp"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
     <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
+    <fullyQualifiedTypeName name="tw.ispan.eeit168.company.domain.CompanyBean"/>
+    <fullyQualifiedTypeName name="tw.ispan.eeit168.company.dao.CompanyDao"/>
+    <fullyQualifiedTypeName name="tw.ispan.eeit168.company.service.CompanyService"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="org.hibernate.query.Query"/>
 </qualifiedTypeNameHistroy>

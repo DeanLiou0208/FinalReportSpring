@@ -3,14 +3,14 @@ package tw.ispan.eeit168.company.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.PersistenceContext;
 import tw.ispan.eeit168.company.domain.CompanyBean;
 
 @Repository
-@Transactional
+//@Transactional
 public class CompanyDaoHibernate implements CompanyDao {
 	@PersistenceContext
 	private Session session;
@@ -43,7 +43,7 @@ public class CompanyDaoHibernate implements CompanyDao {
 		if (bean != null && bean.getId() != null) {
 			CompanyBean temp = this.getSession().get(CompanyBean.class, bean.getId());
 			if (temp != null) {
-				return (CompanyBean) this.getSession().merge(bean);
+				return  this.getSession().merge(bean);
 			}
 		}
 		return null;
@@ -57,6 +57,24 @@ public class CompanyDaoHibernate implements CompanyDao {
 		return null;
 	}
 
+	@Override
+	public CompanyBean selectByAccount(String account) {
+	    if (account != null) {
+	        String queryString = "FROM CompanyBean WHERE account = :account";
+	        Query<CompanyBean> query = this.getSession().createQuery(queryString, CompanyBean.class);
+	        query.setParameter("account", account);
+	        
+	        // 使用 query.list() 或 query.uniqueResult() 來執行查詢
+	        List<CompanyBean> results = query.list();
+	        
+	        if (!results.isEmpty()) {
+	            // 如果查詢結果不為空，返回第一個匹配的結果
+	            return results.get(0);
+	        }
+	    }
+	    return null;
+	}
+	
 	@Override
 	public boolean delete(Integer id) {
 		if (id != null) {

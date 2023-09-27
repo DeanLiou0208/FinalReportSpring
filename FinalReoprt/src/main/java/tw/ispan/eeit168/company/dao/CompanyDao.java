@@ -10,5 +10,6 @@ public interface CompanyDao {
 	CompanyBean insert(CompanyBean bean);
 	CompanyBean update(CompanyBean bean);
 	boolean delete(Integer id);
-
+	CompanyBean selectByAccount(String Account);
+	
 }
