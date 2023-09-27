@@ -9,4 +9,10 @@ public interface PetPhotoDAO {
 	public abstract PetPhotoBean select(Integer id);
 	
 	public abstract List<PetPhotoBean> select();
+
+	public abstract PetPhotoBean insert(PetPhotoBean bean);
+	
+	public abstract PetPhotoBean update(PetPhotoBean bean);
+
+	public abstract boolean delete(Integer id);
 }

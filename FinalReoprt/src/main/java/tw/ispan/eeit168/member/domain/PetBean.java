@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -11,6 +13,7 @@ import jakarta.persistence.Table;
 @Table(name = "pet")
 public class PetBean {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	
@@ -29,7 +32,7 @@ public class PetBean {
 	@Column(name = "gender")
 	private Boolean gender;
 	
-	@Column(name = "create_at", columnDefinition = "datetime")
+	@Column(name = "create_at", columnDefinition = "datetime", insertable = false, updatable = false)
 	private Timestamp createAt;
 
 	@Override

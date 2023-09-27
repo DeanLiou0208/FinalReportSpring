@@ -9,4 +9,10 @@ public interface PetCategroyDAO {
 	public abstract PetCategroyBean select(Integer id);
 	
 	public abstract List<PetCategroyBean> select();
+	
+	public abstract PetCategroyBean insert(PetCategroyBean bean);
+
+	public abstract PetCategroyBean update(PetCategroyBean bean);
+
+	public abstract boolean delete(Integer id);
 }

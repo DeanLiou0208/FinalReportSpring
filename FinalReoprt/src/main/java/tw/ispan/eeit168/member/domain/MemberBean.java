@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -11,52 +13,53 @@ import jakarta.persistence.Table;
 @Table(name = "member")
 public class MemberBean {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "account", columnDefinition = "varchar")
+	@Column(name = "account", columnDefinition = "varchar", updatable = false)
 	private String account;
 	
-	@Column(name = "password", columnDefinition = "varchar")
+	@Column(name = "password", columnDefinition = "varchar", updatable = false)
 	private String password;
 	
-	@Column(name = "first_name", columnDefinition = "nvarchar")
+	@Column(name = "first_name", columnDefinition = "nvarchar", insertable = false)
 	private String firstName;
 	
-	@Column(name = "last_name", columnDefinition = "nvarchar")
+	@Column(name = "last_name", columnDefinition = "nvarchar", insertable = false)
 	private String lastName;
 	
-	@Column(name = "user_name", columnDefinition = "nvarchar")
+	@Column(name = "user_name", columnDefinition = "nvarchar", insertable = false)
 	private String userName;
 	
-	@Column(name = "shop_name", columnDefinition = "nvarchar")
+	@Column(name = "shop_name", columnDefinition = "nvarchar", insertable = false)
 	private String shopName;
 	
-	@Column(name = "gender")
+	@Column(name = "gender", insertable = false)
 	private Boolean gender;
 	
-	@Column(name = "birth", columnDefinition = "date")
-	private Timestamp birth;
+	@Column(name = "birth", columnDefinition = "date", insertable = false)
+	private java.sql.Date birth;
 	
-	@Column(name = "phone", columnDefinition = "varchar")	
+	@Column(name = "phone", columnDefinition = "varchar", insertable = false)	
 	private String phone;
 	
-	@Column(name = "address", columnDefinition = "nvarchar")
+	@Column(name = "address", columnDefinition = "nvarchar", insertable = false)
 	private String address;
 	
-	@Column(name = "email", columnDefinition = "varchar")
+	@Column(name = "email", columnDefinition = "varchar", insertable = false)
 	private String email;
 	
-	@Column(name = "cash")
+	@Column(name = "cash", insertable = false, updatable = false)
 	private Integer cash;
 	
-	@Column(name = "bonus")
+	@Column(name = "bonus", insertable = false, updatable = false)
 	private Integer bonus;
 	
-	@Column(name = "create_at", columnDefinition = "datetime")
+	@Column(name = "create_at", columnDefinition = "datetime", insertable = false, updatable = false)
 	private Timestamp createAt;
 	
-	@Column(name = "update_at", columnDefinition = "datetime")
+	@Column(name = "update_at", columnDefinition = "datetime", insertable = false)
 	private Timestamp updateAt;
 	
 	@Column(name = "img")
@@ -135,11 +138,11 @@ public class MemberBean {
 		this.gender = gender;
 	}
 
-	public Timestamp getBirth() {
+	public java.sql.Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Timestamp birth) {
+	public void setBirth(java.sql.Date birth) {
 		this.birth = birth;
 	}
 
