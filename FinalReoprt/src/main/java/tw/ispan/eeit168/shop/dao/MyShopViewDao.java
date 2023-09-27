@@ -7,4 +7,6 @@ import tw.ispan.eeit168.shop.domain.MyShopView;
 public interface MyShopViewDao {
 	
 	public abstract List<MyShopView> select();
+	
+	public abstract List<MyShopView> selectByShopName(String shopName);
 }

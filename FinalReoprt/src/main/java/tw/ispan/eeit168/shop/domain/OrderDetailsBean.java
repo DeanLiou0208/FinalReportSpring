@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -12,6 +14,7 @@ import jakarta.persistence.Table;
 public class OrderDetailsBean {
 	@Id
 	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(name="fk_order_id")
@@ -29,7 +32,7 @@ public class OrderDetailsBean {
 	@Column(name="state")
 	private String state;
 	
-	@Column(name="state_change_time")
+	@Column(name="state_change_time", insertable = false)
 	private Timestamp stateChangeTime;
 
 	public Integer getId() {

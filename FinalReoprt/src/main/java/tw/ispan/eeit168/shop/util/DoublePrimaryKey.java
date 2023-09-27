@@ -7,6 +7,20 @@ public class DoublePrimaryKey implements Serializable{
 		
 	private Integer fkMemberId;
 	private Integer fkPetArticleId;
+	
+	
+	public Integer getFkMemberId() {
+		return fkMemberId;
+	}
+	public void setFkMemberId(Integer fkMemberId) {
+		this.fkMemberId = fkMemberId;
+	}
+	public Integer getFkPetArticleId() {
+		return fkPetArticleId;
+	}
+	public void setFkPetArticleId(Integer fkPetArticleId) {
+		this.fkPetArticleId = fkPetArticleId;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(fkMemberId, fkPetArticleId);

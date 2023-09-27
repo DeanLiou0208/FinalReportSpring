@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
+import tw.ispan.eeit168.shop.domain.PetArticleOrderView;
 import tw.ispan.eeit168.shop.domain.PetPhotoOrderView;
 
 @Repository
@@ -21,6 +22,13 @@ public class PetPhotoOrderViewDaoHibernate implements PetPhotoOrderViewDao{
 	@Override
 	public List<PetPhotoOrderView> select(){
 		return this.getSession().createQuery("from PetPhotoOrderView", PetPhotoOrderView.class).list();
+	}
+	@Override
+	public PetPhotoOrderView selectById(Integer id) {
+		if(id != null ) {
+			return this.getSession().get(PetPhotoOrderView.class, id);	
+		}
+		return null;
 	}
 	
 }

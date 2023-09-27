@@ -14,9 +14,15 @@ public class PetArticlePostViewDaoTest {
 	@Autowired
 	private PetArticlePostViewDao petArticlePostViewDao;
 	
-	@Test
+	//@Test
 	public void select() {
 		List<PetArticlePostView> select = petArticlePostViewDao.select();
 		System.out.println(select);
+	}
+	
+	@Test
+	public void selectById() {
+		PetArticlePostView selectById = petArticlePostViewDao.selectById(1);
+		System.out.println(selectById);
 	}
 }

@@ -13,9 +13,14 @@ public class PetPhotoOrderViewDaoTest {
 	@Autowired
 	private PetPhotoOrderViewDao petPhotoOrderViewDao;
 	
-	@Test
+	//@Test
 	public void select(){
 		List<PetPhotoOrderView> select = petPhotoOrderViewDao.select();
 		System.out.println(select);
+	}
+	@Test
+	public void selectById() {
+		PetPhotoOrderView selectById = petPhotoOrderViewDao.selectById(1);
+		System.out.println(selectById); 
 	}
 }

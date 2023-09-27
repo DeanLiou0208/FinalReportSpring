@@ -22,5 +22,12 @@ public class OrderDetailsBeanDaoHibernate implements OrderDetailsBeanDao{
 	public List<OrderDetailsBean> select(){
 		return this.getSession().createQuery("from OrderDetailsBean", OrderDetailsBean.class).list();
 	}
+	@Override
+	public OrderDetailsBean selectById(Integer id) {
+		if(id != null) {
+			return this.getSession().get(OrderDetailsBean.class, id);
+		}
+		return null;
+	}
  
 }

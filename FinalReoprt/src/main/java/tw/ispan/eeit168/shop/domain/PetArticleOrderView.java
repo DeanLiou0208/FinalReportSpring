@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -33,7 +35,7 @@ public class PetArticleOrderView {
 	@Column(name="unlike_count")
 	private Integer unLikeCount;
 	
-	@Column(name="lasttime")
+	@Column(name="lasttime", insertable = false)
 	private Timestamp lastTime;
 
 	

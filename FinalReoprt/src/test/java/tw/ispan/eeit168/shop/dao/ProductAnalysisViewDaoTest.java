@@ -6,24 +6,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import tw.ispan.eeit168.shop.domain.MyShopView;
+import tw.ispan.eeit168.shop.domain.ProductAnalysisView;
 
 @SpringBootTest
-public class MyShopViewDaoTest {
-	
+public class ProductAnalysisViewDaoTest {
+
 	@Autowired
-	private MyShopViewDao myShopViewDao;
+	private ProductAnalysisViewDao productAnalysisViewDao;
 	
 	@Test
 	public void select() {
-		List<MyShopView> select = myShopViewDao.select();
+		List<ProductAnalysisView> select = productAnalysisViewDao.select();
 		System.out.println(select);
 	}
 	
 	@Test
 	public void selectByShopName() {
-		List<MyShopView> selectByShopName = myShopViewDao.selectByShopName("劉學長的店");
+		List<ProductAnalysisView> selectByShopName = productAnalysisViewDao.selectByShopName("劉學長的店");
 		System.out.println(selectByShopName);
 	}
-
+	
 }

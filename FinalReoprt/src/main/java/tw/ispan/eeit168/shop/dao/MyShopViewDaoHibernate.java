@@ -22,5 +22,14 @@ public class MyShopViewDaoHibernate implements MyShopViewDao{
 		return this.getSession().createQuery("from MyShopView", MyShopView.class).list();
 	}
 	
+	@Override
+	public List<MyShopView> selectByShopName(String shopName){
+		String hql = "from MyShopView where shopName = :shopName ";
+		return this.getSession()
+					.createQuery(hql, MyShopView.class)
+					.setParameter("shopName", shopName)
+					////第一個""是hql裡面的代稱 第二個是傳入參數的名稱
+					.list();
+	}
 
 }

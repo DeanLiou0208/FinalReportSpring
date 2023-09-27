@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -13,6 +15,7 @@ public class ShoppingCartBean {
 
 	@Id
 	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(name="fk_member_id")
@@ -24,10 +27,10 @@ public class ShoppingCartBean {
 	@Column(name="count")
 	private Integer count;
 	
-	@Column(name="create_at")
+	@Column(name="create_at" ,insertable = false, updatable = false)
 	private Timestamp createAt;
 	
-	@Column(name="update_at")
+	@Column(name="update_at",insertable = false)
 	private Timestamp updateAt;
 
 	public Integer getId() {

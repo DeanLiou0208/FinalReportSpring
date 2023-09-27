@@ -6,4 +6,8 @@ import tw.ispan.eeit168.shop.domain.OrderDetailsBean;
 
 public interface OrderDetailsBeanDao {
 	public abstract List<OrderDetailsBean> select();
+	
+	public abstract OrderDetailsBean selectById(Integer id);
+	
+	
 }

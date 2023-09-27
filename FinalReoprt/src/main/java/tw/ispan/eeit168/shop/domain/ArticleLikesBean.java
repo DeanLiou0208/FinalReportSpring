@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
@@ -22,7 +24,7 @@ public class ArticleLikesBean {
 	@Column(name="fk_pet_article_id")
 	private Integer fkPetArticleId;	
 	
-	@Column(name="create_at")
+	@Column(name="create_at", insertable = false, updatable = false)
 	private Timestamp createAt;
 	
 	@Column(name="like_or_unlike")

@@ -21,4 +21,13 @@ public class PetArticlePostViewDaoHibernate implements PetArticlePostViewDao{
 	public List<PetArticlePostView> select(){
 		return this.getSession().createQuery("from PetArticlePostView", PetArticlePostView.class).list();
 	}
+	
+	@Override
+	public PetArticlePostView selectById(Integer id) {
+		if(id != null) {
+			PetArticlePostView petArticlePostView = this.getSession().get(PetArticlePostView.class, id);
+			return petArticlePostView;
+		}
+		return null;
+	}
 }

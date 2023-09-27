@@ -20,4 +20,9 @@ public class PetArticleOrderViewDaoTest {
 		List<PetArticleOrderView> select = petArticleOrderViewDao.select();
 		System.out.println(select);
 	}
+	@Test
+	public void selectShrech() {
+		List<PetArticleOrderView> selectShrech = petArticleOrderViewDao.selectShrech("寶寶");
+		System.out.println(selectShrech);
+	}
 }
