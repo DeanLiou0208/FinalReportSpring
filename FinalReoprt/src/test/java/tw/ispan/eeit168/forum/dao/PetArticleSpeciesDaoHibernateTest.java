@@ -17,4 +17,5 @@ public class PetArticleSpeciesDaoHibernateTest {
 		List<PetArticleSpeciesBean> selects = petArticleSpeciesDao.select();
 		System.out.println("selects="+selects);
 	}
+	
 }

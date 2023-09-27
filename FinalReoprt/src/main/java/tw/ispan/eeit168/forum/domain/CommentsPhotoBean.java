@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -11,13 +13,14 @@ import jakarta.persistence.Table;
 @Table(name = "comments_photo")
 public class CommentsPhotoBean {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	@Column(name = "fk_comments_id")
 	private Integer fkCommentsId;
 	@Column(name = "img",columnDefinition = "varchar")
 	private String img;
-	@Column(name = "create_at",columnDefinition = "datetime")
+	@Column(name = "create_at",columnDefinition = "datetime",insertable = false)
 	private Timestamp createAt;
 	
 	@Override

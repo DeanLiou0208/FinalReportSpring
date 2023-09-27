@@ -1,18 +1,23 @@
 package tw.ispan.eeit168.forum.domain;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "collection_product")
-public class CollectionProductView {
+@IdClass(CollectionProductView.CollectionProductId.class)
+public class CollectionProductView implements Serializable {
 	
 	@Id
 	@Column(name = "fk_member_id")
 	private Integer fkMemberId;
-	
+	@Id
 	@Column(name = "product_id")
 	private Integer productId;
 	
@@ -94,6 +99,41 @@ public class CollectionProductView {
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
+	
+	public static class CollectionProductId implements Serializable {
+		private Integer fkMemberId;
+		private Integer productId;
+		public Integer getFkMemberId() {
+			return fkMemberId;
+		}
+		public void setFkMemberId(Integer fkMemberId) {
+			this.fkMemberId = fkMemberId;
+		}
+		public Integer getProductId() {
+			return productId;
+		}
+		public void setProductId(Integer productId) {
+			this.productId = productId;
+		}
+		@Override
+		public int hashCode() {
+			return Objects.hash(fkMemberId, productId);
+		}
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			CollectionProductId other = (CollectionProductId) obj;
+			return Objects.equals(fkMemberId, other.fkMemberId) && Objects.equals(productId, other.productId);
+		}
+		
+		
+	}
+	
 
 
 	

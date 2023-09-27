@@ -6,5 +6,13 @@ import tw.ispan.eeit168.forum.domain.PetArticlePhotoBean;
 
 public interface PetArticlePhotoDao {
 	public abstract List<PetArticlePhotoBean> select();
+	
+	public abstract PetArticlePhotoBean select(Integer id);
+	
+	public abstract PetArticlePhotoBean insert(PetArticlePhotoBean bean);
+	
+	public abstract PetArticlePhotoBean update(PetArticlePhotoBean bean);
+	
+	public abstract boolean delete(Integer id);
 
 }
