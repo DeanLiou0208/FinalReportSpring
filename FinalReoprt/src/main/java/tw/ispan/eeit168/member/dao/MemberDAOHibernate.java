@@ -7,12 +7,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.PersistenceContext;
-import tw.ispan.eeit168.company.domain.ProductBean;
 import tw.ispan.eeit168.member.domain.MemberBean;
-import tw.ispan.eeit168.member.domain.PetLikesBean;
 
 @Repository
-@Transactional
+//@Transactional
 public class MemberDAOHibernate implements MemberDAO {
 	@PersistenceContext
 	private Session session;
@@ -25,6 +23,32 @@ public class MemberDAOHibernate implements MemberDAO {
 	public MemberBean select(Integer id) {
 		if(id != null) {
 			return this.getSession().get(MemberBean.class, id);
+		}
+		return null;
+	}
+	@Override
+	public MemberBean select(String account) {
+		if(account != null) {		
+			MemberBean member= this.getSession().createQuery("FROM MemberBean WHERE account = :account", MemberBean.class)
+			.setParameter("account", account)
+			.uniqueResult();
+			if(member != null) {
+				return member;
+			}
+		}	
+		return null;
+	}
+	
+	@Override
+	public Integer select(String account, String password) {
+		if(account != null && password != null) {		
+			MemberBean member= this.getSession().createQuery("FROM MemberBean WHERE account = :account AND password = :password", MemberBean.class)
+			.setParameter("account", account)
+			.setParameter("password", password)
+			.uniqueResult();
+			if(member != null) {
+				return member.getId();
+			}
 		}
 		return null;
 	}

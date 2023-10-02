@@ -23,6 +23,13 @@ public class PetLikesDAOHibernate implements PetLikesDAO {
 	public List<PetLikesBean> select() {
 		return this.getSession().createQuery("from PetLikesBean", PetLikesBean.class).list();
 	}
+	
+	@Override
+	public List<Integer> select(Integer fkMemberId) {
+		return this.getSession().createQuery("Select fkPetId FROM PetLikesBean WHERE fkMemberId = :fkMemberId", Integer.class)
+				.setParameter("fkMemberId", fkMemberId)
+				.list();
+	}
 
 //	@Override
 //	public PetLikesBean insert(PetLikesBean bean) {

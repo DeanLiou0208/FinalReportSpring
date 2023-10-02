@@ -50,7 +50,7 @@ public class MemberDAOHibernateTest {
 		update.setFirstName("更");
 		update.setLastName("新");
 		update.setUserName("成");
-		update.setShopName("功");
+//		update.setShopName("功")update;
 		update.setGender(true);
 
 		LocalDate localDate = LocalDate.of(2000,01,11);

@@ -1,5 +1,7 @@
 package tw.ispan.eeit168.member.domain;
 
+import java.sql.Timestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,12 @@ public class PetPhotoOrderView {
 	
 	@Column(name="user_name")
 	private String userName;
+	
+	@Column(name="like_count")
+	private Integer likeCount;
+	
+	@Column(name = "create_at", columnDefinition = "datetime", insertable = false, updatable = false)
+	private Timestamp createAt;
 	
 	@Column(name="img")
 	private String img;
@@ -69,6 +77,22 @@ public class PetPhotoOrderView {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	
+	public Integer getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(Integer likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public Timestamp getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(Timestamp createAt) {
+		this.createAt = createAt;
+	}
 
 	public String getImg() {
 		return img;
@@ -81,6 +105,10 @@ public class PetPhotoOrderView {
 	@Override
 	public String toString() {
 		return "PetPhotoOrderView [id=" + id + ", name=" + name + ", species=" + species + ", breed=" + breed
-				+ ", userName=" + userName + ", img=" + img + "]";
-	}	
+				+ ", userName=" + userName + ", likeCount=" + likeCount + ", createAt=" + createAt + ", img=" + img
+				+ "]";
+	}
+
+	
+
 }

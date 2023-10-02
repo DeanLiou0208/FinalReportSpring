@@ -5,7 +5,7 @@ import java.util.List;
 import tw.ispan.eeit168.member.domain.CollectionBean;
 
 public interface CollectionDAO {
-//	public abstract MemberBean select(Integer id);
+	public abstract CollectionBean select(Integer fkMemberId,String fkUid);
 	
 	public abstract List<CollectionBean> select();
 	

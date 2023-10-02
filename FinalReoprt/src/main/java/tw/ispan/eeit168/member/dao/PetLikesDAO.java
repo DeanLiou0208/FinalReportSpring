@@ -8,6 +8,8 @@ public interface PetLikesDAO {
 //	public abstract MemberBean select(Integer id);
 	
 	public abstract List<PetLikesBean> select();
+	
+	public abstract List<Integer> select(Integer fkMemberId);
 
 	public abstract PetLikesBean insert(PetLikesBean bean);
 	

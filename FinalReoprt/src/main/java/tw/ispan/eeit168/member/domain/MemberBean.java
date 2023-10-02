@@ -32,14 +32,14 @@ public class MemberBean {
 	@Column(name = "user_name", columnDefinition = "nvarchar", insertable = false)
 	private String userName;
 	
-	@Column(name = "shop_name", columnDefinition = "nvarchar", insertable = false)
-	private String shopName;
+//	@Column(name = "shop_name", columnDefinition = "nvarchar", insertable = false)
+//	private String shopName;
 	
 	@Column(name = "gender", insertable = false)
 	private Boolean gender;
 	
 	@Column(name = "birth", columnDefinition = "date", insertable = false)
-	private java.sql.Date birth;
+	private java.util.Date birth;
 	
 	@Column(name = "phone", columnDefinition = "varchar", insertable = false)	
 	private String phone;
@@ -68,10 +68,9 @@ public class MemberBean {
 	@Override
 	public String toString() {
 		return "MemberBean [id=" + id + ", account=" + account + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", userName=" + userName + ", shopName=" + shopName + ", gender=" + gender
-				+ ", birth=" + birth + ", phone=" + phone + ", address=" + address + ", email=" + email + ", cash="
-				+ cash + ", bonus=" + bonus + ", createAt=" + createAt + ", updateAt=" + updateAt + ", img=" + img
-				+ "]";
+				+ ", lastName=" + lastName + ", userName=" + userName + ", gender=" + gender + ", birth=" + birth
+				+ ", phone=" + phone + ", address=" + address + ", email=" + email + ", cash=" + cash + ", bonus="
+				+ bonus + ", createAt=" + createAt + ", updateAt=" + updateAt + ", img=" + img + "]";
 	}
 
 	public Integer getId() {
@@ -122,13 +121,13 @@ public class MemberBean {
 		this.userName = userName;
 	}
 
-	public String getShopName() {
-		return shopName;
-	}
-
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
-	}
+//	public String getShopName() {
+//		return shopName;
+//	}
+//
+//	public void setShopName(String shopName) {
+//		this.shopName = shopName;
+//	}
 
 	public Boolean getGender() {
 		return gender;
@@ -138,11 +137,11 @@ public class MemberBean {
 		this.gender = gender;
 	}
 
-	public java.sql.Date getBirth() {
+	public java.util.Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(java.sql.Date birth) {
+	public void setBirth(java.util.Date birth) {
 		this.birth = birth;
 	}
 

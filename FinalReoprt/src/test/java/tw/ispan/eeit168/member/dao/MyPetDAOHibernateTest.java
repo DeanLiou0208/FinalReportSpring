@@ -20,7 +20,7 @@ public class MyPetDAOHibernateTest {
 	
 	@Test
 	public void testSelect() {
-		MyPetView select = myPetDAO.select(1);
+		MyPetView select = myPetDAO.selectId(1);
 		System.out.println("select first =" + select);
 	}
 	

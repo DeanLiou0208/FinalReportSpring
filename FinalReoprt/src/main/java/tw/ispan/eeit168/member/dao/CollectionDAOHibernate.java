@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.PersistenceContext;
 import tw.ispan.eeit168.member.domain.CollectionBean;
-import tw.ispan.eeit168.member.domain.PetLikesBean;
 
 @Repository
 @Transactional
@@ -20,13 +19,17 @@ public class CollectionDAOHibernate implements CollectionDAO{
 		return session;
 	}
 	
-//	@Override
-//	public MemberBean select(Integer id) {
-//		if(id != null) {
-//			return this.getSession().get(MemberBean.class, id);
-//		}O
-//		return null;
-//	}
+	@Override
+	public CollectionBean select(Integer fkMemberId,String fkUid) {
+		if(fkMemberId != null && fkUid != null) {
+			return this.getSession().createQuery(
+					"FROM CollectionBean WHERE fkMemberId = :fkMemberId AND fkUid = :fkUid", CollectionBean.class)
+					.setParameter("fkMemberId", fkMemberId)
+					.setParameter("fkUid", fkUid)
+					.uniqueResult();
+		}
+		return null;
+	}
 	
 	@Override
 	public List<CollectionBean> select() {
@@ -54,11 +57,9 @@ public class CollectionDAOHibernate implements CollectionDAO{
 	}
 	
 	@Override
-	public boolean delete(Integer id, String uid) {
-		if(id!=null) {
+	public boolean delete(Integer fkMemberId, String fkUid) {
+		if(fkMemberId != null && fkUid != null && fkUid.length() != 0) {
 			final String collectionsql = "FROM CollectionBean WHERE fkMemberId = :fkMemberId AND fkUid = :fkUid";
-			Integer fkMemberId = id;
-			String fkUid = uid;
 			List<CollectionBean> list = this.getSession()
 					.createQuery(collectionsql, CollectionBean.class)
 					.setParameter("fkMemberId", fkMemberId)
