@@ -20,7 +20,7 @@ public class LoginController {
 	private LoginService loginService;
 
 	@PostMapping(path = "/login")
-	public String create(@RequestBody String body) {
+	public String login(@RequestBody String body) {
 		JSONObject responseJson = new JSONObject();
 
 		JSONObject obj = new JSONObject(body);
@@ -32,13 +32,27 @@ public class LoginController {
 			responseJson.put("success", false);
 		} else {
 			CompanyBean company = null;
+			Object object = null;
+			boolean isLock=false;
 			try {
-				company = loginService.login(account,password);
+				 object= loginService.login(account,password);
+				 if(object instanceof CompanyBean) {
+					 company=(CompanyBean)object;
+					 System.out.println(isLock);
+					 System.out.println(company);
+				 }else if(object instanceof Boolean) {
+					 isLock=(boolean)object;
+					 System.out.println(isLock);
+					 System.out.println(company);
+				 }
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if (company == null) {
-				responseJson.put("message", "登入失敗");
+			if(isLock) {
+				responseJson.put("message", "帳號已被凍結，請稍後再嘗試登入。");
+				responseJson.put("success", false);
+			}else if (!isLock && company == null) {
+				responseJson.put("message", "帳號或密碼錯誤");
 				responseJson.put("success", false);
 			} else {
 				responseJson.put("message", "登入成功");

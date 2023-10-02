@@ -18,19 +18,35 @@ import tw.ispan.eeit168.company.service.CompanyService;
 @RequestMapping(path = "/pet_web")
 @CrossOrigin
 public class CompanyController {
-	
+
 	@Autowired
 	private CompanyService companyService;
-	
-	
+
+	@PostMapping(path = "/companys/check")
+	public String selectAccount(@RequestBody String body) {
+		JSONObject responseJson = new JSONObject();
+		JSONObject obj = new JSONObject(body);
+		String account = obj.isNull("account") ? null : obj.getString("account");
+
+		if (companyService.exists(account)) {
+			responseJson.put("message", "帳號已存在");
+			responseJson.put("success", false);
+		} else {
+			responseJson.put("message", "帳號可使用");
+			responseJson.put("success", true);
+		}
+
+		return responseJson.toString();
+	}
+
 	@PostMapping(path = "/companys")
 	public String create(@RequestBody String body) {
 		JSONObject responseJson = new JSONObject();
 
 		JSONObject obj = new JSONObject(body);
 		String account = obj.isNull("account") ? null : obj.getString("account");
-	
-		if(companyService.exists(account)) {
+
+		if (companyService.exists(account)) {
 			responseJson.put("message", "帳號已存在");
 			responseJson.put("success", false);
 		} else {
@@ -40,7 +56,7 @@ public class CompanyController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if(company==null) {
+			if (company == null) {
 				responseJson.put("message", "新增失敗");
 				responseJson.put("success", false);
 			} else {
@@ -50,24 +66,23 @@ public class CompanyController {
 		}
 		return responseJson.toString();
 	}
-	
-	
+
 	@PutMapping(path = "/companys/{account}")
 	public String modify(@PathVariable("account") String account, @RequestBody String body) {
 		JSONObject responseJson = new JSONObject();
 
-		if(!companyService.exists(account)) {
+		if (!companyService.exists(account)) {
 			responseJson.put("message", "帳號不存在");
 			responseJson.put("success", false);
 		} else {
 			CompanyBean company = null;
-			Integer id=companyService.existsAccount(account).getId();
+			Integer id = companyService.existsAccount(account).getId();
 			try {
-				company = companyService.modify(id,body);
+				company = companyService.modify(id, body);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if(company==null) {
+			if (company == null) {
 				responseJson.put("message", "修改失敗");
 				responseJson.put("success", false);
 			} else {
@@ -77,5 +92,5 @@ public class CompanyController {
 		}
 		return responseJson.toString();
 	}
-	
+
 }

@@ -86,4 +86,16 @@ public class CompanyDaoHibernate implements CompanyDao {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean islock(CompanyBean bean) {
+		if(bean!=null && bean.getIsLock()!=null) {
+			if(bean.getIsLock()) {
+				return true; 
+			}
+		}
+		return false;
+	}
+
+	
 }
