@@ -4,6 +4,7 @@ import java.util.List;
 
 import tw.ispan.eeit168.shop.domain.ShoppingCartBean;
 
+
 public interface ShoppingCartBeanDao {
 	
 	public abstract List<ShoppingCartBean> select();
@@ -15,4 +16,6 @@ public interface ShoppingCartBeanDao {
 	public abstract boolean delect(Integer id);
 	
 	public abstract ShoppingCartBean update(ShoppingCartBean bean);
+	
+	
 }

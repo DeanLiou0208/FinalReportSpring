@@ -7,16 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import tw.ispan.eeit168.shop.domain.OrderListBean;
+import tw.ispan.eeit168.shop.repository.OrderListBeanRepostiory;
 
 @SpringBootTest
 public class OrderListBeanDaoTest {
 	
 	@Autowired
-	private OrderListBeanDao orderListBeanDao;
+	private OrderListBeanRepostiory orderListBeanRepostiory;
 	
 	@Test
 	public void select() {
-		List<OrderListBean> select = orderListBeanDao.select();
+		List<OrderListBean> select = orderListBeanRepostiory.select();
 		System.out.println(select);
 	}
 }

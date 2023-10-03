@@ -30,4 +30,12 @@ public class IndexProductsPhotoDAOHibernate implements IndexProductsPhotoDAO{
 		return this.getSession().createQuery(
 				"from IndexProductsPhotoView", IndexProductsPhotoView.class).list();
 	}
+	@Override
+	public List<IndexProductsPhotoView> selectTopFive(){
+		String srt = "FROM IndexProductsPhotoView ORDER BY avgRateScore desc";
+		return this.getSession()
+					.createQuery(srt, IndexProductsPhotoView.class)
+					.setMaxResults(5)
+					.list();
+	}
 }

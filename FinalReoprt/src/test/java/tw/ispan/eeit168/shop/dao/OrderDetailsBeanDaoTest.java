@@ -8,26 +8,32 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import jakarta.transaction.Transactional;
 import tw.ispan.eeit168.shop.domain.OrderDetailsBean;
+import tw.ispan.eeit168.shop.repository.OrderDetailsBeanDaoRepository;
 
 @SpringBootTest
 @Transactional
 public class OrderDetailsBeanDaoTest {
 
 	@Autowired
-	private OrderDetailsBeanDao orderDetailsBeanDao;
+	private OrderDetailsBeanDaoRepository orderDetailsBeanDaoRepository;
 	
-	//@Test
+	@Test
 	public void select() {
-		List<OrderDetailsBean> select = orderDetailsBeanDao.select();
+		List<OrderDetailsBean> select = orderDetailsBeanDaoRepository.select();
 		System.out.println(select);
 	
 	}
 	
 	//@Test
 	public void selectById() {
-		OrderDetailsBean selectById = orderDetailsBeanDao.selectById(99);
+		OrderDetailsBean selectById = orderDetailsBeanDaoRepository.selectById(99);
 		System.out.println(selectById);
 	}
-
-
+	
+	@Test
+	public void findAll() {
+		List<OrderDetailsBean> findAll = orderDetailsBeanDaoRepository.findAll();
+		System.out.println(findAll);
+	}
+	
 }
