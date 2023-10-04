@@ -26,6 +26,20 @@ public class MemberDAOHibernate implements MemberDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public Integer selectById(String account) {
+		if(account != null) {		
+			Integer memberId= this.getSession().createQuery("Select id FROM MemberBean WHERE account = :account", Integer.class)
+			.setParameter("account", account)
+			.uniqueResult();
+			if(memberId != null) {
+				return memberId;
+			}
+		}	
+		return null;
+	}
+	
 	@Override
 	public MemberBean select(String account) {
 		if(account != null) {		
@@ -78,6 +92,22 @@ public class MemberDAOHibernate implements MemberDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public Boolean updatePassword(String account, String password) {
+		if(account!=null && password!=null && account.length()!=0 && password.length()!=0) {	
+			int result = this.getSession().createQuery("UPDATE MemberBean SET password = :password WHERE account = :account")
+			.setParameter("account", account)
+			.setParameter("password", password)
+			.executeUpdate();
+			System.out.println(result);
+			if(result==1) {
+				return true;
+			}
+		}
+		return false;
+	}	
+	
 	@Override
 	public boolean delete(Integer id) {
 		if(id!=null) {

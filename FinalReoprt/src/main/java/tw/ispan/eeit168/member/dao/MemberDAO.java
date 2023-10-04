@@ -8,6 +8,8 @@ public interface MemberDAO {
 	
 	public abstract MemberBean select(Integer id);
 	
+	public abstract Integer selectById(String account);
+	
 	public abstract MemberBean select(String account);
 	
 	public abstract Integer select(String account, String password);
@@ -18,5 +20,7 @@ public interface MemberDAO {
 	
 	public abstract MemberBean update(MemberBean bean);
 
+	public abstract Boolean updatePassword(String account, String password);
+	
 	public abstract boolean delete(Integer id);
 }

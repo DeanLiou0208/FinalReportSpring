@@ -17,8 +17,20 @@ public class MemberService {
 	@Autowired
 	private MemberDAO memberDAO = null; 
 	
-	public MemberBean exists(String account) {		
+	public Boolean exists(Integer id) {
+		return memberDAO.select(id) != null;
+	}
+	
+	public Boolean exists(String account) {
+		return memberDAO.select(account) != null;
+	}
+	
+	public MemberBean find(String account) {		
 		return memberDAO.select(account);
+	}
+	
+	public Integer findId(String account) {		
+		return memberDAO.selectById(account);
 	}
 	
 	public Integer accountVerification(String json) {
@@ -88,11 +100,17 @@ public class MemberService {
 			e.printStackTrace();
 		}
 		return null;
+	}	
+	
+	public Boolean modifyPassword(String account, String password) {
+		if(account!=null && password!=null && account.length()!=0 && password.length()!=0) {	
+			System.out.println(password);
+			Boolean a = memberDAO.updatePassword(account, password);
+			System.out.println(a);
+			return a;
+		}
+		return null;
 	}
-	
-	
-	
-	
 	
 	
 }

@@ -35,6 +35,7 @@ public class PetService {
 	public MyPetView findById(Integer id) {
 		return myPetDAO.selectId(id);
 	}
+	//缺少照片功能
 
 	public List<MyPetView> findMyPet(Integer fkMemberId) {
 		return myPetDAO.select(fkMemberId);

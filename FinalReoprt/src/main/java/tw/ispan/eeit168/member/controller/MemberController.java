@@ -43,7 +43,7 @@ public class MemberController {
 		JSONObject obj = new JSONObject(json);
 		String account = obj.isNull("account") ? null : obj.getString("account");
 		
-		if(memberService.exists(account) != null) {
+		if(memberService.exists(account)) {
 			responseJson.put("message", "帳號重複");
 			responseJson.put("success", false);
 		} else {
@@ -68,7 +68,7 @@ public class MemberController {
 	@GetMapping(path="/information/exists/{account}")
 	public String exist(@PathVariable(name = "account") String account) {
 		JSONObject responseJson = new JSONObject();
-		MemberBean member = memberService.exists(account);
+		MemberBean member = memberService.find(account);
 		if(member != null) {			
 			responseJson.put("account", member.getAccount());
 			responseJson.put("first_name", member.getFirstName());
@@ -93,12 +93,12 @@ public class MemberController {
 	public String modifyInformation(@PathVariable("account") String account, @RequestBody String json){
 		JSONObject responseJson = new JSONObject();
 		
-		if(memberService.exists(account) == null) {
+		if(!memberService.exists(account)) {
 			responseJson.put("message", "帳號不存在");
 			responseJson.put("success", false);
 		} else {
 			MemberBean member = null;
-			Integer id=memberService.exists(account).getId();
+			Integer id=memberService.findId(account);
 			try {
 				member = memberService.modify(id, json);
 			} catch (Exception e) {
@@ -116,33 +116,34 @@ public class MemberController {
 	}
 	
 	//修改密碼
-//	@PutMapping(path = "/information/{account}")
-//	public String modifyPassword(@PathVariable("account") String account, @RequestBody String json) {		
-//		JSONObject responseJson = new JSONObject();
-//		
-//		if(memberService.exists(account) == null) {
-//			responseJson.put("message", "帳號不存在");
-//			responseJson.put("success", false);
-//		} else {
-//			MemberBean member = null;
-//			Integer id=memberService.exists(account).getId();
-//			try {
-//				member = memberService.modify(id, json);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			if(member==null) {
-//				responseJson.put("message", "修改失敗");
-//				responseJson.put("success", false);
-//			} else {
-//				responseJson.put("message", "修改成功");
-//				responseJson.put("success", true);
-//			}
-//		}
-//		return responseJson.toString();
-//	}
-	
-	
-	
+	@PutMapping(path = "/modifypassword")
+	public String modifyPassword(@RequestBody String json) {		
+		JSONObject responseJson = new JSONObject();
+		JSONObject obj = new JSONObject(json);
+		String account = obj.isNull("account") ? null : obj.getString("account");
+		String password = obj.isNull("password") ? null : obj.getString("password");
+		
+		if(!memberService.exists(account)) {
+			responseJson.put("message", "帳號不存在");
+			responseJson.put("success", false);
+		} else {
+			Boolean result = false;
+			try {
+				if(account!=null && password!=null && account.length()!=0 && password.length()!=0) {					
+					result = memberService.modifyPassword(account, password);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(result) {
+				responseJson.put("message", "修改成功");
+				responseJson.put("success", true);
+			} else {
+				responseJson.put("message", "修改失敗");
+				responseJson.put("success", false);
+			}
+		}
+		return responseJson.toString();
+	}
 	
 }
