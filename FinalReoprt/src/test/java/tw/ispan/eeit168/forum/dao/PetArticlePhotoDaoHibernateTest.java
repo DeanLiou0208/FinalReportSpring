@@ -23,6 +23,11 @@ public class PetArticlePhotoDaoHibernateTest {
 		PetArticlePhotoBean select = petArticlePhotoDao.select(10);
 		System.out.println("select="+select);		
 	}
+	@Test
+	public void testSelectByPetArticleId() {
+		List<PetArticlePhotoBean> petArticleId = petArticlePhotoDao.selectByPetArticleId(9);
+		System.out.println("petArticleId="+petArticleId);	
+	}
 //	@Test
 	public void testInsert() {
 		PetArticlePhotoBean insert = new PetArticlePhotoBean();

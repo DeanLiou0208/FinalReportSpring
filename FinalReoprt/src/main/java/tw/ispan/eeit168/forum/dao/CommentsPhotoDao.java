@@ -8,7 +8,9 @@ public interface CommentsPhotoDao {
 
 	public abstract List<CommentsPhotoBean> select();
 	
-	public abstract CommentsPhotoBean select(Integer id);
+	public abstract List<CommentsPhotoBean> select(Integer fkCommentsId);
+	
+	public abstract CommentsPhotoBean selectById(Integer id);
 	
 	public abstract CommentsPhotoBean insert(CommentsPhotoBean bean);
 	

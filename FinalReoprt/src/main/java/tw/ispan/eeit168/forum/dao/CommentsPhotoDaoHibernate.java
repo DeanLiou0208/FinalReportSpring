@@ -28,9 +28,17 @@ public class CommentsPhotoDaoHibernate implements CommentsPhotoDao {
 		return this.getSession().createQuery("From CommentsPhotoBean", CommentsPhotoBean.class).list();
 	}
 	@Override
-	public CommentsPhotoBean select(Integer id) {
-		if(id!= null) {
-			return this.getSession().get(CommentsPhotoBean.class, id);
+	public CommentsPhotoBean selectById(Integer id) {
+		
+		return this.getSession().get(CommentsPhotoBean.class,id);
+	}
+	@Override
+	public List<CommentsPhotoBean> select(Integer fkCommentsId) {
+		if(fkCommentsId!= null) {
+			List<CommentsPhotoBean> list = this.getSession().createQuery("FROM CommentsPhotoBean WHERE fkCommentsId = :fkCommentsId", CommentsPhotoBean.class)
+					.setParameter("fkCommentsId", fkCommentsId)
+					.list();
+			return list;
 		}
 		return null;
 	}

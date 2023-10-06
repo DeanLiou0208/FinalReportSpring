@@ -25,25 +25,25 @@ public class ArticleLikesBeanDaoHibernate implements ArticleLikesBeanDao{
 	}
 	
 	@Override
-	public List<ArticleLikesBean> selectLikeByMemberId(Integer id) {
-		if(id != null) {
+	public List<ArticleLikesBean> selectLikeByMemberId(Integer fkMemberId) {
+		if(fkMemberId != null) {
 		
-		String hql = "from ArticleLikesBean where fkMemberId = :id";
+		String hql = "from ArticleLikesBean where fkMemberId = :fkMemberId";
 		return  this.getSession()
 					.createQuery(hql, ArticleLikesBean.class)
-					.setParameter("id", id)
+					.setParameter("fkMemberId", fkMemberId)
 					.list();
 		}
 		return null;
 	}
 	
 	@Override
-	public List<ArticleLikesBean> selectLikeByFkPetArticleId(Integer id){
-		if(id != null) {
-			String hql = "from ArticleLikesBean where fkPetArticleId = :id";
+	public List<ArticleLikesBean> selectLikeByFkPetArticleId(Integer fkPetArticleId){
+		if(fkPetArticleId != null) {
+			String hql = "from ArticleLikesBean where fkPetArticleId = :fkPetArticleId";
 			return this.getSession()
 					.createQuery(hql, ArticleLikesBean.class)
-					.setParameter("id", id)
+					.setParameter("fkPetArticleId", fkPetArticleId)
 					.list();
 		}
 		return null;

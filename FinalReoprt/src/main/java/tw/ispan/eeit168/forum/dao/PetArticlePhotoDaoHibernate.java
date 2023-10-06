@@ -3,6 +3,7 @@ package tw.ispan.eeit168.forum.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,23 @@ public class PetArticlePhotoDaoHibernate implements PetArticlePhotoDao {
 		return null;
 	}
 	@Override
+	public List<PetArticlePhotoBean> selectByPetArticleId(Integer fkPetArticleId) {
+		if(fkPetArticleId!= null) {
+			List<PetArticleBean> list = this.getSession().createQuery("FROM PetArticleBean WHERE id = :fkPetArticleId", PetArticleBean.class)
+					.setParameter("fkPetArticleId", fkPetArticleId)
+					.list();
+//			System.out.println(list);
+			if(!list.isEmpty()) {
+				List<PetArticlePhotoBean> resultList = this.getSession().createQuery("FROM PetArticlePhotoBean WHERE fkPetArticleId = :fkPetArticleId", PetArticlePhotoBean.class)
+				.setParameter("fkPetArticleId", fkPetArticleId)
+				.getResultList();
+				return resultList;
+			}
+			
+		}
+		return null;
+	}
+	@Override
 	public PetArticlePhotoBean insert(PetArticlePhotoBean bean) {
 		if(bean != null && bean.getFkPetArticleId()!=null) {
 			Integer fkPetArticleId = bean.getFkPetArticleId();
@@ -55,6 +73,7 @@ public class PetArticlePhotoDaoHibernate implements PetArticlePhotoDao {
 			List<PetArticleBean> list = this.getSession().createQuery("FROM PetArticleBean WHERE id = :fkPetArticleId",PetArticleBean.class )
 			.setParameter("fkPetArticleId", fkPetArticleId)
 			.list();
+			
 			if(!list.isEmpty()) {
 				return this.getSession().merge(bean);
 			}

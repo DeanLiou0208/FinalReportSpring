@@ -23,12 +23,20 @@ public class CommentsDaoHibernate implements CommentsDao {
 		
 		return this.getSession().createQuery("From CommentsBean", CommentsBean.class).list();
 	}
+	
 	@Override
-	public CommentsBean select(Integer id) {
-		if(id != null) {
+	public CommentsBean select(Integer id){
+		
+		return this.getSession().get(CommentsBean.class, id);
+	}
+	@Override
+	public List<CommentsBean> selectByPetArticleId(Integer fkPetArticleId) {
+		if(fkPetArticleId != null) {
 			Session session = this.getSession();
-			CommentsBean commentsBean = session.get(CommentsBean.class, id);
-			return commentsBean;
+			List<CommentsBean> list = session.createQuery("FROM CommentsBean WHERE fkPetArticleId = :fkPetArticleId",CommentsBean.class)
+					.setParameter("fkPetArticleId", fkPetArticleId)
+					.list();
+			return list;
 		}
 		return null;
 		

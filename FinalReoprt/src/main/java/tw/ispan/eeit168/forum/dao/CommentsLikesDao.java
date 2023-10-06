@@ -8,6 +8,8 @@ public interface CommentsLikesDao {
 	
 	public abstract List<CommentsLikesBean> select(Integer fkMemberId);
 	
+	public abstract List<CommentsLikesBean> selectByCommentId(Integer fkCommentId);
+	
 	public abstract CommentsLikesBean insert(CommentsLikesBean bean);
 	
 	public abstract boolean delete(Integer fkMemberId, Integer fkCommentId);

@@ -8,7 +8,7 @@ public interface PetArticleSelectDAO {
 	
 	public abstract PetArticleSelectBean select(Integer id);
 
-	public abstract List<PetArticleSelectBean> select();
+	public abstract List<PetArticleSelectBean> selects();
 
 	public abstract PetArticleSelectBean insert(PetArticleSelectBean bean);
 

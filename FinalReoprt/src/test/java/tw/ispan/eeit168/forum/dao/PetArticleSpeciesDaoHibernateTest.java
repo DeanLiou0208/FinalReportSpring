@@ -14,8 +14,13 @@ public class PetArticleSpeciesDaoHibernateTest {
 	private PetArticleSpeciesDao petArticleSpeciesDao;
 	@Test
 	public void testSelect() {
-		List<PetArticleSpeciesBean> selects = petArticleSpeciesDao.select();
+		List<PetArticleSpeciesBean> selects = petArticleSpeciesDao.selects();
 		System.out.println("selects="+selects);
+	}
+	@Test
+	public void testSelectBySpecies() {
+		PetArticleSpeciesBean species = petArticleSpeciesDao.select(1);
+		System.out.println("species="+species);
 	}
 	
 }

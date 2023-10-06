@@ -10,10 +10,16 @@ public interface PetArticleSpeciesMidDao {
 	
 	public abstract List<PetArticleSpeciesMidBean> select(Integer fkPetArticleId);
 	
+	public abstract List<PetArticleSpeciesMidBean> selectBySpeciesId(Integer fkPetArticleSpeciesId);
+	
 	public abstract PetArticleSpeciesMidBean insert(PetArticleSpeciesMidBean bean);
 	
 	public abstract PetArticleSpeciesMidBean update(PetArticleSpeciesMidBean bean);
 	
 	public abstract boolean delete(Integer id);
+	
+	public abstract boolean deleteByArticleId(Integer fkPetArticleId);
+	
+	public abstract PetArticleSpeciesMidBean selectById(Integer id);
 
 }

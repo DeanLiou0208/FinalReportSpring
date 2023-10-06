@@ -24,7 +24,7 @@ public class CommentsLikesBean implements Serializable{
 	    @Column(name = "fk_comment_id")
 	    private Integer fkCommentId;
 
-	    @Column(name = "create_at", columnDefinition = "datetime")
+	    @Column(name = "create_at", columnDefinition = "datetime", insertable = false, updatable = false)
 		private Timestamp createAt;
 		@Column(name = "like_or_unlike")
 		private Boolean likeOrUnlike;

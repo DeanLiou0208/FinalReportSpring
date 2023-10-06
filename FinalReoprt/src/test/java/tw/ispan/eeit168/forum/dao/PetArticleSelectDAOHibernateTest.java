@@ -27,7 +27,7 @@ public class PetArticleSelectDAOHibernateTest {
 	
 //	@Test
 	public void testSelectAll() {
-		List<PetArticleSelectBean> selects = petArticleSelectDAO.select();
+		List<PetArticleSelectBean> selects = petArticleSelectDAO.selects();
 		System.out.println("selects="+selects);
 	}
 	

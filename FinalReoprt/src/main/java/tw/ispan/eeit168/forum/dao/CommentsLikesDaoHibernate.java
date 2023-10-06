@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.PersistenceContext;
+import tw.ispan.eeit168.forum.domain.CommentsBean;
 import tw.ispan.eeit168.forum.domain.CommentsLikesBean;
 
 @Repository
@@ -36,6 +37,21 @@ public class CommentsLikesDaoHibernate implements CommentsLikesDao {
 			 query.setParameter("fkMemberId", fkMemberId);
 			 List<CommentsLikesBean> resultList = query.getResultList();
 			 return resultList;
+		}
+		return null;
+	}
+	@Override
+	public List<CommentsLikesBean> selectByCommentId(Integer fkCommentId) {
+		if(fkCommentId!=null) {
+			List<CommentsBean> list = this.getSession().createQuery("FROM CommentsBean WHERE id= :fkCommentId", CommentsBean.class)
+			.setParameter("fkCommentId", fkCommentId)
+			.list();
+			if(!list.isEmpty()) {
+				List<CommentsLikesBean> result = this.getSession().createQuery("FROM CommentsLikesBean WHERE fkCommentId= :fkCommentId", CommentsLikesBean.class)
+				.setParameter("fkCommentId", fkCommentId)
+				.list();
+				return result;
+			}
 		}
 		return null;
 	}
@@ -71,6 +87,7 @@ public class CommentsLikesDaoHibernate implements CommentsLikesDao {
 		}
 		return false;
 	}
+	
 	
   
 }

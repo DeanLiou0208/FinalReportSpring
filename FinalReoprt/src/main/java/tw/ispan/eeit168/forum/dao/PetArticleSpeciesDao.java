@@ -6,8 +6,10 @@ import tw.ispan.eeit168.forum.domain.PetArticleSpeciesBean;
 
 public interface PetArticleSpeciesDao {
 	
-	public abstract List<PetArticleSpeciesBean> select();
+	public abstract List<PetArticleSpeciesBean> selects();
 	
+//	public abstract PetArticleSpeciesBean selectBySpecies(String species);	
 	
+	public abstract PetArticleSpeciesBean select(Integer id);	
 
 }

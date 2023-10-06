@@ -10,6 +10,8 @@ public abstract List<CommentsBean> select();
 
 public abstract CommentsBean select(Integer id);
 
+public abstract List<CommentsBean> selectByPetArticleId(Integer fkPetArticleId);
+
 public abstract CommentsBean insert(CommentsBean bean);
 
 public abstract CommentsBean update(CommentsBean bean);

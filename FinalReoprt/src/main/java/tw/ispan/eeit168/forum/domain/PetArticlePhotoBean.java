@@ -26,7 +26,7 @@ public class PetArticlePhotoBean {
 	@Column(name = "img",columnDefinition = "varchar")
 	private String img;
 	
-	@Column(name = "create_at",columnDefinition = "datetime")
+	@Column(name = "create_at",columnDefinition = "datetime", insertable = false, updatable = false)
 	private Timestamp createAt;
 
 	@Override

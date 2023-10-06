@@ -8,9 +8,9 @@ import tw.ispan.eeit168.shop.util.DoublePrimaryKey;
 public interface ArticleLikesBeanDao {
 	public abstract List<ArticleLikesBean> select();
 	
-	public abstract List<ArticleLikesBean> selectLikeByMemberId(Integer id);
+	public abstract List<ArticleLikesBean> selectLikeByMemberId(Integer fkMemberId);
 	
-	public abstract List<ArticleLikesBean> selectLikeByFkPetArticleId(Integer id);
+	public abstract List<ArticleLikesBean> selectLikeByFkPetArticleId(Integer fkPetArticleId);
 	
 	public abstract ArticleLikesBean insert(ArticleLikesBean bean);
 	

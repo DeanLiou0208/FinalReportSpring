@@ -29,7 +29,7 @@ public class PetArticleBean {
 	private String title;
 	@Column(name = "pet_article_text",columnDefinition = "nvarchar")
 	private String petArticleText;
-	@Column(name = "create_at",columnDefinition = "datetime")
+	@Column(name = "create_at",columnDefinition = "datetime",insertable = false, updatable = false)
 	private Timestamp createAt;
 	
 //	@PrePersist

@@ -29,7 +29,7 @@ public class PetArticleSelectDAOHibernate implements PetArticleSelectDAO{
 	}
 	
 	@Override
-	public List<PetArticleSelectBean> select() {
+	public List<PetArticleSelectBean> selects() {
 		return this.getSession().createQuery(
 				"from PetArticleSelectBean", PetArticleSelectBean.class).list();
 	}

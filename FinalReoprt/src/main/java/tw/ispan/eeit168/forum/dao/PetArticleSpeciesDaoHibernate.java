@@ -21,9 +21,15 @@ public class PetArticleSpeciesDaoHibernate implements PetArticleSpeciesDao {
 		}
 
 	@Override
-	public List<PetArticleSpeciesBean> select() {
+	public List<PetArticleSpeciesBean> selects() {
 		return this.getSession().createQuery
 				   ("From PetArticleSpeciesBean", PetArticleSpeciesBean.class).list();
 	}
+	@Override
+	public PetArticleSpeciesBean select(Integer id) {
+		PetArticleSpeciesBean petArticleSpeciesBean = this.getSession().get(PetArticleSpeciesBean.class, id);
+		
+		return petArticleSpeciesBean;
+	}
 	
-}
+}	

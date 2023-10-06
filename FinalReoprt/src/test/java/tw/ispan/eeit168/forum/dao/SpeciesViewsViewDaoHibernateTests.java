@@ -2,12 +2,11 @@ package tw.ispan.eeit168.forum.dao;
 
 import java.util.List;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import tw.ispan.eeit168.company.domain.ProductBean;
-import tw.ispan.eeit168.forum.dao.SpeciesViewsViewDao;
 import tw.ispan.eeit168.forum.domain.SpeciesViewsView;
 
 @SpringBootTest
@@ -23,7 +22,12 @@ public class SpeciesViewsViewDaoHibernateTests {
 	}
 	@Test
 	public void testSelect() {
-		SpeciesViewsView select = speciesViewsViewDao.select(10);
-		System.out.println("select="+select);
+		
+		List<Integer> bySpeciesIds = speciesViewsViewDao.selectBySpeciesIds("1,3");
+		for(Integer articleId : bySpeciesIds) {
+			System.out.println("articleId="+articleId);
+		
+		}
+		
 	}
 }

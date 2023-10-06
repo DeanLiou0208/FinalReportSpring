@@ -22,7 +22,7 @@ public class CommentsPhotoDaoHibernateTest {
 	}
 	@Test
 	public void testSelectById() {
-		CommentsPhotoBean select = commentsPhotoDao.select(10);
+		CommentsPhotoBean select = commentsPhotoDao.selectById(10);
 		System.out.println("select="+select);
 		
 	}

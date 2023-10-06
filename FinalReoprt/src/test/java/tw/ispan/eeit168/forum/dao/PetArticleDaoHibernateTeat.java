@@ -24,9 +24,19 @@ public class PetArticleDaoHibernateTeat {
 		System.out.println("select="+select);
 	}
 //	@Test
+	public void testSelectByMemberId() {
+		List<PetArticleBean> selectByMemberId = petArticleDao.selectByMemberId(5);
+		System.out.println("selectByMemberId="+selectByMemberId);
+	}
+	@Test
+	public void testOrderByTime() {
+		List<PetArticleBean> list = petArticleDao.orderByTime();
+		System.out.println("list="+list);
+	}
+//	@Test
 	public void testInsert() {
 		 PetArticleBean insert = new PetArticleBean();
-		 insert.setFkMemberId(9);
+		 insert.setFkMemberId(5);
 		 insert.setTitle("可愛黃金獵犬");
 		 insert.setType("寵萌搞笑");
 		 insert.setPetArticleText("俏皮可愛");

@@ -17,11 +17,17 @@ public class PetArticleSpeciesMidDaoHibernateTest {
 		List<PetArticleSpeciesMidBean> selects = petArticleSpeciesMidDao.select();
 		System.out.println("selects="+selects);
 	}
-	@Test
+//	@Test
 	public void testSelectByArticleId() {
 		List<PetArticleSpeciesMidBean> find = petArticleSpeciesMidDao.select(2);
 		System.out.println("articleId="+find);
 	}
+//	@Test
+	public void testSelectBySpeciesId() {
+		List<PetArticleSpeciesMidBean> bySpeciesId = petArticleSpeciesMidDao.selectBySpeciesId(1);
+		System.out.println("bySpeciesId="+bySpeciesId);
+	}
+	
 //	@Test
 	public void testInsert() {
 		PetArticleSpeciesMidBean insert = new PetArticleSpeciesMidBean();
@@ -43,6 +49,11 @@ public class PetArticleSpeciesMidDaoHibernateTest {
 	public void testDelete() {
 		boolean delete = petArticleSpeciesMidDao.delete(11);
 		System.out.println("delete="+delete);
+	}
+//	@Test
+	public void testDeleteByArticleId() {
+		boolean deleteByArticleId = petArticleSpeciesMidDao.deleteByArticleId(2);
+		System.out.println("deleteByArticleId="+deleteByArticleId);
 	}
 
 }

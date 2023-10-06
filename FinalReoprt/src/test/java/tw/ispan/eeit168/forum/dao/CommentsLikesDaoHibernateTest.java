@@ -14,7 +14,7 @@ public class CommentsLikesDaoHibernateTest {
 	@Autowired
 	private CommentsLikesDao commentsLikesDao;
 	
-	@Test
+//	@Test
 	public void testSelect() {
 		List<CommentsLikesBean> selects = commentsLikesDao.select();
 		System.out.println("selects="+selects);
@@ -23,6 +23,11 @@ public class CommentsLikesDaoHibernateTest {
 	public void testSelectByMemberId() {
 		List<CommentsLikesBean> select = commentsLikesDao.select(9);
 		System.out.println("select="+select);
+	}
+	@Test
+	public void testSelectByCommentId() {
+		List<CommentsLikesBean> byCommentId = commentsLikesDao.selectByCommentId(2);
+		System.out.println("byCommentId="+byCommentId);
 	}
 //	@Test
 	public void testInsert() {

@@ -9,10 +9,13 @@ public interface PetArticlePhotoDao {
 	
 	public abstract PetArticlePhotoBean select(Integer id);
 	
+	public abstract List<PetArticlePhotoBean> selectByPetArticleId(Integer fkPetArticleId);
+	
 	public abstract PetArticlePhotoBean insert(PetArticlePhotoBean bean);
 	
 	public abstract PetArticlePhotoBean update(PetArticlePhotoBean bean);
 	
 	public abstract boolean delete(Integer id);
+	
 
 }
