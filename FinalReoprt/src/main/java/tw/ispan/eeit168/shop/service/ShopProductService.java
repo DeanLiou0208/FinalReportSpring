@@ -23,6 +23,7 @@ public class ShopProductService {
 	private ShopProductViewRepository shopProductViewRepository;
 	
 	public String findAll() {
+		
 		List<ShopProductView> findAll = shopProductViewRepository.findAll();
 		String json = new Gson().toJson(findAll);
 		return json;

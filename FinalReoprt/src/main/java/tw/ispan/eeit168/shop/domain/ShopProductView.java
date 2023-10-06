@@ -33,6 +33,9 @@ public class ShopProductView {
 	@Column(name= "description")
 	private String description;
 	
+	@Column(name = "type")
+	private String  type;
+	
 	@Column(name= "avg_rate_score" ,columnDefinition = "decimal")
 	private Double avgRateScore;
 
@@ -100,6 +103,14 @@ public class ShopProductView {
 		this.description = description;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public Double getAvgRateScore() {
 		return avgRateScore;
 	}
@@ -112,6 +123,8 @@ public class ShopProductView {
 	public String toString() {
 		return "ShopProductView [productId=" + productId + ", id=" + id + ", img=" + img + ", companyShopName="
 				+ companyShopName + ", memberShopName=" + memberShopName + ", price=" + price + ", name=" + name
-				+ ", description=" + description + ", avgRateScore=" + avgRateScore + "]";
+				+ ", description=" + description + ", type=" + type + ", avgRateScore=" + avgRateScore + "]";
 	}
+
+	
 }

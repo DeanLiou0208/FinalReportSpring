@@ -37,7 +37,7 @@ public class ShopProductController {
 		JSONObject responseJson = new JSONObject();
 		long count = shopProductService.count(json);
 		responseJson.put("count", count);
-
+		System.out.println(json);
 		JSONArray array = new JSONArray();
 		List<ShopProductView> find = shopProductService.find(json);
 		if (find != null && !find.isEmpty()) {
@@ -48,12 +48,14 @@ public class ShopProductController {
 				.put("name", product.getName())
 				.put("price", product.getPrice())
 				.put("img", product.getImg())
+				.put("type", product.getType())
 				.put("description", product.getDescription())
 				.put("companyShopName", product.getCompanyShopName())
 				.put("memberShopName", product.getMemberShopName())
 				.put("avgRateScore", product.getAvgRateScore());
 				
 				array = array.put(item);
+				
 			}
 		}
 		responseJson.put("list", array);

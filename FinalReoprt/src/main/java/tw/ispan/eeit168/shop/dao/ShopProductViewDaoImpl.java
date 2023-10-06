@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.hibernate.query.criteria.HibernateCriteriaBuilder;
+import org.hibernate.query.criteria.JpaPredicate;
 import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
@@ -42,14 +43,13 @@ public class ShopProductViewDaoImpl implements ShopProductViewDao {
 	public List<ShopProductView> find(JSONObject obj){
 		Integer productId = obj.isNull("productId") ? null : obj.getInt("productId");
 		Integer id = obj.isNull("id") ? null : obj.getInt("id");
-		String img = obj.isNull("img") ? null : obj.getString("img");
 		String companyShopName = obj.isNull("companyShopName") ? null : obj.getString("companyShopName");
 		String memberShopName = obj.isNull("memberShopName") ? null : obj.getString("memberShopName");
-//		Integer price =obj.isNull("price") ? null : obj.getInt("price");
 		Integer maxPrice =obj.isNull("maxPrice") ? null : obj.getInt("maxPrice");
 		Integer minPrice =obj.isNull("minPrice") ? null : obj.getInt("minPrice");
 		String name = obj.isNull("name") ? null : obj.getString("name");
 		String description = obj.isNull("description") ? null : obj.getString("description");
+		String type = obj.isNull("type") ? null : obj.getString("type");
 		Double avgRateScore = obj.isNull("avgRateScore") ? null : obj.getDouble("avgRateScore");
 		
 		
@@ -81,11 +81,6 @@ public class ShopProductViewDaoImpl implements ShopProductViewDao {
 		if(id != null) {
 			predicate.add(builder.equal(root.get("id"), id));
 		}
-
-//		img = ?
-//		if(img != null) {
-//			predicate.add(builder.equal(root.get("img"), img));
-//		}
 		
 //		companyShopName = ?
 		if(companyShopName != null && companyShopName.length() != 0) {
@@ -97,10 +92,6 @@ public class ShopProductViewDaoImpl implements ShopProductViewDao {
 			predicate.add(builder.equal(root.get("memberShopName"), memberShopName));		
 		}
 		
-//		price = ? 
-//		if(price != null) {
-//			predicate.add(builder.between(root.get("price"), minPrice,maxPrice));
-//		}
 //		price between A and B
 		if(minPrice != null && maxPrice != null) {
 			predicate.add(builder.between(root.get("price"), minPrice, maxPrice));
@@ -110,14 +101,36 @@ public class ShopProductViewDaoImpl implements ShopProductViewDao {
 			predicate.add(builder.lessThanOrEqualTo(root.get("price"), maxPrice));
 		}
 				
-		if (name != null && name.length() != 0) {
-			predicate.add(builder.like(root.get("name"), "%" + name + "%"));
-		}
+//		if (name != null && name.length() != 0) {
+//			JpaPredicate nameLike = builder.like(root.get("name"), "%" + name + "%");
+//		}
+//		
+//		if (description != null && description.length() != 0) {
+//			JpaPredicate descriptionLike = builder.like(root.get("description"), "%" + description + "%");
+//			
+//		}
 		
-		if (description != null && description.length() != 0) {
-			predicate.add(builder.like(root.get("description"), "%" + description + "%"));
+		
+		if(name != null && name.length() != 0 || description != null && description.length() != 0) {
+			Predicate nameLike = null;
+			Predicate descriptionLike = null;
+			
+			
+			if(name != null && name.length() != 0) {
+				nameLike =builder.like(root.get("name"), "%" + name + "%");
+			}
+			if(description != null && description.length() != 0) {
+				descriptionLike = builder.like(root.get("description"),"%" + description + "%");
+			}
+			if(nameLike != null || descriptionLike != null )
+			predicate.add(builder.or(nameLike, descriptionLike));
 			
 		}
+		
+		if(type != null && type.length() != 0) {
+			predicate.add(builder.equal(root.get("type"), type));
+		}
+		
 		
 		if(avgRateScore != null) {
 			predicate.add(builder.equal(root.get("avgRateScore"), avgRateScore));
@@ -158,6 +171,7 @@ public class ShopProductViewDaoImpl implements ShopProductViewDao {
 			Integer minPrice =obj.isNull("minPrice") ? null : obj.getInt("minPrice");
 			String name = obj.isNull("name") ? null : obj.getString("name");
 			String description = obj.isNull("description") ? null : obj.getString("description");
+			String type = obj.isNull("type") ? null : obj.getString("type");
 			Double avgRateScore = obj.isNull("avgRateScore") ? null : obj.getDouble("avgRateScore");
 							
 			HibernateCriteriaBuilder builder = this.getSession().getCriteriaBuilder();
@@ -202,16 +216,26 @@ public class ShopProductViewDaoImpl implements ShopProductViewDao {
 				predicate.add(builder.lessThanOrEqualTo(root.get("price"), maxPrice));
 			}
 			
-//			name like =?					
-			if (name != null && name.length() != 0) {
-				predicate.add(builder.like(root.get("name"), "%" + name + "%"));
-			}
-			
-//			description like =?			
-			if (description != null && description.length() != 0) {
-				predicate.add(builder.like(root.get("description"), "%" + description + "%"));
+//			name like or description like
+			if(name != null && name.length() != 0 || description != null && description.length() != 0) {
+				Predicate nameLike = null;
+				Predicate descriptionLike = null;
+				
+				
+				if(name != null && name.length() != 0) {
+					nameLike =builder.like(root.get("name"), "%" + name + "%");
+				}
+				if(description != null && description.length() != 0) {
+					descriptionLike = builder.like(root.get("description"),"%" + description + "%");
+				}
+				if(nameLike != null || descriptionLike != null )
+				predicate.add(builder.or(nameLike, descriptionLike));
 				
 			}
+			if(type != null && type.length() != 0) {
+				predicate.add(builder.equal(root.get("type"), type));
+			}
+			
 //			avgRateScore =?
 			if(avgRateScore != null) {
 				predicate.add(builder.equal(root.get("avgRateScore"), avgRateScore));

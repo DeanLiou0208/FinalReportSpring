@@ -16,7 +16,7 @@ public class ProductSelectTypeBeanDaoTset {
 	@Autowired
 	private ProductSelectTypeBeanDao productSelectTypeBeanDao;
 	
-	//@Test
+	@Test
 	public void select() {
 		List<ProductSelectTypeBean> select = productSelectTypeBeanDao.select();
 		System.out.println(select);
@@ -28,7 +28,7 @@ public class ProductSelectTypeBeanDaoTset {
 		System.out.println(selectById );
 	}
 	
-	@Test
+	//@Test
 	public void insert() {
 		ProductSelectTypeBean insert = new ProductSelectTypeBean();
 		insert.setType("清潔用品");
