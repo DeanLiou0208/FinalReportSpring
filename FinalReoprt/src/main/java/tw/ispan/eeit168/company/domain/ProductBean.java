@@ -13,12 +13,12 @@ import jakarta.persistence.Table;
 @Table(name = "product")
 public class ProductBean {
 	@Id
-	@Column(name = "id")
+	@Column(name = "id", updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "fk_company_id")
 	private Integer fkCompanyId;
-	@Column(name = "fk_member_id")
+	@Column(name = "fk_member_id", updatable = false)
 	private Integer fkMemberId;
 	@Column(name = "uid",insertable = false, updatable = false)
 	private String uid;
@@ -32,6 +32,8 @@ public class ProductBean {
 	private Integer price;
 	@Column(name = "description")
 	private String description;
+	@Column(name = "size")
+	private String size;
 	@Column(name = "status")
 	private Boolean status;
 	@Column(name = "create_at",insertable = false, updatable = false)
@@ -102,12 +104,20 @@ public class ProductBean {
 	public void setCreateAt(Timestamp createAt) {
 		this.createAt = createAt;
 	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
 	@Override
 	public String toString() {
 		return "ProductBean [id=" + id + ", fkCompanyId=" + fkCompanyId + ", fkMemberId=" + fkMemberId + ", uid=" + uid
 				+ ", name=" + name + ", type=" + type + ", inventory=" + inventory + ", price=" + price
-				+ ", description=" + description + ", status=" + status + ", createAt=" + createAt + "]"+"\n";
+				+ ", description=" + description + ", size=" + size + ", status=" + status + ", createAt=" + createAt
+				+ "]"+"\n";
 	}
+	
 
 
 }

@@ -96,6 +96,22 @@ public class CompanyDaoHibernate implements CompanyDao {
 		}
 		return false;
 	}
-
+	@Override
+	public boolean selectByShopName(String shopName) {
+	    if (shopName != null) {
+	        String queryString = "FROM CompanyBean WHERE shopName = :shopName";
+	        Query<CompanyBean> query = this.getSession().createQuery(queryString, CompanyBean.class);
+	        query.setParameter("shopName", shopName);
+	        
+	        // 使用 query.list() 或 query.uniqueResult() 來執行查詢
+	        List<CompanyBean> results = query.list();
+	        
+	        if (!results.isEmpty()) {
+	            // 如果查詢結果不為空，返回第一個匹配的結果
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 	
 }

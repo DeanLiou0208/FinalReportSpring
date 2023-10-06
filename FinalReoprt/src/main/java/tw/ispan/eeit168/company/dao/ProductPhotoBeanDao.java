@@ -11,4 +11,5 @@ public interface ProductPhotoBeanDao {
 	ProductPhotoBean insert(ProductPhotoBean bean);
 	ProductPhotoBean update(ProductPhotoBean bean);
 	boolean delete(Integer id);
+	List<ProductPhotoBean> selectById(Integer id);
 }

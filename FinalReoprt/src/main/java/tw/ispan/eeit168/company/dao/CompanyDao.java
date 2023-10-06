@@ -12,5 +12,6 @@ public interface CompanyDao {
 	boolean delete(Integer id);
 	CompanyBean selectByAccount(String Account);
 	boolean islock(CompanyBean bean);
+	boolean selectByShopName(String shopName);
 	
 }

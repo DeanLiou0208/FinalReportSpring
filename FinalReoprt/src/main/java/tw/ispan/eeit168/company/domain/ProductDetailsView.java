@@ -27,6 +27,9 @@ public class ProductDetailsView {
 	private Integer inventory;
 	@Column(name = "description")
 	private String description;
+	@Column(name = "size")
+	private String size;
+	
 	
 	public Integer getProductId() {
 		return productId;
@@ -82,16 +85,19 @@ public class ProductDetailsView {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
 	@Override
 	public String toString() {
 		return "ProductDetailsView [productId=" + productId + ", uid=" + uid + ", companyShopName=" + companyShopName
 				+ ", memberShopName=" + memberShopName + ", price=" + price + ", name=" + name + ", type=" + type
-				+ ", inventory=" + inventory + ", description=" + description + ", getProductId()=" + getProductId()
-				+ ", getUid()=" + getUid() + ", getCompanyShopName()=" + getCompanyShopName() + ", getMemberShopName()="
-				+ getMemberShopName() + ", getPrice()=" + getPrice() + ", getName()=" + getName() + ", getType()="
-				+ getType() + ", getInventory()=" + getInventory() + ", getDescription()=" + getDescription()
-				+  "]"+"\n";
+				+ ", inventory=" + inventory + ", description=" + description + ", size=" + size + "]";
 	}
+	
 
 	
 }

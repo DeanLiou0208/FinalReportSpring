@@ -8,5 +8,6 @@ import tw.ispan.eeit168.company.domain.ProductDetailsRateView;
 public interface ProductDetailsRateViewDao {
 	List<ProductDetailsRateView> select();
 	ProductDetailsRateView select(Integer id);
+	List<ProductDetailsRateView> selectById(Integer id);
 	
 }

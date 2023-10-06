@@ -21,7 +21,9 @@ public class CompanyService {
 	public CompanyBean existsAccount(String account) {
 		return companyDao.selectByAccount(account) ;
 	}
-	
+	public boolean existsShopName(String ShopName) {
+		return companyDao.selectByShopName(ShopName) ;
+	}
 	public CompanyBean create(String json) {
 		try {
 			JSONObject obj = new JSONObject(json);

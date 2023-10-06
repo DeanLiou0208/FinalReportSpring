@@ -22,7 +22,7 @@ public class CompanyController {
 	@Autowired
 	private CompanyService companyService;
 
-	@PostMapping(path = "/companys/check")
+	@PostMapping(path = "/companys/check-account")
 	public String selectAccount(@RequestBody String body) {
 		JSONObject responseJson = new JSONObject();
 		JSONObject obj = new JSONObject(body);
@@ -33,6 +33,23 @@ public class CompanyController {
 			responseJson.put("success", false);
 		} else {
 			responseJson.put("message", "帳號可使用");
+			responseJson.put("success", true);
+		}
+
+		return responseJson.toString();
+	}
+	
+	@PostMapping(path = "/companys/check-shopname")
+	public String selectShopNAme(@RequestBody String body) {
+		JSONObject responseJson = new JSONObject();
+		JSONObject obj = new JSONObject(body);
+		String shopName = obj.isNull("shopName") ? null : obj.getString("shopName");
+System.out.println(shopName);
+		if (companyService.existsShopName(shopName)) {
+			responseJson.put("message", "店名已被註冊");
+			responseJson.put("success", false);
+		} else {
+			responseJson.put("message", "可使用");
 			responseJson.put("success", true);
 		}
 

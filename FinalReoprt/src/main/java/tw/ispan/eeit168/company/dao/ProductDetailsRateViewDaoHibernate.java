@@ -3,10 +3,10 @@ package tw.ispan.eeit168.company.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
-import tw.ispan.eeit168.company.domain.ProductBean;
 import tw.ispan.eeit168.company.domain.ProductDetailsRateView;
 
 @Repository
@@ -30,4 +30,19 @@ public class ProductDetailsRateViewDaoHibernate implements ProductDetailsRateVie
 		}
 		return null;
 	}
+	
+	@Override
+	public List<ProductDetailsRateView> selectById(Integer id) {
+		
+        if (id != null) {
+            // 使用HQL查询数据库
+        
+            String hql = "FROM ProductDetailsRateView WHERE fkProductId = :id";
+            Query<ProductDetailsRateView> query = session.createQuery(hql, ProductDetailsRateView.class);
+            query.setParameter("id", id);
+           
+            return query.list();
+        }
+        return null;
+    }
 }

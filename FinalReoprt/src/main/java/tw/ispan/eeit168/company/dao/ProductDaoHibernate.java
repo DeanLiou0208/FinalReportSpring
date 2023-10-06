@@ -3,11 +3,11 @@ package tw.ispan.eeit168.company.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.PersistenceContext;
-import tw.ispan.eeit168.company.domain.CompanyBean;
 import tw.ispan.eeit168.company.domain.ProductBean;
 
 @Repository
@@ -74,5 +74,42 @@ public class ProductDaoHibernate implements ProductDao {
 		}
 		return false;
 	}
+	@Override
+	public List<ProductBean> selectByProductName(String productName) {
+	    if (productName != null) {
+	        String queryString = "FROM ProductBean WHERE name = :name ";
+	        Query<ProductBean> query = this.getSession().createQuery(queryString, ProductBean.class);
+	        query.setParameter("name", productName);
+	        
+	        // 使用 query.list() 或 query.uniqueResult() 來執行查詢
+	        List<ProductBean> results = query.list();
+	        
+	        if (!results.isEmpty()) {
+	            // 如果查詢結果不為空，返回第一個匹配的結果
+	            return results;
+	        }
+	    }
+	    return null;
+	}
 	
+	
+	@Override
+	public List<ProductBean> selectByProductNameAndType(String productName,String productType) {
+	    if (productName != null &&productType!=null) {
+	    	String queryString = "FROM ProductBean WHERE name = :name AND size = :size";
+	    	Query<ProductBean> query = this.getSession().createQuery(queryString, ProductBean.class);
+	    	query.setParameter("name", productName);
+	    	query.setParameter("size", productType);
+
+	        // 使用 query.list() 或 query.uniqueResult() 來執行查詢
+	        List<ProductBean> results = query.list();
+	        System.out.println(query.list());
+	        System.out.println(results);
+	        if (!results.isEmpty()) {
+	            // 如果查詢結果不為空，返回第一個匹配的結果
+	            return results;
+	        }
+	    }
+	    return null;
+	}
 }
