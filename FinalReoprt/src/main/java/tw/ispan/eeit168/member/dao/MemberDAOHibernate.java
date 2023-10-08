@@ -52,7 +52,7 @@ public class MemberDAOHibernate implements MemberDAO {
 		}	
 		return null;
 	}
-	
+	//可能棄用
 	@Override
 	public Integer select(String account, String password) {
 		if(account != null && password != null) {		

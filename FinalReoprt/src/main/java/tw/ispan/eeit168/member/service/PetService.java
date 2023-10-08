@@ -1,19 +1,26 @@
 package tw.ispan.eeit168.member.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import tw.ispan.eeit168.Base64Utils;
 import tw.ispan.eeit168.member.dao.MyPetDAO;
 import tw.ispan.eeit168.member.dao.PetDAO;
 import tw.ispan.eeit168.member.dao.PetLikesDAO;
+import tw.ispan.eeit168.member.dao.PetPhotoDAO;
 import tw.ispan.eeit168.member.dao.PetPhotoOrderViewDao;
 import tw.ispan.eeit168.member.domain.MyPetView;
 import tw.ispan.eeit168.member.domain.PetBean;
+import tw.ispan.eeit168.member.domain.PetPhotoBean;
 import tw.ispan.eeit168.member.domain.PetPhotoOrderView;
 
 @Service
@@ -21,6 +28,8 @@ import tw.ispan.eeit168.member.domain.PetPhotoOrderView;
 public class PetService {
 	@Autowired
 	private PetDAO petDAO = null;
+	@Autowired
+	private PetPhotoDAO petPhotoDAO = null;
 	@Autowired
 	private MyPetDAO myPetDAO = null;
 	@Autowired
@@ -41,7 +50,7 @@ public class PetService {
 		return myPetDAO.select(fkMemberId);
 	}
 
-	public PetBean createPet(String json) {
+	public PetBean createPet(String json, MultipartFile[] files) {
 		try {
 			JSONObject obj = new JSONObject(json);
 			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
@@ -49,7 +58,9 @@ public class PetService {
 			Integer categroyId = obj.isNull("categroyId") ? null : obj.getInt("categroyId");
 			Integer age = obj.isNull("age") ? null : obj.getInt("age");
 			Boolean gender = obj.isNull("gender") ? null : obj.getBoolean("gender");
-
+			
+			PetBean newPet = null;
+			Map<Integer, String> photos = new HashMap<Integer, String>();
 			if (fkMemberId != null && name != null && categroyId != null && name.length() != 0) {
 				PetBean insert = new PetBean();
 				insert.setFkMemberId(fkMemberId);
@@ -57,8 +68,26 @@ public class PetService {
 				insert.setCategroyId(categroyId);
 				insert.setAge(age);
 				insert.setGender(gender);
-				return petDAO.insert(insert);
+				newPet = petDAO.insert(insert);
 			}
+			Integer petId = newPet.getId();
+			if(files != null) {				
+				photos = Base64Utils.convertToBase64(files);
+				for(Entry<Integer, String> e : photos.entrySet()) {
+					PetPhotoBean insert = new PetPhotoBean();
+					insert.setFkPetId(petId);
+					if(e.getKey().equals(1)) {
+						insert.setMain(true);	
+					}else {
+						insert.setMain(null);
+					}
+//					System.out.println(insert.getMain());
+//					System.out.println(e.getKey());
+					insert.setImg(e.getValue());
+					petPhotoDAO.insert(insert);					
+				}
+			}
+			return newPet;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

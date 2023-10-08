@@ -10,7 +10,7 @@ import jakarta.persistence.PersistenceContext;
 import tw.ispan.eeit168.member.domain.PetPhotoBean;
 
 @Repository
-@Transactional
+//@Transactional
 public class PetPhotoDAOHibernate implements PetPhotoDAO {
 	@PersistenceContext
 	private Session session;

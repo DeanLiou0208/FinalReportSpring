@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import tw.ispan.eeit168.member.domain.MyPetView;
 import tw.ispan.eeit168.member.domain.PetBean;
@@ -29,12 +31,11 @@ public class PetController {
 	
 	//新增寵物
 	@PostMapping(path = "/newPet")
-	public String newPet(@RequestBody String json) {
+	public String newPet(@RequestParam("files") MultipartFile[] files, String json) {
 		JSONObject responseJson = new JSONObject();
-		
 		PetBean pet = null;
 		try {
-			pet = petService.createPet(json);
+			pet = petService.createPet(json,files);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,9 +96,13 @@ public class PetController {
 	
 	
 	//找出一隻寵物資訊
-	@GetMapping(path="/information/exists/{id}")
-	public String exist(@PathVariable(name = "id") Integer id) {
+	@GetMapping(path="/information/exists")
+	public String exist(@RequestBody String json) {
 		JSONObject responseJson = new JSONObject();
+		
+		JSONObject obj = new JSONObject(json);
+		Integer id = obj.isNull("id") ? null : obj.getInt("id");	
+		
 		MyPetView pet = petService.findById(id);
 		if(pet != null) {			
 			responseJson.put("id", pet.getPetId());
@@ -114,10 +119,14 @@ public class PetController {
 		return responseJson.toString();
 	}
 	//找出某人的寵物
-	@GetMapping(path="/information/find/{fkMemberId}")
-	public String findMyPet(@PathVariable(name = "fkMemberId") Integer fkMemberId) {
+	@PostMapping(path="/information/find")
+	public String findMyPet(@RequestBody String json) {
 		JSONObject responseJson = new JSONObject();
 		JSONArray array = new JSONArray();
+		
+		JSONObject obj = new JSONObject(json);
+		Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");	
+		
 		List<MyPetView> result = petService.findMyPet(fkMemberId);		
 		
 		if(result != null && !result.isEmpty()) {				
