@@ -54,7 +54,7 @@ public class PetPhotoOrderViewDaoHibernate implements PetPhotoOrderViewDao{
 		String name = obj.isNull("name") ? null : obj.getString("name");
 		//挑選物種
 		String species = obj.isNull("species") ? null : obj.getString("species");
-		List<String> speciesList = null;
+		List<String> speciesList = new ArrayList<String>();
 		if(species != null) {
 			speciesList = Arrays.asList(species.split(","));
 		}

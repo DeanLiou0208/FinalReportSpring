@@ -8,6 +8,8 @@ public interface PetPhotoDAO {
 
 	public abstract PetPhotoBean select(Integer id);
 	
+	public abstract List<PetPhotoBean> selectOnePet(Integer fkPetId);
+	
 	public abstract List<PetPhotoBean> select();
 
 	public abstract PetPhotoBean insert(PetPhotoBean bean);

@@ -44,8 +44,11 @@ public class PetService {
 	public MyPetView findById(Integer id) {
 		return myPetDAO.selectId(id);
 	}
-	//缺少照片功能
-
+	//找出寵物照片
+	public List<PetPhotoBean> findMyPetPhoto(Integer fkPetId) {
+		return petPhotoDAO.selectOnePet(fkPetId);
+	}
+	
 	public List<MyPetView> findMyPet(Integer fkMemberId) {
 		return myPetDAO.select(fkMemberId);
 	}
@@ -118,9 +121,12 @@ public class PetService {
 		return null;
 	}
 
-	public boolean remove(Integer id) {
+	public boolean remove(List<Integer> petsId) {
 		try {
-			return petDAO.delete(id);
+			for(Integer id : petsId) {
+				petDAO.delete(id);
+			}
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

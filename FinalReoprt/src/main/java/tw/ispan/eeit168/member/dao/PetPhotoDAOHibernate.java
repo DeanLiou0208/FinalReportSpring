@@ -26,6 +26,14 @@ public class PetPhotoDAOHibernate implements PetPhotoDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<PetPhotoBean> selectOnePet(Integer fkPetId) {
+		return this.getSession().createQuery(
+				"FROM PetPhotoBean WHERE fkPetId = :fkPetId", PetPhotoBean.class)
+				.setParameter("fkPetId", fkPetId)
+				.list();
+	}
 
 	@Override
 	public List<PetPhotoBean> select() {

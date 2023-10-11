@@ -15,6 +15,4 @@ public interface PetDAO {
 	public abstract PetBean update(PetBean bean);
 
 	public abstract boolean delete(Integer id);
-	
-	
 }
