@@ -133,7 +133,7 @@ public class ShopProductViewDaoImpl implements ShopProductViewDao {
 		
 		
 		if(avgRateScore != null) {
-			predicate.add(builder.equal(root.get("avgRateScore"), avgRateScore));
+			predicate.add(builder.greaterThanOrEqualTo(root.get("avgRateScore"), avgRateScore));
 		}
 		
 		if (predicate != null && !predicate.isEmpty()) {
@@ -238,7 +238,7 @@ public class ShopProductViewDaoImpl implements ShopProductViewDao {
 			
 //			avgRateScore =?
 			if(avgRateScore != null) {
-				predicate.add(builder.equal(root.get("avgRateScore"), avgRateScore));
+				predicate.add(builder.greaterThanOrEqualTo(root.get("avgRateScore"), avgRateScore));
 			}
 			
 			if (predicate != null && !predicate.isEmpty()) {

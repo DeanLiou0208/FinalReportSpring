@@ -155,8 +155,10 @@ public class ProductService {
 
 	}
 
-	public List<ProductDetailsRateView> findProductRate(Integer id) {
-
+	public List<ProductDetailsRateView> findProductRate(String srt) {
+		JSONObject obj = new JSONObject(srt);
+		
+		Integer id = obj.isNull("fkProductId") ? null : obj.getInt("fkProductId");
 		if (id != null) {
 
 			return pdrvd.selectById(id);

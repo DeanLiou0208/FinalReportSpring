@@ -2,6 +2,7 @@ package tw.ispan.eeit168.company.controller;
 
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
 
 import tw.ispan.eeit168.company.domain.ProductBean;
 import tw.ispan.eeit168.company.domain.ProductDetailsRateView;
@@ -149,50 +152,90 @@ public class ProductController {
 		return null;
 	}
 
-	@GetMapping(path = "/product-detail-rate")
-	public List<ProductDetailsRateView> productDetailRate(@RequestParam(name = "productId") Integer productId) {
+//	@GetMapping(path = "/product-detail-rate")
+//	public List<ProductDetailsRateView> productDetailRate(@RequestParam(name = "productId") Integer productId) {
+//
+//		List<ProductDetailsRateView> product = null;
+//
+//		if (productId != null) {
+//
+//			product = productservice.findProductRate(productId);
+//
+//			if (product != null) {
+//
+//				return product;
+//			} else {
+//				return null;
+//			}
+//		}
+//		return null;
+//	}
 
-		List<ProductDetailsRateView> product = null;
-
-		if (productId != null) {
-
-			product = productservice.findProductRate(productId);
-
-			if (product != null) {
-
-				return product;
-			} else {
-				return null;
+	
+	@PostMapping(path = "/product-photo")
+	public String productPhoto(@RequestBody String json) {
+		
+		JSONObject obj = new JSONObject(json);
+		Integer fkProductId = obj.isNull("fkProductId") ? null: obj.getInt("fkProductId");
+		JSONObject responesJson = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+		JSONObject main = new JSONObject();
+		if(fkProductId != null) {
+		List<ProductPhotoBean> find = productservice.findProductPhoto(fkProductId);
+			if(find != null && !find.isEmpty()) {
+				for(ProductPhotoBean productPhoto : find) {
+					JSONObject item = new JSONObject()
+							.put("id", productPhoto.getId())
+							.put("fkProductId", productPhoto.getFkProductId())
+							.put("main", productPhoto.getMain())
+							.put("img", productPhoto.getImg());
+							if(productPhoto.getMain() != null ) {
+								main =item;
+							}else {
+							jsonArray = jsonArray.put(item)	;
+							}
+				}
 			}
+		
+		}
+		responesJson.put("mainPhoto", main);
+		responesJson.put("photoList", jsonArray);
+		return responesJson.toString();
+	}
+	
+	@PostMapping(path = "/productshow/info")
+	public String productfind(@RequestBody String srt) {
+		
+		JSONObject obj = new JSONObject(srt);
+		Integer id = obj.isNull("productId") ? null : obj.getInt("productId");
+		
+		if(id != null) {
+		ProductDetailsView findProduct = productservice.findProduct(id);
+		String json = new Gson().toJson(findProduct);
+		
+		return json;
 		}
 		return null;
 	}
-
-	
-	@GetMapping(path = "/product-photo")
-	public List<ProductPhotoBean> productPhoto(@RequestParam(name = "productId") Integer productId) {
-
-		List<ProductPhotoBean> product = null;
-
-		if (productId != null) {
-
-			product = productservice.findProductPhoto(productId);
-
-			if (product != null) {
-
-				return product;
-			} else {
-				return null;
+	@PostMapping(path = "/productshowrate/info")
+	public String productRatefind(@RequestBody String json) {
+		
+		JSONObject responesJson = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+		List<ProductDetailsRateView> find = productservice.findProductRate(json);
+		if(find != null && !find.isEmpty()) {
+			for(ProductDetailsRateView productRate : find) {
+				JSONObject item = new JSONObject()
+						.put("id", productRate.getId())
+						.put("userName",productRate.getUserName())
+						.put("fkProductId", productRate.getFkProductId())
+						.put("rateScore", productRate.getRateScore())
+						.put("rateComment", productRate.getRateComment());
+				jsonArray = jsonArray.put(item);
 			}
 		}
-		return null;
+		responesJson.put("list", jsonArray);
+		return responesJson.toString();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
