@@ -49,13 +49,13 @@ public class ShoppingCartService {
 			JSONObject obj = new JSONObject(json);
 			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
 			Integer fkProductId = obj.isNull("fkProductId") ? null : obj.getInt("fkProductId");
-//		Integer count = obj.isNull("count") ? null : obj.getInt("count");
+			Integer count = obj.isNull("count") ? null : obj.getInt("count");
 
 			if (fkMemberId != null && fkProductId != null) {
 				ShoppingCartBean insert = new ShoppingCartBean();
 				insert.setFkMemberId(fkMemberId);
 				insert.setFkProductId(fkProductId);
-				insert.setCount(1);
+				insert.setCount(count);
 
 				return shoppingCartBeanDao.insert(insert);
 			}
