@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import tw.ispan.eeit168.forum.domain.PetArticleBean;
 import tw.ispan.eeit168.forum.service.PetArticleAjaxService;
@@ -89,17 +91,19 @@ public class PetArticleAjaxController {
 		return responseJson.toString();
 	}
 	@PostMapping(path = "petArticleCreate")
-	public String create (@RequestBody String body) {
+	public String create (@RequestParam(value = "files",required = false) MultipartFile[] files, String body) {
 		JSONObject responseJson = new JSONObject();
 		PetArticleBean petArticleBean = null;
 		try {
-			petArticleBean = petArticleAjaxService.create(body);
+			petArticleBean = petArticleAjaxService.create(body,files);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}if(petArticleBean==null) {
+			System.out.println(false);
 			responseJson.put("message", "新增失敗");
 			responseJson.put("success", false);
 		}else {
+			
 			responseJson.put("message", "新增成功");
 			responseJson.put("success", true);
 		}
@@ -112,7 +116,7 @@ public class PetArticleAjaxController {
 		Integer id = obj.isNull("id") ? null: obj.getInt("id");
 		System.out.println(id);
 		if(!petArticleAjaxService.exists(id)) {
-			responseJson.put("message", "資料不存在");
+			responseJson.put("message", "寵物文章不存在");
 			responseJson.put("success", false);
 		}else {
 			PetArticleBean petArticleBean = null;

@@ -30,15 +30,15 @@ public class PetArticleAjaxServiceTest {
 		System.out.println("byTime="+byTime);
 	}
 //	@Test
-	public void testCreate() {
-		JSONObject obj = new JSONObject()
-				.put("fkMemberId", 9)
-				.put("type", "寵萌搞笑")
-				.put("title", "可愛黃金獵犬")
-				.put("petArticleText", "俏皮可愛");
-		PetArticleBean create = petArticleAjaxService.create(obj.toString());
-		System.out.println("create="+create);
-	}
+//	public void testCreate() {
+//		JSONObject obj = new JSONObject()
+//				.put("fkMemberId", 9)
+//				.put("type", "寵萌搞笑")
+//				.put("title", "可愛黃金獵犬")
+//				.put("petArticleText", "俏皮可愛");
+//		PetArticleBean create = petArticleAjaxService.create(obj.toString());
+//		System.out.println("create="+create);
+//	}
 //	@Test
 	public void testModify() {
 		JSONObject obj = new JSONObject()

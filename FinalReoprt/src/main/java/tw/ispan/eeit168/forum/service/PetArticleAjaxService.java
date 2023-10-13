@@ -1,15 +1,26 @@
 package tw.ispan.eeit168.forum.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import tw.ispan.eeit168.Base64Utils;
 import tw.ispan.eeit168.forum.dao.PetArticleDao;
+import tw.ispan.eeit168.forum.dao.PetArticlePhotoDao;
+import tw.ispan.eeit168.forum.dao.PetArticleSpeciesMidDao;
 import tw.ispan.eeit168.forum.domain.PetArticleBean;
+import tw.ispan.eeit168.forum.domain.PetArticlePhotoBean;
+import tw.ispan.eeit168.forum.domain.PetArticleSpeciesMidBean;
 import tw.ispan.eeit168.member.dao.MemberDAO;
 import tw.ispan.eeit168.member.domain.MemberBean;
 
@@ -20,7 +31,11 @@ public class PetArticleAjaxService {
 	private PetArticleDao petArticleDao;
 	@Autowired
 	private MemberDAO memberDAO;
-
+	@Autowired
+	private PetArticleSpeciesMidDao petArticleSpeciesMidDao; 
+	@Autowired
+	private PetArticlePhotoDao petArticlePhotoDao;
+	
 	public List<PetArticleBean> findAll() {
 		List<PetArticleBean> finaAll = petArticleDao.select();
 		return finaAll;
@@ -43,21 +58,59 @@ public class PetArticleAjaxService {
 		return byTime;
 	}
 	
-	public PetArticleBean create(String json) {
+	public PetArticleBean create(String json,MultipartFile[] files) {
 		try {
 			JSONObject obj = new JSONObject(json);
 			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
 			String type = obj.isNull("type") ? null : obj.getString("type");
 			String title = obj.isNull("title") ? null : obj.getString("title");
 			String petArticleText = obj.isNull("petArticleText") ? null : obj.getString("petArticleText");
-
-			PetArticleBean insert = new PetArticleBean();
-			insert.setFkMemberId(fkMemberId);
-			insert.setType(type);
-			insert.setTitle(title);
-			insert.setPetArticleText(petArticleText);
-
-			return petArticleDao.insert(insert);
+			
+			PetArticleBean newpetArticle = null;
+			Map<Integer, String> photos = new HashMap<Integer, String>();
+			if(fkMemberId!=null && type!=null && title!=null && petArticleText!=null ) {
+				PetArticleBean insert = new PetArticleBean();
+				insert.setFkMemberId(fkMemberId);
+				insert.setType(type);
+				insert.setTitle(title);
+				insert.setPetArticleText(petArticleText);
+				
+				newpetArticle = petArticleDao.insert(insert);
+			}
+//			新增多筆寵物物種
+			Integer fkPetArticleId = newpetArticle.getId();
+			JSONArray speciesIdArray = obj.optJSONArray("speciesId");
+			if (speciesIdArray != null) {
+	            // 如果存在，将其转换为一个 List<Integer>
+	            List<Integer> speciesIds = new ArrayList<>();
+	            for (int i = 0; i < speciesIdArray.length(); i++) {
+	                speciesIds.add(speciesIdArray.getInt(i));
+	            }
+	            if(speciesIds!=null) {
+	            	for(Integer speciesId:speciesIds) {
+	            		PetArticleSpeciesMidBean insert = new PetArticleSpeciesMidBean();
+	            		insert.setFkPetArticleId(fkPetArticleId);
+	            		insert.setFkPetArticleSpeciesId(speciesId);
+	            		petArticleSpeciesMidDao.insert(insert);
+	            	}
+	            }
+//	            新增多筆寵物文章照片
+	            if(files !=null) {
+	            	photos = Base64Utils.convertToBase64(files);
+	            	for(Entry<Integer, String> photo : photos.entrySet()) {
+	            		PetArticlePhotoBean insert = new PetArticlePhotoBean();
+	            		insert.setFkPetArticleId(fkPetArticleId);
+	            		if(photo.getKey().equals(1)) {
+	            			insert.setMain(true);
+	            		}else {
+	            			insert.setMain(null);
+	            		}
+	            		insert.setImg(photo.getValue());
+	            		petArticlePhotoDao.insert(insert);
+	            	}
+	            }
+			}
+	            return newpetArticle;
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

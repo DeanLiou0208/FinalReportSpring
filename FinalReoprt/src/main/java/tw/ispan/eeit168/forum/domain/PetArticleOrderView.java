@@ -37,109 +37,103 @@ public class PetArticleOrderView {
 	
 	@Column(name="lasttime", insertable = false)
 	private Timestamp lastTime;
-
 	
-
-	public Integer getId() {
-		return id;
-	}
-
-
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-
-
-	public Integer getFkMemberId() {
-		return fkMemberId;
-	}
-
-
-
-	public void setFkMemberId(Integer fkMemberId) {
-		this.fkMemberId = fkMemberId;
-	}
-
-
-
-	public String getTitle() {
-		return title;
-	}
-
-
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
-
-	public String getType() {
-		return type;
-	}
-
-
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-
-
-	public String getPetArticleText() {
-		return petArticleText;
-	}
-
-
-
-	public void setPetArticleText(String petArticleText) {
-		this.petArticleText = petArticleText;
-	}
-
-
-
-	public Integer getLikeCount() {
-		return likeCount;
-	}
-
-
-
-	public void setLikeCount(Integer likeCount) {
-		this.likeCount = likeCount;
-	}
-
-
-
-	public Integer getUnLikeCount() {
-		return unLikeCount;
-	}
-
-
-
-	public void setUnLikeCount(Integer unLikeCount) {
-		this.unLikeCount = unLikeCount;
-	}
-
-
-
-	public Timestamp getLastTime() {
-		return lastTime;
-	}
-
-
-
-	public void setLastTime(Timestamp lastTime) {
-		this.lastTime = lastTime;
-	}
-
-
+	@Column(name="img")
+	private String img;
+	
+	@Column(name="main")
+	private Boolean main;
 
 	@Override
 	public String toString() {
 		return "PetArticleOrderView [id=" + id + ", fkMemberId=" + fkMemberId + ", title=" + title + ", type=" + type
 				+ ", petArticleText=" + petArticleText + ", likeCount=" + likeCount + ", unLikeCount=" + unLikeCount
-				+ ", lastTime=" + lastTime + "]";
+				+ ", lastTime=" + lastTime + ", img=" + img + ", main=" + main + "]";
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getFkMemberId() {
+		return fkMemberId;
+	}
+
+	public void setFkMemberId(Integer fkMemberId) {
+		this.fkMemberId = fkMemberId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getPetArticleText() {
+		return petArticleText;
+	}
+
+	public void setPetArticleText(String petArticleText) {
+		this.petArticleText = petArticleText;
+	}
+
+	public Integer getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(Integer likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public Integer getUnLikeCount() {
+		return unLikeCount;
+	}
+
+	public void setUnLikeCount(Integer unLikeCount) {
+		this.unLikeCount = unLikeCount;
+	}
+
+	public Timestamp getLastTime() {
+		return lastTime;
+	}
+
+	public void setLastTime(Timestamp lastTime) {
+		this.lastTime = lastTime;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public Boolean getMain() {
+		return main;
+	}
+
+	public void setMain(Boolean main) {
+		this.main = main;
+	}
+	
+	
+
+	
+
+	
 }

@@ -36,7 +36,9 @@ public class PetArticleOrderViewAjaxController {
 						.put("petArticleText", petArticle.getPetArticleText())
 						.put("likeCount", petArticle.getLikeCount())
 						.put("unLikeCount", petArticle.getUnLikeCount())
-						.put("lastTime", petArticle.getLastTime());
+						.put("lastTime", petArticle.getLastTime())
+						.put("img", petArticle.getImg())
+						.put("mian",petArticle.getMain());
 				array = array.put(item);
 			}
 		}
@@ -59,7 +61,9 @@ public class PetArticleOrderViewAjaxController {
 						.put("petArticleText", petArticle.getPetArticleText())
 						.put("likeCount", petArticle.getLikeCount())
 						.put("unLikeCount", petArticle.getUnLikeCount())
-						.put("lastTime", petArticle.getLastTime());
+						.put("lastTime", petArticle.getLastTime())
+						.put("img", petArticle.getImg())
+						.put("mian",petArticle.getMain());
 				array = array.put(item);
 				System.out.println("array="+array);
 			}
@@ -82,8 +86,10 @@ public class PetArticleOrderViewAjaxController {
 						.put("petArticleText", bean.getPetArticleText())
 						.put("likeCount", bean.getLikeCount())
 						.put("unLikeCount", bean.getUnLikeCount())
-						.put("lastTime", bean.getLastTime());
-				
+						.put("lastTime", bean.getLastTime())
+						.put("img", bean.getImg())
+						.put("mian",bean.getMain());
+							
 				array = array.put(item);	
 			}
 		}
