@@ -103,8 +103,7 @@ public class ProductDaoHibernate implements ProductDao {
 
 	        // 使用 query.list() 或 query.uniqueResult() 來執行查詢
 	        List<ProductBean> results = query.list();
-	        System.out.println(query.list());
-	        System.out.println(results);
+	    
 	        if (!results.isEmpty()) {
 	            // 如果查詢結果不為空，返回第一個匹配的結果
 	            return results;

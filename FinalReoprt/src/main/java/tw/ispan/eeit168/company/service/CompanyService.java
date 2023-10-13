@@ -4,10 +4,11 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import tw.ispan.eeit168.Base64Utils;
 import tw.ispan.eeit168.company.dao.CompanyDao;
 import tw.ispan.eeit168.company.domain.CompanyBean;
-
 
 @Service
 @Transactional(rollbackFor = { Exception.class })
@@ -18,12 +19,15 @@ public class CompanyService {
 	public boolean exists(String account) {
 		return companyDao.selectByAccount(account) != null;
 	}
+
 	public CompanyBean existsAccount(String account) {
-		return companyDao.selectByAccount(account) ;
+		return companyDao.selectByAccount(account);
 	}
+
 	public boolean existsShopName(String ShopName) {
-		return companyDao.selectByShopName(ShopName) ;
+		return companyDao.selectByShopName(ShopName);
 	}
+
 	public CompanyBean create(String json) {
 		try {
 			JSONObject obj = new JSONObject(json);
@@ -33,36 +37,40 @@ public class CompanyService {
 			String shopName = obj.isNull("shopName") ? null : obj.getString("shopName");
 
 			CompanyBean insert = new CompanyBean();
-
-			insert.setAccount(account);
-			insert.setPassword(password);
-			insert.setShopName(shopName);
-			return companyDao.insert(insert);
+			if (account != null && password != null && shopName != null) {
+				insert.setAccount(account);
+				insert.setPassword(password);
+				insert.setShopName(shopName);
+				return companyDao.insert(insert);
+			}else {
+				return null;
+			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
 
-	public CompanyBean modify(Integer accountId, String json) {
+	public CompanyBean modify(Integer accountId, String json, MultipartFile file) {
 		try {
 			JSONObject obj = new JSONObject(json);
-			Integer id = accountId!=null ? accountId : null;
+			Integer id = accountId != null ? accountId : null;
 			String phone = obj.isNull("phone") ? null : obj.getString("phone");
 			Integer texIdNumber = obj.isNull("texIdNumber") ? null : obj.getInt("texIdNumber");
 			String address = obj.isNull("address") ? null : obj.getString("address");
 			String email = obj.isNull("email") ? null : obj.getString("email");
-			//之後再改照片傳送
-			String img = obj.isNull("img") ? null : obj.getString("img");
-
+			// 之後再改照片傳送
+			String photo = null;
+			if (file != null && !file.isEmpty()) {
+				photo = Base64Utils.convertToBase64(file);
+			}
 			CompanyBean update = companyDao.select(id);
 			update.setPhone(phone);
 			update.setTaxIdNumber(texIdNumber);
 			update.setAddress(address);
 			update.setEmail(email);
-			update.setImg(img);
-			
+			update.setImg(photo);
+
 			return companyDao.update(update);
 		} catch (Exception e) {
 			e.printStackTrace();

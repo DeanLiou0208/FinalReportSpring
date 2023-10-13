@@ -57,6 +57,9 @@ public class LoginController {
 			} else {
 				responseJson.put("message", "登入成功");
 				responseJson.put("success", true);
+				responseJson.put("identity", "廠商");
+				responseJson.put("account", company.getAccount());
+				
 			}
 		}
 		return responseJson.toString();

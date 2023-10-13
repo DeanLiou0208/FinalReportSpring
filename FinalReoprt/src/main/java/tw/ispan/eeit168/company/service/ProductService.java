@@ -7,12 +7,15 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import tw.ispan.eeit168.Base64Utils;
 import tw.ispan.eeit168.company.dao.ProductDao;
 import tw.ispan.eeit168.company.dao.ProductDetailsRateViewDao;
 import tw.ispan.eeit168.company.dao.ProductDetailsViewDao;
 
 import tw.ispan.eeit168.company.dao.ProductPhotoBeanDao;
+import tw.ispan.eeit168.company.domain.CompanyBean;
 import tw.ispan.eeit168.company.domain.ProductBean;
 import tw.ispan.eeit168.company.domain.ProductDetailsRateView;
 import tw.ispan.eeit168.company.domain.ProductDetailsView;
@@ -83,15 +86,15 @@ public class ProductService {
 	public ProductBean create(String json) {
 		try {
 			JSONObject obj = new JSONObject(json);
-
+			
 			Integer fkCompanyId = obj.isNull("fkCompanyId") ? null : obj.getInt("fkCompanyId");
 			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
-			String name = obj.isNull("name") ? null : obj.getString("name");
-			String type = obj.isNull("type") ? null : obj.getString("type");
+			String name = obj.isNull("name") ? null : ""+obj.get("name");
+			String type = obj.isNull("type") ? null : ""+obj.get("type");
 			Integer inventory = obj.isNull("inventory") ? null : obj.getInt("inventory");
 			Integer price = obj.isNull("price") ? null : obj.getInt("price");
-			String description = obj.isNull("description") ? null : obj.getString("description");
-			String size = obj.isNull("size") ? null : obj.getString("size");
+			String description = obj.isNull("description") ? null :""+obj.get("description");
+			String size = obj.isNull("size") ? null : ""+obj.get("size");
 			Boolean status = obj.isNull("status") ? false : obj.getBoolean("status");
 
 			ProductBean insert = new ProductBean();
@@ -105,7 +108,7 @@ public class ProductService {
 			insert.setDescription(description);
 			insert.setSize(size);
 			insert.setStatus(status);
-
+			
 			return productDao.insert(insert);
 
 		} catch (Throwable e) {
@@ -119,12 +122,12 @@ public class ProductService {
 			JSONObject obj = new JSONObject(json);
 			Integer id = obj.isNull("id") ? null : obj.getInt("id");
 			Integer fkCompanyId = obj.isNull("fkCompanyId") ? null : obj.getInt("fkCompanyId");
-			String name = obj.isNull("name") ? null : obj.getString("name");
-			String type = obj.isNull("type") ? null : obj.getString("type");
+			String name = obj.isNull("name") ? null :""+obj.get("name");
+			String type = obj.isNull("type") ? null : ""+obj.get("type");
 			Integer inventory = obj.isNull("inventory") ? null : obj.getInt("inventory");
 			Integer price = obj.isNull("price") ? null : obj.getInt("price");
-			String description = obj.isNull("description") ? null : obj.getString("description");
-			String size=obj.isNull("size") ? null : obj.getString("size");
+			String description = obj.isNull("description") ? null : ""+obj.get("description");
+			String size=obj.isNull("size") ? null : ""+obj.get("size");
 			Boolean status = obj.isNull("status") ? null : obj.getBoolean("status");
 			if (id == null) {
 				return null;
@@ -176,4 +179,24 @@ public class ProductService {
 		return null;
 
 	}
+	
+	public ProductPhotoBean modifyPhoto(Integer fkProductId,Boolean main, MultipartFile file) {
+		try {
+			String photo = null;
+			if (file != null && !file.isEmpty()) {
+				photo = Base64Utils.convertToBase64(file);
+			}
+			ProductPhotoBean insert = new ProductPhotoBean();
+			insert.setFkProductId(fkProductId);
+			insert.setImg(photo);
+			insert.setMain(main);
+			return pp.insert(insert);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
 }
