@@ -1,5 +1,8 @@
 package tw.ispan.eeit168.member.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,8 +50,10 @@ public class MemberController {
 			if(accountVerification != null) {
 				responseJson.put("message", "登入成功");
 				responseJson.put("success", true);
+				responseJson.put("id", accountVerification.getId());				
 				responseJson.put("account", accountVerification.getAccount());
 				responseJson.put("identity", "會員");
+				responseJson.put("username", accountVerification.getUserName());
 			} else {
 				responseJson.put("message", "登入失敗，帳號或密碼錯誤");
 				responseJson.put("success", false);
@@ -75,10 +80,10 @@ public class MemberController {
 				e.printStackTrace();
 			}
 			if(member==null) {
-				responseJson.put("message", "新增失敗");
+				responseJson.put("message", "註冊失敗");
 				responseJson.put("success", false);
 			} else {
-				responseJson.put("message", "新增成功");
+				responseJson.put("message", "註冊成功");
 				responseJson.put("success", true);
 			}
 		}
@@ -122,8 +127,19 @@ public class MemberController {
 			responseJson.put("lastName", member.getLastName());
 			responseJson.put("userName", member.getUserName());
 			responseJson.put("gender", member.getGender());
-			responseJson.put("birth", member.getBirth());
-			responseJson.put("phone", member.getPhone());
+			//將資料庫的時間改成字串送給前端
+			if(member.getBirth() != null) {
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+				String birth = dateFormat.format(member.getBirth());  
+				responseJson.put("birth", birth);
+			}
+			//將電話號碼拆解成三段送給前端
+			if(member.getPhone() != null) {
+				String[] number = member.getPhone().split("-");
+				responseJson.put("phone1", number[0]);
+				responseJson.put("phone2", number[1]);
+				responseJson.put("phone3", number[2]);
+			}
 			responseJson.put("address", member.getAddress());
 			responseJson.put("email", member.getEmail());
 			responseJson.put("updateAt", member.getUpdateAt());
@@ -164,9 +180,9 @@ public class MemberController {
 //	}
 	
 	@PutMapping(path = "/information")
-	public String modifyInformation(@RequestParam("file") MultipartFile file, String json){
+	public String modifyInformation(@RequestParam(value = "file", required = false) MultipartFile file, String body){
 		JSONObject responseJson = new JSONObject();
-		JSONObject obj = new JSONObject(json);
+		JSONObject obj = new JSONObject(body);
 		String account = obj.isNull("account") ? null : obj.getString("account");	
 		if(!memberService.exists(account)) {
 			responseJson.put("message", "帳號不存在");
@@ -175,7 +191,7 @@ public class MemberController {
 			MemberBean member = null;
 			Integer id=memberService.findId(account);
 			try {
-				member = memberService.modify(id, json,file);
+				member = memberService.modify(id, body,file);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

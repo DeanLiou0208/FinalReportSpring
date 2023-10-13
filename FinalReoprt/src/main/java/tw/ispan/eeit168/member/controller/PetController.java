@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,51 @@ import tw.ispan.eeit168.member.util.DatetimeConverter;
 public class PetController {
 	@Autowired
 	private PetService petService;
+	
+	//下拉式選單用 找出物種
+	@GetMapping(path = "/select/species")
+	public String selectSpecies() {
+		JSONObject responseJson = new JSONObject();
+		JSONArray arraySpecies = new JSONArray();
+		try {
+			List<String> species = petService.findSpecies();
+			if(!species.isEmpty()) {		
+				for(String oneSpecies : species) {
+					arraySpecies = arraySpecies.put(oneSpecies);
+				}
+				responseJson.put("success", true);
+				responseJson.put("species", arraySpecies);
+			}else {
+				responseJson.put("success", false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return responseJson.toString();
+	}
+	
+	//下拉式選單用 找出品種
+	@GetMapping(path = "/select/breeds/{species}")
+	public String selectBreed(@PathVariable String species) {
+		JSONObject responseJson = new JSONObject();
+		JSONArray arrayBreeds = new JSONArray();
+		
+		try {
+			List<String> breeds = petService.findBreeds(species);
+			if(!breeds.isEmpty()) {		
+				for(String oneBreeds : breeds) {
+					arrayBreeds = arrayBreeds.put(oneBreeds);
+				}
+				responseJson.put("success", true);
+				responseJson.put("breeds", arrayBreeds);
+			}else {
+				responseJson.put("success", false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return responseJson.toString();
+	}
 	
 	//新增寵物
 	@PostMapping(path = "/newPet")

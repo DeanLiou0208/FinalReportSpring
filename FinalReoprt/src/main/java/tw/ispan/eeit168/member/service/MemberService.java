@@ -122,15 +122,16 @@ public class MemberService {
 			
 			Boolean gender = obj.isNull("gender") ? null : obj.getBoolean("gender");
 			String birth = obj.isNull("birth") ? null : obj.getString("birth");
-			String phone = obj.isNull("phone") ? null : obj.getString("phone");
+			String phone1 = obj.isNull("phone1") ? null : obj.getString("phone1");
+			String phone2 = obj.isNull("phone2") ? null : obj.getString("phone2");
+			String phone3 = obj.isNull("phone3") ? null : obj.getString("phone3");
 			String address = obj.isNull("address") ? null : obj.getString("address");
 			String email = obj.isNull("email") ? null : obj.getString("email");
-			System.out.println(file);
+
 			String photo = null;
 			if(file != null && !file.isEmpty()) {
 				photo = Base64Utils.convertToBase64(file);
 			}
-
 			MemberBean update = memberDAO.select(id);
 			update.setFirstName(firstName);
 			update.setLastName(lastName);
@@ -141,7 +142,12 @@ public class MemberService {
 			}else {
 				update.setBirth(null);
 			}
-			update.setPhone(phone);
+			if(phone1 != null && phone2 != null && phone3 != null) {
+				String phone = phone1 + "-" + phone2 + "-" + phone3;
+				update.setPhone(phone);
+			}else {
+				update.setPhone(null);
+			}		
 			update.setAddress(address);
 			update.setEmail(email);
 			update.setUpdateAt(new Timestamp(System.currentTimeMillis()));

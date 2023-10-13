@@ -32,7 +32,21 @@ public class PetCategroyDAOHibernate implements PetCategroyDAO {
 		return this.getSession().createQuery(
 				"from PetCategroyBean", PetCategroyBean.class).list();
 	}
-
+	
+	@Override
+	public List<String> selectSpecies() {
+		return this.getSession().createQuery(
+				"SELECT DISTINCT species FROM PetCategroyBean", String.class).list();
+	}
+	
+	@Override
+	public List<String> selectBreed(String species) {
+		return this.getSession().createQuery(
+				"SELECT breed FROM PetCategroyBean WHERE species = :species", String.class)
+				.setParameter("species", species)
+				.list();
+	}
+	
 	@Override
 	public PetCategroyBean insert(PetCategroyBean bean) {
 		if(bean!=null && bean.getBreed() != null && bean.getSpecies() != null) {		

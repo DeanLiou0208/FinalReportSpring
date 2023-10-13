@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import tw.ispan.eeit168.Base64Utils;
 import tw.ispan.eeit168.member.dao.MyPetDAO;
+import tw.ispan.eeit168.member.dao.PetCategroyDAO;
 import tw.ispan.eeit168.member.dao.PetDAO;
 import tw.ispan.eeit168.member.dao.PetLikesDAO;
 import tw.ispan.eeit168.member.dao.PetPhotoDAO;
@@ -33,6 +34,8 @@ public class PetService {
 	@Autowired
 	private MyPetDAO myPetDAO = null;
 	@Autowired
+	private PetCategroyDAO petCategroyDAO = null;
+	@Autowired
 	private PetLikesDAO petLikesDAO = null;
 	@Autowired
 	private PetPhotoOrderViewDao petPhotoOrderViewDao = null;
@@ -51,6 +54,16 @@ public class PetService {
 	
 	public List<MyPetView> findMyPet(Integer fkMemberId) {
 		return myPetDAO.select(fkMemberId);
+	}
+	
+	//下拉式選單用  找出物種
+	public List<String> findSpecies() {
+		return petCategroyDAO.selectSpecies();
+	}
+	
+	//下拉式選單用  找出品種
+	public List<String> findBreeds(String species) {
+		return petCategroyDAO.selectBreed(species);
 	}
 
 	public PetBean createPet(String json, MultipartFile[] files) {

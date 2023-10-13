@@ -10,6 +10,10 @@ public interface PetCategroyDAO {
 	
 	public abstract List<PetCategroyBean> select();
 	
+	public abstract List<String> selectSpecies();
+	
+	public abstract List<String> selectBreed(String species);	
+	
 	public abstract PetCategroyBean insert(PetCategroyBean bean);
 
 	public abstract PetCategroyBean update(PetCategroyBean bean);
