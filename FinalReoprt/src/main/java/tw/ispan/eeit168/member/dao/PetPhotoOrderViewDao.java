@@ -14,5 +14,7 @@ public interface PetPhotoOrderViewDao {
 	
 	public abstract List<PetPhotoOrderView> selectByMemberLike(List<Integer> list);
 
+	public abstract Long count(List<Integer> likeRecord,JSONObject obj);
+	
 	public abstract List<PetPhotoOrderView> find(List<Integer> list, JSONObject obj);
 }

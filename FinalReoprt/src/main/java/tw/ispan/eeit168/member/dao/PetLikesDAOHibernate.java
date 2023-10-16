@@ -75,7 +75,7 @@ public class PetLikesDAOHibernate implements PetLikesDAO {
 
 	@Override
     public boolean delete(Integer MemberId, Integer PetId) {
-        if(MemberId !=null && PetId!= null) {
+        if(MemberId !=null && PetId!= null) {     	
             final String collectionsql = "FROM PetLikesBean WHERE fkMemberId = :fkMemberId AND fkPetId = :fkPetId";
             Integer fkMemberId = MemberId;
             Integer fkPetId = PetId;

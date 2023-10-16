@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import tw.ispan.eeit168.member.domain.MyPetView;
 import tw.ispan.eeit168.member.domain.PetBean;
+import tw.ispan.eeit168.member.domain.PetLikesBean;
 import tw.ispan.eeit168.member.domain.PetPhotoBean;
 import tw.ispan.eeit168.member.domain.PetPhotoOrderView;
 import tw.ispan.eeit168.member.service.PetService;
@@ -265,23 +266,41 @@ public class PetController {
 	public String find(@RequestBody String body) {
 		JSONObject responseJson = new JSONObject();
 		
-//		long count = petService.count(body);
-//		responseJson.put("count", count);
-//		
+		long count = petService.count(body);
+		responseJson.put("count", count);
+		
+		List<Integer> likeRecord = petService.likeRecord(body);
+//		int[] intArray = null;
+//		System.out.println(likeRecord);
+//		if(!likeRecord.isEmpty() && likeRecord != null) {			
+//			intArray = likeRecord.stream()
+//					.mapToInt(Integer::intValue)
+//					.toArray();
+//		}
+//		responseJson.put("likeRecord", intArray);
+		
 		JSONArray array = new JSONArray();
 		List<PetPhotoOrderView> result = petService.find(body);
 		if(result!=null && !result.isEmpty()) {
 			for(PetPhotoOrderView pet : result) {
 				String createAt = DatetimeConverter.toString(
 						pet.getCreateAt(), "yyyy-MM-dd");
+				//判斷按讚數是否為空值
+				Integer likeCount = pet.getLikeCount();
+				if(likeCount == null) {
+					likeCount = 0;
+				}
+				boolean containsTarget = likeRecord.contains(pet.getId());
+				
 				JSONObject item = new JSONObject()
 						.put("id", pet.getId())
 						.put("name", pet.getName())
 						.put("species", pet.getSpecies())
 						.put("breed", pet.getBreed())
 						.put("userName", pet.getUserName())
-						.put("likeCount", pet.getLikeCount())
+						.put("likeCount", likeCount)
 						.put("createAt", createAt)
+						.put("likeRecord", containsTarget)
 						.put("img", pet.getImg());
 				array = array.put(item);
 			}
@@ -289,4 +308,43 @@ public class PetController {
 		responseJson.put("list", array);
 		return responseJson.toString();
 	}	
+	
+	@PostMapping(path = "/like")
+	public String like(@RequestBody String body) {
+		JSONObject responseJson = new JSONObject();
+		
+		PetLikesBean result = null;
+		try {
+			result = petService.createLike(body);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(result==null) {
+			responseJson.put("message", "給予失敗");
+			responseJson.put("success", false);
+		} else {
+			responseJson.put("message", "成功給予愛心");
+			responseJson.put("success", true);
+		}
+		return responseJson.toString();
+	}
+	
+	@DeleteMapping(path = "/dislike/{fkMemberId}-{fkPetId}")
+	public String dislike(@PathVariable Integer fkMemberId,@PathVariable Integer fkPetId) {
+		JSONObject responseJson = new JSONObject();
+		boolean result = false;
+		try {
+			result = petService.removeLike(fkMemberId, fkPetId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(result) {
+			responseJson.put("message", "已取消愛心");
+			responseJson.put("success", true);
+		} else {
+			responseJson.put("message", "取消失敗");
+			responseJson.put("success", false);
+		}
+		return responseJson.toString();
+	}
 }

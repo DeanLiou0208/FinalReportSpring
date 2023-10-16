@@ -62,6 +62,23 @@ public class MemberController {
 		return responseJson.toString();
 	}
 	
+	@PostMapping(path = "/existsaccount")
+	public String existsAccount(@RequestBody String json) {
+		JSONObject responseJson = new JSONObject();
+		JSONObject obj = new JSONObject(json);
+		String account = obj.isNull("account") ? null : obj.getString("account");
+		if(memberService.exists(account)) {
+			responseJson.put("message", "此帳號已存在帳號");
+			responseJson.put("success", false);
+		} else {
+			responseJson.put("message", "可用帳號");
+			responseJson.put("success", true);
+		}
+		return responseJson.toString();
+	}
+	
+	
+	
 	//建立帳號
 	@PostMapping(path = "/register")
 	public String register(@RequestBody String json) {
@@ -80,10 +97,10 @@ public class MemberController {
 				e.printStackTrace();
 			}
 			if(member==null) {
-				responseJson.put("message", "註冊失敗");
+				responseJson.put("message", "帳號建立失敗");
 				responseJson.put("success", false);
 			} else {
-				responseJson.put("message", "註冊成功");
+				responseJson.put("message", "帳號建立成功");
 				responseJson.put("success", true);
 			}
 		}
@@ -150,34 +167,6 @@ public class MemberController {
 		}
 		return responseJson.toString();
 	}
-	
-	//修改個資
-//	@PutMapping(path = "/information")
-//	public String modifyInformation(@RequestBody String json){
-//		JSONObject responseJson = new JSONObject();
-//		JSONObject obj = new JSONObject(json);
-//		String account = obj.isNull("account") ? null : obj.getString("account");	
-//		if(!memberService.exists(account)) {
-//			responseJson.put("message", "帳號不存在");
-//			responseJson.put("success", false);
-//		} else {
-//			MemberBean member = null;
-//			Integer id=memberService.findId(account);
-//			try {
-//				member = memberService.modify(id, json);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			if(member==null) {
-//				responseJson.put("message", "修改失敗");
-//				responseJson.put("success", false);
-//			} else {
-//				responseJson.put("message", "修改成功");
-//				responseJson.put("success", true);
-//			}
-//		}
-//		return responseJson.toString();
-//	}
 	
 	@PutMapping(path = "/information")
 	public String modifyInformation(@RequestParam(value = "file", required = false) MultipartFile file, String body){

@@ -21,6 +21,7 @@ import tw.ispan.eeit168.member.dao.PetPhotoDAO;
 import tw.ispan.eeit168.member.dao.PetPhotoOrderViewDao;
 import tw.ispan.eeit168.member.domain.MyPetView;
 import tw.ispan.eeit168.member.domain.PetBean;
+import tw.ispan.eeit168.member.domain.PetLikesBean;
 import tw.ispan.eeit168.member.domain.PetPhotoBean;
 import tw.ispan.eeit168.member.domain.PetPhotoOrderView;
 
@@ -71,9 +72,11 @@ public class PetService {
 			JSONObject obj = new JSONObject(json);
 			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
 			String name = obj.isNull("name") ? null : obj.getString("name");
-			Integer categroyId = obj.isNull("categroyId") ? null : obj.getInt("categroyId");
+			String categroy = obj.isNull("categroy") ? null : obj.getString("categroy");
 			Integer age = obj.isNull("age") ? null : obj.getInt("age");
 			Boolean gender = obj.isNull("gender") ? null : obj.getBoolean("gender");
+			
+			Integer categroyId = petCategroyDAO.selectCategroyId(categroy);
 			
 			PetBean newPet = null;
 			Map<Integer, String> photos = new HashMap<Integer, String>();
@@ -145,7 +148,37 @@ public class PetService {
 		}
 		return false;
 	}
+	
+	public List<Integer> likeRecord(String json) {
+		try {
+			JSONObject obj = new JSONObject(json);
+			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
+			return petLikesDAO.select(fkMemberId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
+	public long count(String json) {
+		try {
+			JSONObject obj = new JSONObject(json);
+			// 確認是否要找按讚紀錄 還是顯示全部
+			String record = obj.isNull("record") ? "全部" : obj.getString("record");
+			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
+			// 藉由使用者id找出按讚紀錄
+			List<Integer> likeRecord = new ArrayList<Integer>();
+			if (record.equals("我的最愛")) {
+				likeRecord = petLikesDAO.select(fkMemberId);
+			}
+			//依據各種條件找出對應寵物
+			return petPhotoOrderViewDao.count(likeRecord, obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 	public List<PetPhotoOrderView> find(String json) {
 		try {
 			JSONObject obj = new JSONObject(json);
@@ -163,6 +196,34 @@ public class PetService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	//寵物按讚
+	public PetLikesBean createLike(String json) {
+		try {
+			JSONObject obj = new JSONObject(json);
+			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
+			Integer fkPetId = obj.isNull("fkPetId") ? null : obj.getInt("fkPetId");
+			
+			if(fkMemberId != null && fkPetId!= null) {
+				PetLikesBean insert = new PetLikesBean();
+				insert.setFkMemberId(fkMemberId);
+				insert.setFkPetId(fkPetId);
+				return petLikesDAO.insert(insert);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	//寵物取消讚
+	public boolean removeLike(Integer fkMemberId, Integer fkPetId) {
+		try {
+			return petLikesDAO.delete(fkMemberId, fkPetId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
@@ -48,14 +49,82 @@ public class PetPhotoOrderViewDaoHibernate implements PetPhotoOrderViewDao{
 		return null;
 	}
 	
+	
+	@Override
+	public Long count(List<Integer> likeRecord,JSONObject obj){	
+		//模糊查詢動物名
+		String name = obj.isNull("name") ? null : obj.getString("name");
+		//挑選物種
+		JSONArray speciesArray = obj.getJSONArray("species");
+		String species = speciesArray.toString();
+		List<String> speciesList = new ArrayList<String>();
+		species = species.replace("[", "").replace("]", "").replace("\"", "").replaceAll("\",\"", ",");
+		if(species != null && species.length() != 0) {
+			speciesList = Arrays.asList(species.split(","));
+		}
+
+		//SELECT count(*) FROM pet_photo_order
+		//WHERE species in ('狗狗','貓貓','鳥類','爬蟲') 
+		//AND id in ('1','3','5','7','9','11','13','15','17','19')
+		//AND name LIKE '%狗%'	
+		
+		CriteriaBuilder builder = this.getSession().getCriteriaBuilder();
+		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+		
+		//FROM pet_photo_order
+		Root<PetPhotoOrderView> root = criteria.from(PetPhotoOrderView.class);
+		
+		//select count(*)
+		criteria = criteria.select(builder.count(root));
+		
+		//where
+		List<Predicate> predicates = new ArrayList<>();
+		
+		//species in ('狗狗','貓貓','鳥類','爬蟲') 
+		if(!speciesList.isEmpty()) {
+			In<Object> in = builder.in(root.get("species"));
+			for(int i = 0; i < speciesList.size(); i++) {
+				in.value(speciesList.get(i));
+			}
+			predicates.add(builder.and(builder.and(in)));
+		}
+				
+		//AND id in ('1','3','5','7','9','11','13','15','17','19')
+		//確認按讚紀錄
+
+		if(!likeRecord.isEmpty()) {
+			In<Object> in = builder.in(root.get("id"));
+			for(int i = 0; i < likeRecord.size(); i++) {
+				in.value(likeRecord.get(i));
+			}
+			predicates.add(builder.and(builder.and(in)));
+		}
+		
+		//AND name LIKE '%狗%'
+		if(name!=null && name.length()!=0) {
+			predicates.add(builder.like(root.get("name"), "%"+name+"%"));
+		}
+		
+		//WHERE......
+		if(predicates!=null && !predicates.isEmpty()) {
+			Predicate[] array = predicates.toArray(new Predicate[1]);
+			criteria = criteria.where(array);
+		}
+		TypedQuery<Long> typedQuery = this.getSession().createQuery(criteria);
+		return typedQuery.getSingleResult();
+	}
+	
+	
 	@Override
 	public List<PetPhotoOrderView> find(List<Integer> likeRecord,JSONObject obj){	
 		//模糊查詢動物名
 		String name = obj.isNull("name") ? null : obj.getString("name");
 		//挑選物種
-		String species = obj.isNull("species") ? null : obj.getString("species");
+		JSONArray speciesArray = obj.getJSONArray("species");
+		String species = speciesArray.toString();
 		List<String> speciesList = new ArrayList<String>();
-		if(species != null) {
+		species = species.replace("[", "").replace("]", "").replace("\"", "").replaceAll("\",\"", ",");
+		if(species != null && species.length() != 0) {
 			speciesList = Arrays.asList(species.split(","));
 		}
 		
@@ -95,7 +164,7 @@ public class PetPhotoOrderViewDaoHibernate implements PetPhotoOrderViewDao{
 				
 		//AND id in ('1','3','5','7','9','11','13','15','17','19')
 		//確認按讚紀錄
-		System.out.println(likeRecord);
+//		System.out.println("likeRecord" + likeRecord);
 		if(!likeRecord.isEmpty()) {
 			In<Object> in = builder.in(root.get("id"));
 			for(int i = 0; i < likeRecord.size(); i++) {

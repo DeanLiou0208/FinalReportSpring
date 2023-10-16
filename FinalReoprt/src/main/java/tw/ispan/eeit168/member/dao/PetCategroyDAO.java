@@ -14,6 +14,8 @@ public interface PetCategroyDAO {
 	
 	public abstract List<String> selectBreed(String species);	
 	
+	public abstract Integer selectCategroyId(String breed);
+	
 	public abstract PetCategroyBean insert(PetCategroyBean bean);
 
 	public abstract PetCategroyBean update(PetCategroyBean bean);

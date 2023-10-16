@@ -48,6 +48,14 @@ public class PetCategroyDAOHibernate implements PetCategroyDAO {
 	}
 	
 	@Override
+	public Integer selectCategroyId(String breed) {
+		return this.getSession().createQuery(
+				"SELECT id FROM PetCategroyBean WHERE breed = :breed", Integer.class)
+				.setParameter("breed", breed)
+				.uniqueResult();
+	}
+	
+	@Override
 	public PetCategroyBean insert(PetCategroyBean bean) {
 		if(bean!=null && bean.getBreed() != null && bean.getSpecies() != null) {		
 				this.getSession().persist(bean);

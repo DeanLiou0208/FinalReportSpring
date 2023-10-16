@@ -53,19 +53,19 @@ public class MemberDAOHibernate implements MemberDAO {
 		return null;
 	}
 	//可能棄用
-	@Override
-	public Integer select(String account, String password) {
-		if(account != null && password != null) {		
-			MemberBean member= this.getSession().createQuery("FROM MemberBean WHERE account = :account AND password = :password", MemberBean.class)
-			.setParameter("account", account)
-			.setParameter("password", password)
-			.uniqueResult();
-			if(member != null) {
-				return member.getId();
-			}
-		}
-		return null;
-	}
+//	@Override
+//	public Integer select(String account, String password) {
+//		if(account != null && password != null) {		
+//			MemberBean member= this.getSession().createQuery("FROM MemberBean WHERE account = :account AND password = :password", MemberBean.class)
+//			.setParameter("account", account)
+//			.setParameter("password", password)
+//			.uniqueResult();
+//			if(member != null) {
+//				return member.getId();
+//			}
+//		}
+//		return null;
+//	}
 	
 	@Override
 	public List<MemberBean> select() {

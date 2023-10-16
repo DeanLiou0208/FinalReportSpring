@@ -12,7 +12,7 @@ public interface MemberDAO {
 	
 	public abstract MemberBean select(String account);
 	
-	public abstract Integer select(String account, String password);
+//	public abstract Integer select(String account, String password);
 
 	public abstract List<MemberBean> select();
 
