@@ -7,4 +7,6 @@ import tw.ispan.eeit168.shop.domain.OrderListBean;
 public interface OrderListBeanDao {
 	
 	public abstract List<OrderListBean> select();
+	
+	public Integer findOrderId(Integer id);
 }

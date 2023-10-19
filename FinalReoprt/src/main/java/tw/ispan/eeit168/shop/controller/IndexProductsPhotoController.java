@@ -7,12 +7,15 @@ import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.ServletContext;
 import tw.ispan.eeit168.shop.service.IndexProductsPhotoService;
 
-@Controller
+@RestController
 @RequestMapping(path="/")
 @CrossOrigin
 public class IndexProductsPhotoController {
@@ -23,14 +26,14 @@ public class IndexProductsPhotoController {
 //	@Autowired
 //	private ServletContext servletContext;
 	
-	@GetMapping(path="/index/productphoto")
-	public ResponseEntity<?> findTopfive() {
+	@PostMapping(path="/index/productphoto")
+	public String findTopfive(@RequestBody String json) {
 		String findTopfive = indexProductsPhotoViewService.findTopfive();
 		
-		BodyBuilder response = ResponseEntity.ok();
-		BodyBuilder contentType = response.contentType(MediaType.APPLICATION_JSON);
-		ResponseEntity<String> body = contentType.body(findTopfive);
+//		BodyBuilder response = ResponseEntity.ok();
+//		BodyBuilder contentType = response.contentType(MediaType.APPLICATION_JSON);
+//		ResponseEntity<String> body = contentType.body(findTopfive);
 		
-		return body;
+		return findTopfive;
 	}
 }

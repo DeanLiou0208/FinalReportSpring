@@ -18,10 +18,10 @@ public class ShoppingCartBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name="fk_member_id")
+	@Column(name="fk_member_id" , updatable = false)
 	private Integer fkMemberId;
 	
-	@Column(name="fk_product_id")
+	@Column(name="fk_product_id" ,updatable = false)
 	private Integer fkProductId;
 	
 	@Column(name="count")

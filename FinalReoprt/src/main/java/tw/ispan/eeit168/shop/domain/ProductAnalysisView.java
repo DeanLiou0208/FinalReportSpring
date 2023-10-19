@@ -30,6 +30,8 @@ public class ProductAnalysisView {
 	@Column(name="quantity")
 	private Integer quantity;
 	
+	
+	
 	@Column(name="state")
 	private String state;
 	
@@ -50,6 +52,18 @@ public class ProductAnalysisView {
 	
 	@Column(name="price")
 	private Integer  price;
+	
+	@Column(name="product_id")
+	private Integer productId;
+	
+	public Integer getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -152,6 +166,7 @@ public class ProductAnalysisView {
 		return "ProductAnalysisView [id=" + id + ", companyId=" + companyId + ", shopName=" + shopName
 				+ ", orderListId=" + orderListId + ", quantity=" + quantity + ", state=" + state + ", stateChangeTime="
 				+ stateChangeTime + ", gender=" + gender + ", birth=" + birth + ", member_id=" + member_id + ", name="
-				+ name + ", price=" + price + "]";
-	}	
+				+ name + ", price=" + price + ", productId=" + productId + "]";
+	}
+
 }

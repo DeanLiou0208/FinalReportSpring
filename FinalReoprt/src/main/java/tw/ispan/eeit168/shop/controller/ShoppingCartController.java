@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import tw.ispan.eeit168.shop.domain.ShoppingCartBean;
+import tw.ispan.eeit168.shop.service.ShopCartViewService;
 import tw.ispan.eeit168.shop.service.ShoppingCartService;
 
 @RestController
@@ -22,6 +24,9 @@ public class ShoppingCartController {
 
 	@Autowired
 	private ShoppingCartService shoppingCartService;
+	
+	@Autowired
+	private ShopCartViewService shopCartViewService;
 
 	@PutMapping(path = "/product/addShoppingCart")
 	public String addShoppingCart(@RequestBody String json) {
@@ -96,7 +101,7 @@ public class ShoppingCartController {
 		return responseJson.toString();
 	}//updateShoppingCart end
 	
-	@DeleteMapping(path ="/member/shoppingCartRemove")
+	@PostMapping(path ="/member/shoppingCartRemove")
 	public String shoppingCartRemove(@RequestBody String json) {
 		JSONObject responseJson = new JSONObject();
 		
@@ -134,5 +139,12 @@ public class ShoppingCartController {
 		}
 		return responseJson.toString();
 	}
-
+	
+	@PostMapping(path ="/member/shoppingcart")
+	public String findMemberCart (@RequestBody String json) {
+//		JsonObject responseJson = new JsonObject();
+		String findMemberCart = shopCartViewService.findMemberCart(json);
+		
+		return findMemberCart;
+	}
 }

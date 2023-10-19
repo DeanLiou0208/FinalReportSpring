@@ -9,4 +9,5 @@ import tw.ispan.eeit168.shop.domain.OrderListBean;
 @Repository
 public interface OrderListBeanRepostiory extends JpaRepository<OrderListBean, Integer>, OrderListBeanDao{
 
+	
 }

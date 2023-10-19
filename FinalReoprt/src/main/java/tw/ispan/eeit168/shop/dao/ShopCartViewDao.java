@@ -8,4 +8,5 @@ import tw.ispan.eeit168.shop.domain.ShopCartView;
 public interface ShopCartViewDao {
 	List<ShopCartView> select();
 	ShopCartView select(Integer id);
+	List<ShopCartView> selectByFkmember(Integer id);
 }

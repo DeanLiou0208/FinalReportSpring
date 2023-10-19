@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import jakarta.persistence.PersistenceContext;
 import tw.ispan.eeit168.shop.domain.ProductAnalysisView;
 
+
 @Repository
 public class ProductAnalysisViewDaoHibernate implements ProductAnalysisViewDao{
 	
@@ -31,5 +32,11 @@ public class ProductAnalysisViewDaoHibernate implements ProductAnalysisViewDao{
 				.createQuery(hql,ProductAnalysisView.class )
 				.setParameter("shopName",shopName)//setParameter的兩個變數為(hql裡面宣告的變數=傳入的參數)
 				.list();			
+	}
+
+	
+	public List<ProductAnalysisView> selectByShopNameProductCount (String shopName) {
+		String hql = "new list(name,quantity) FROM  ProductAnalysisView WHERE shopName = :shopName";
+		return this.getSession().createQuery(hql, ProductAnalysisView.class).setParameter("shopName",shopName).list();
 	}
 }

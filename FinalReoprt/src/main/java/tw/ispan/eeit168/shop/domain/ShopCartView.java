@@ -27,6 +27,19 @@ public class ShopCartView {
 	 private String type;
 	@Column(name = "description")
 	 private String description;
+	@Column(name= "photo_id")
+	 private Integer photoId;
+	@Column(name= "img")
+	 private String img;
+	@Column(name ="shop_name")
+	 private String shopName;
+	 
+	public String getShopName() {
+		return shopName;
+	}
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -50,6 +63,18 @@ public class ShopCartView {
 	}
 	public void setFkMemberId(Integer fkMemberId) {
 		this.fkMemberId = fkMemberId;
+	}
+	public Integer getPhotoId() {
+		return photoId;
+	}
+	public void setPhotoId(Integer photoId) {
+		this.photoId = photoId;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 	public Integer getCount() {
 		return count;
@@ -85,8 +110,8 @@ public class ShopCartView {
 	public String toString() {
 		return "ShopCartView [id=" + id + ", productId=" + productId + ", uid=" + uid + ", fkMemberId=" + fkMemberId
 				+ ", count=" + count + ", name=" + name + ", price=" + price + ", type=" + type + ", description="
-				+ description + "]"+"\n";
+				+ description + ", photoId=" + photoId + ", img=" + img + ", shopName=" + shopName + "]";
 	}
-	
-	 
+
+ 
 }

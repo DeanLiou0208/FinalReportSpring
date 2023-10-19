@@ -8,4 +8,7 @@ public interface ProductAnalysisViewDao {
 	public List<ProductAnalysisView> select();
 	
 	public List<ProductAnalysisView> selectByShopName(String shopName);
+	
+	public List<ProductAnalysisView> selectByShopNameProductCount (String shopName);
+	
 }

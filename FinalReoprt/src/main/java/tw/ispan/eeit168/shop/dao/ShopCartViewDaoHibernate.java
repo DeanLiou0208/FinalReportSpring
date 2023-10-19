@@ -29,4 +29,12 @@ public class ShopCartViewDaoHibernate implements ShopCartViewDao {
 		}
 		return null;
 	}
+	@Override
+	public  List<ShopCartView> selectByFkmember(Integer id) {
+		String hql = "FROM ShopCartView WHERE fkMemberId  = :id";
+		if(id != null) {
+			return this.getSession().createQuery(hql,ShopCartView.class).setParameter("id", id).list();
+		}
+		return null;
+	}
 }
