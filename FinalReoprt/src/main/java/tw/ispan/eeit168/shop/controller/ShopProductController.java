@@ -51,7 +51,13 @@ public class ShopProductController {
 				.put("description", product.getDescription())
 				.put("companyShopName", product.getCompanyShopName())
 				.put("memberShopName", product.getMemberShopName())
-				.put("avgRateScore", product.getAvgRateScore());
+				.put("avgRateScore", product.getAvgRateScore())
+				.put("size", product.getSize());
+				if( product.getStatus()!=null&&product.getStatus()) {
+					item.put("status","上架中");
+				}else {
+					item.put("status","下架中");
+				}
 				
 				array = array.put(item);
 				

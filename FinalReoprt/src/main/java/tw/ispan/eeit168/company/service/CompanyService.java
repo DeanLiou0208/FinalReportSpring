@@ -15,7 +15,13 @@ import tw.ispan.eeit168.company.domain.CompanyBean;
 public class CompanyService {
 	@Autowired
 	private CompanyDao companyDao;
-
+	
+	public boolean existsid(Integer id) {
+		return companyDao.select(id) != null;
+	}
+	public CompanyBean selectById(Integer id) {
+		return companyDao.select(id) ;
+	}
 	public boolean exists(String account) {
 		return companyDao.selectByAccount(account) != null;
 	}

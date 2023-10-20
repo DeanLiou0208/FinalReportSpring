@@ -198,5 +198,23 @@ public class ProductService {
 	}
 	
 	
-	
+	public ProductBean modifyStatus(String json) {
+		try {
+			JSONObject obj = new JSONObject(json);
+			Integer id = obj.isNull("id") ? null : obj.getInt("id");
+			Boolean status = obj.isNull("status") ? null : obj.getBoolean("status");
+			if (id == null) {
+				return null;
+			} else {
+				ProductBean update = productDao.select(id);
+				
+				update.setStatus(status);
+
+				return productDao.update(update);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

@@ -59,7 +59,9 @@ public class LoginController {
 				responseJson.put("success", true);
 				responseJson.put("identity", "廠商");
 				responseJson.put("account", company.getAccount());
-				
+				responseJson.put("username", company.getShopName());
+				responseJson.put("id", company.getId());
+				responseJson.put("img", company.getImg());
 			}
 		}
 		return responseJson.toString();

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
 import tw.ispan.eeit168.company.domain.CompanyOrderView;
+import tw.ispan.eeit168.company.domain.ProductDetailsRateView;
 
 
 @Repository
@@ -34,21 +35,20 @@ public class CompanyOrderViewDaoHibernate implements CompanyOrderViewDao {
 	}
 	
 	
+	
+	
 	@Override
-	public List<CompanyOrderView> selectByShopName(String shopName) {
-	    if (shopName != null) {
-	        String queryString = "FROM CompanyOrderView WHERE shopName = :shopName";
-	        Query<CompanyOrderView> query = this.getSession().createQuery(queryString, CompanyOrderView.class);
-	        query.setParameter("shopName", shopName);
-	        
-	        // 使用 query.list() 或 query.uniqueResult() 來執行查詢
-	        List<CompanyOrderView> results = query.list();
-	        
-	        if (!results.isEmpty()) {
-	            // 如果查詢結果不為空，返回第一個匹配的結果
-	            return results;
-	        }
-	    }
-	    return null;
-	}
+	public List<CompanyOrderView> selectByCompanyId(Integer companyId) {
+		
+        if (companyId != null) {
+            // 使用HQL查询数据库
+        
+            String hql = "FROM CompanyOrderView WHERE companyId = :companyId";
+            Query<CompanyOrderView> query = session.createQuery(hql, CompanyOrderView.class);
+            query.setParameter("companyId", companyId);
+           
+            return query.list();
+        }
+        return null;
+    }
 }

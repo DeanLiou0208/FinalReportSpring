@@ -10,5 +10,7 @@ public interface CompanyOrderViewDao {
 	
 	public abstract List<CompanyOrderView> select();
 
-	List<CompanyOrderView> selectByShopName(String shopName);
+	List<CompanyOrderView> selectByCompanyId(Integer companyId);
+
+
 }

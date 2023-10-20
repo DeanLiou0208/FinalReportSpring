@@ -2,7 +2,7 @@ package tw.ispan.eeit168.company.service;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.sql.Timestamp;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +22,8 @@ public class CompanyOrderViewService {
 	@Autowired
 	private OrderDetailsBeanDaoRepository odbdr;
 
-	public List<CompanyOrderView> existsShopName(String ShopName) {
-		return companyOrderViewDao.selectByShopName(ShopName);
+	public List<CompanyOrderView> existsCompanyId(Integer id) {
+		return companyOrderViewDao.selectByCompanyId(id);
 	}
 
 	public OrderDetailsBean modify(String body) {
@@ -36,9 +36,9 @@ public class CompanyOrderViewService {
 			if (optional != null && optional.isPresent()) {
 
 				OrderDetailsBean update = optional.get();
-
+				
 				update.setState(state);
-
+				update.setStateChangeTime(new Timestamp(System.currentTimeMillis()));
 				return odbdr.save(update);
 			}
 		} catch (Exception e) {

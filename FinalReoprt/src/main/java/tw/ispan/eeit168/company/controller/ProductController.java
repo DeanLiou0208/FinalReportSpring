@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -312,8 +313,8 @@ public class ProductController {
 	}
 
 
-	@GetMapping(path = "/product-photo")
-	public List<ProductPhotoBean> productPhoto(@RequestParam(name = "productId") Integer productId) {
+	@GetMapping(path = "/product-photo/{productId}")
+	public List<ProductPhotoBean> productPhoto(@PathVariable Integer productId) {
 
 		List<ProductPhotoBean> product = null;
 
@@ -353,5 +354,34 @@ public class ProductController {
 		return responseJson.toString();
 	}
 
+	@PutMapping(path = "/product/updatestatus")
+	public String modifyStatus(@RequestBody String body) {
+		JSONObject responseJson = new JSONObject();
+		JSONObject obj = new JSONObject(body);
 
+		Integer id = obj.isNull("id") ? null : obj.getInt("id");
+
+
+		if (productservice.idExists(id) == null) {
+			responseJson.put("message", "查無此商品");
+			responseJson.put("success", false);
+
+		}  else {
+			ProductBean product = null;
+
+			try {
+				product = productservice.modifyStatus(body);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (product == null) {
+				responseJson.put("message", "修改失敗");
+				responseJson.put("success", false);
+			} else {
+				responseJson.put("message", "修改成功");
+				responseJson.put("success", true);
+			}
+		}
+		return responseJson.toString();
+	}
 }

@@ -119,12 +119,43 @@ public class ShopProductView {
 		this.avgRateScore = avgRateScore;
 	}
 
+
+
+	
+
+
 	@Override
 	public String toString() {
 		return "ShopProductView [productId=" + productId + ", id=" + id + ", img=" + img + ", companyShopName="
 				+ companyShopName + ", memberShopName=" + memberShopName + ", price=" + price + ", name=" + name
-				+ ", description=" + description + ", type=" + type + ", avgRateScore=" + avgRateScore + "]";
+				+ ", description=" + description + ", type=" + type + ", avgRateScore=" + avgRateScore + ", size="
+				+ size + ", status=" + status + "]";
 	}
 
+
+
+
+
+
+	@Column(name = "size")
+	private String  size;
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+	@Column(name = "status")
+	private Boolean  status;
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
 	
 }

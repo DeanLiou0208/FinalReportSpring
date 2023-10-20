@@ -25,12 +25,11 @@ public class CompanyOrderViewController {
 	
 	@PostMapping(path="/companys/orders")
 	public List<CompanyOrderView> selectCompanyOrder(@RequestBody String body) {	
-		
+		System.out.println(body);
 		JSONObject obj = new JSONObject(body);
-		String shopName = obj.isNull("shopName") ? null : obj.getString("shopName");
-		
-		
-		return companyOrderService.existsShopName(shopName);
+		Integer companyId = obj.isNull("companyId") ? null : obj.getInt("companyId");
+			
+		return companyOrderService.existsCompanyId(companyId);
 	}
 	@PostMapping(path="/companys/ordersupdate")
 	public String modify(@RequestBody String body) {
