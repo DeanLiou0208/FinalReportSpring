@@ -39,6 +39,19 @@ public class MemberDAOHibernate implements MemberDAO {
 		}	
 		return null;
 	}
+	//聊天室用 找使用者名稱
+//	@Override
+//	public String selectUserName(Integer id) {
+//		if(id != null) {		
+//			String memberUserName= this.getSession().createQuery("Select userName FROM MemberBean WHERE id = :id", String.class)
+//			.setParameter("id", id)
+//			.uniqueResult();
+//			if(memberUserName != null) {
+//				return memberUserName;
+//			}
+//		}	
+//		return null;
+//	}
 	
 	@Override
 	public MemberBean select(String account) {

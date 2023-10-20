@@ -54,6 +54,7 @@ public class MemberController {
 				responseJson.put("account", accountVerification.getAccount());
 				responseJson.put("identity", "會員");
 				responseJson.put("username", accountVerification.getUserName());
+				responseJson.put("img", accountVerification.getImg());
 			} else {
 				responseJson.put("message", "登入失敗，帳號或密碼錯誤");
 				responseJson.put("success", false);
@@ -143,7 +144,12 @@ public class MemberController {
 			responseJson.put("firstName", member.getFirstName());
 			responseJson.put("lastName", member.getLastName());
 			responseJson.put("userName", member.getUserName());
-			responseJson.put("gender", member.getGender());
+			if(member.getGender() == null) {
+				responseJson.put("gender", "");				
+			}else {
+				responseJson.put("gender", member.getGender());								
+			}
+			System.out.println(member.getGender());
 			//將資料庫的時間改成字串送給前端
 			if(member.getBirth() != null) {
 				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
@@ -185,10 +191,10 @@ public class MemberController {
 				e.printStackTrace();
 			}
 			if(member==null) {
-				responseJson.put("message", "修改失敗");
+				responseJson.put("message", "資料更新失敗");
 				responseJson.put("success", false);
 			} else {
-				responseJson.put("message", "修改成功");
+				responseJson.put("message", "資料已更新");
 				responseJson.put("success", true);
 			}
 		}

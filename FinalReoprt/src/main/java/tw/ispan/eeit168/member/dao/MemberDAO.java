@@ -10,6 +10,8 @@ public interface MemberDAO {
 	
 	public abstract Integer selectById(String account);
 	
+//	public abstract String selectUserName(Integer id);
+	
 	public abstract MemberBean select(String account);
 	
 //	public abstract Integer select(String account, String password);
