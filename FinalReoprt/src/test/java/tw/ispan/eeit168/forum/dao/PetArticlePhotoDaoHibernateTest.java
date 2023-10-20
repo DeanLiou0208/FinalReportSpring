@@ -18,12 +18,12 @@ public class PetArticlePhotoDaoHibernateTest {
 		List<PetArticlePhotoBean> selects = petArticlePhotoDao.select();
 		System.out.println("selects="+selects);
 	}
-	@Test
+//	@Test
 	public void testSelectById() {
 		PetArticlePhotoBean select = petArticlePhotoDao.select(10);
 		System.out.println("select="+select);		
 	}
-	@Test
+//	@Test
 	public void testSelectByPetArticleId() {
 		List<PetArticlePhotoBean> petArticleId = petArticlePhotoDao.selectByPetArticleId(9);
 		System.out.println("petArticleId="+petArticleId);	
@@ -56,4 +56,10 @@ public class PetArticlePhotoDaoHibernateTest {
 		boolean delete = petArticlePhotoDao.delete(29);
 		System.out.println("delete="+delete);
 	}
+	@Test
+	public void testDeleteByPetArticleId() {
+		Boolean deleteByPetArticleId = petArticlePhotoDao.deleteByPetArticleId(1);
+		System.out.println("deleteByPetArticleId="+deleteByPetArticleId);
+	}
+	
 }

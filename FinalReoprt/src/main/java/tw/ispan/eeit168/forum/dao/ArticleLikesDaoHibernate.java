@@ -10,7 +10,7 @@ import tw.ispan.eeit168.forum.domain.ArticleLikesBean;
 import tw.ispan.eeit168.shop.util.DoublePrimaryKey;
 
 @Repository
-public class ArticleLikesBeanDaoHibernate implements ArticleLikesBeanDao{
+public class ArticleLikesDaoHibernate implements ArticleLikesDao{
 	
 	@PersistenceContext
 	private Session session;
@@ -38,6 +38,35 @@ public class ArticleLikesBeanDaoHibernate implements ArticleLikesBeanDao{
 	}
 	
 	@Override
+	public List<Integer> petArticleLike(Integer fkMemberId) {
+	
+		if(fkMemberId != null) {
+		String hql = "select fkPetArticleId from ArticleLikesBean where fkMemberId = :fkMemberId and likeOrUnlike = true";
+		 List<Integer> list = this.getSession()
+					.createQuery(hql, Integer.class)
+					.setParameter("fkMemberId", fkMemberId)
+					.list();
+
+		 return list;
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Integer> petArticleUnlike(Integer fkMemberId) {
+		if(fkMemberId != null) {
+		
+		String hql = "select fkPetArticleId from ArticleLikesBean where fkMemberId = :fkMemberId and likeOrUnlike = false";
+		return  this.getSession()
+					.createQuery(hql, Integer.class)
+					.setParameter("fkMemberId", fkMemberId)
+					.list();
+		}
+		return null;
+	}
+	
+	
+	@Override
 	public List<ArticleLikesBean> selectLikeByFkPetArticleId(Integer fkPetArticleId){
 		if(fkPetArticleId != null) {
 			String hql = "from ArticleLikesBean where fkPetArticleId = :fkPetArticleId";
@@ -52,9 +81,9 @@ public class ArticleLikesBeanDaoHibernate implements ArticleLikesBeanDao{
 	public ArticleLikesBean insert(ArticleLikesBean bean) {
 		if(bean != null) {
 			Integer mid = bean.getFkMemberId();
-			System.out.println(mid);
+//			System.out.println(mid);
 			Integer pAid = bean.getFkPetArticleId();
-			System.out.println(pAid);
+//			System.out.println(pAid);
 			if(mid != null && pAid != null) {
 				String hql = "from ArticleLikesBean where fkMemberId =:mid and fkPetArticleId = :pAid";
 				ArticleLikesBean result = this.getSession()
@@ -63,7 +92,7 @@ public class ArticleLikesBeanDaoHibernate implements ArticleLikesBeanDao{
 												.setParameter("pAid", pAid)
 												.uniqueResult();
 				//.uniqueResult 是回傳單的一的物件,但不能用isEmpity, 只能用==null
-				System.out.println(result);
+//				System.out.println(result);
 				if(result == null) {
 					this.getSession().persist(bean);
 					return bean;
@@ -94,11 +123,18 @@ public class ArticleLikesBeanDaoHibernate implements ArticleLikesBeanDao{
 	}
 	
 	@Override
-	public  boolean delete(DoublePrimaryKey bean) {
-		if(bean.getFkMemberId() != null && bean.getFkPetArticleId() != null) {
-			ArticleLikesBean temp = this.getSession().get(ArticleLikesBean.class, bean);
-			if(temp != null) {
-				this.getSession().remove(temp);
+	public  Boolean delete(Integer id) {
+		if(id!= null) {
+			String hql = "FROM ArticleLikesBean WHERE fkPetArticleId = :fkPetArticleId";
+			List<ArticleLikesBean> list = this.getSession().createQuery(hql, ArticleLikesBean.class)
+			.setParameter("fkPetArticleId", id)
+			.list();
+//			System.out.println(list);
+			if(list != null && !list.isEmpty()) {
+				for(ArticleLikesBean articleLike : list) {
+					
+					this.getSession().remove(articleLike);
+				}
 				return true;
 			}
 		}

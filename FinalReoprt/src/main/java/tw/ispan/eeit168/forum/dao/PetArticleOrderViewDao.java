@@ -11,6 +11,8 @@ public interface PetArticleOrderViewDao {
 	
 	public abstract List<PetArticleOrderView> selectShrech(String srt);
 	
+	public abstract Long count (List<Integer> petArticleIdRecord,JSONObject obj);
+	
 	public abstract List<PetArticleOrderView> find (List<Integer> speciesRecord,JSONObject obj);
 	
 	public abstract List<PetArticleOrderView> findByMemberId (JSONObject obj);

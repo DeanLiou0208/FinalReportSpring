@@ -32,11 +32,14 @@ public class CommentsLikePostView {
 	@Column(name = "unlike_count")
 	private Integer unlikeCount;
 
+	@Column(name="img" ,columnDefinition = "varchar")
+	private String img;
+
 	@Override
 	public String toString() {
 		return "CommentsLikePostView [id=" + id + ", fkPetArticleId=" + fkPetArticleId + ", commentsText="
 				+ commentsText + ", createAt=" + createAt + ", userName=" + userName + ", likeCount=" + likeCount
-				+ ", unlikeCount=" + unlikeCount + "]";
+				+ ", unlikeCount=" + unlikeCount + ", img=" + img + "]";
 	}
 
 	public Integer getId() {
@@ -94,10 +97,14 @@ public class CommentsLikePostView {
 	public void setUnlikeCount(Integer unlikeCount) {
 		this.unlikeCount = unlikeCount;
 	}
-	
-	
-	
-	
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 
 
 }

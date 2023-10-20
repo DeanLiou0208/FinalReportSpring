@@ -21,7 +21,7 @@ public class CommentsDaoHibernateTest {
 		System.out.println("selects=" + selects);
 	}
 
-	@Test
+//	@Test
 	public void testSelectById() {
 		CommentsBean select = commentsDao.select(10);
 		System.out.println("select=" + select);

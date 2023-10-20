@@ -55,6 +55,36 @@ public class CommentsLikesDaoHibernate implements CommentsLikesDao {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Integer> commentLike(Integer fkMemberId) {
+	
+		if(fkMemberId != null) {
+		String hql = "select fkCommentId from CommentsLikesBean where fkMemberId = :fkMemberId and likeOrUnlike = true";
+		 List<Integer> list = this.getSession()
+					.createQuery(hql, Integer.class)
+					.setParameter("fkMemberId", fkMemberId)
+					.list();
+
+		 return list;
+		}
+		return null;
+	}
+// 查詢完該留言按讚跟按倒讚數寫CommentsLikePostViewAjaxService
+	@Override
+	public List<Integer> commentUnlike(Integer fkMemberId) {
+	
+		if(fkMemberId != null) {
+		String hql = "select fkCommentId from CommentsLikesBean where fkMemberId = :fkMemberId and likeOrUnlike = false";
+		 List<Integer> list = this.getSession()
+					.createQuery(hql, Integer.class)
+					.setParameter("fkMemberId", fkMemberId)
+					.list();
+
+		 return list;
+		}
+		return null;
+	}
 	@Override
 	public CommentsLikesBean insert(CommentsLikesBean bean) {
 		if(bean!=null) {

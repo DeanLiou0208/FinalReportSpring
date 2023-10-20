@@ -114,7 +114,7 @@ public class PetArticleSpeciesMidDaoHibernate implements PetArticleSpeciesMidDao
 			String sql = "FROM PetArticleSpeciesMidBean WHERE fkPetArticleId= :fkPetArticleId";
 			List<PetArticleSpeciesMidBean> list = this.getSession().createQuery(sql, PetArticleSpeciesMidBean.class)
 				.setParameter("fkPetArticleId", fkPetArticleId).getResultList();
-			System.out.println(list);
+//			System.out.println(list);
 			if(!list.isEmpty()) {
 				for(PetArticleSpeciesMidBean bean :list) {
 					

@@ -11,5 +11,6 @@ public interface CommentsLikePostViewDao {
 	public abstract List<CommentsLikePostView> select();
 	
 	public abstract List<CommentsLikePostView> selectByPetArticleId(JSONObject obj);
-
+	
+	
 }

@@ -6,8 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,8 @@ import tw.ispan.eeit168.shop.util.DoublePrimaryKey;
 
 @RestController
 @RequestMapping(path = "/pages/ajax")
+@CrossOrigin
+@Transactional
 public class ArticleLikesAjaxController {
 	@Autowired
 	private ArticleLikesAjaxService articleLikesAjaxService;
@@ -73,7 +78,7 @@ public class ArticleLikesAjaxController {
 		ArticleLikesBean articleLikesBean = null;
 		try {
 			articleLikesBean = articleLikesAjaxService.create(body);
-			System.out.println("2="+articleLikesBean);
+//			System.out.println("2="+articleLikesBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,13 +91,14 @@ public class ArticleLikesAjaxController {
 		}
 		return responseJson.toString();
 	}
-	@DeleteMapping(path = "/articleLikesRemove")
-	public String remove (@RequestBody String body) {
+	@DeleteMapping(path = "/articleLikesRemove/{id}")
+	public String remove (@PathVariable("id") Integer id) {
 		JSONObject responseJson = new JSONObject();
-		System.out.println(body);
+//		System.out.println(id);
+		
 		try {			
-			if(articleLikesAjaxService.remove(body)){
-				System.out.println("1");
+			if(articleLikesAjaxService.remove(id)){
+//				System.out.println("1");
 				responseJson.put("message", "刪除成功");
 				responseJson.put("success", true);
 			}else {

@@ -25,7 +25,7 @@ public class PetArticlePhotoAjaxService {
 		return petArticlePhotoDao.select(id);
 	}
 	public List<PetArticlePhotoBean> selectByPetArticleId(Integer fkPetArticleId) {
-		System.out.println(fkPetArticleId);
+//		System.out.println(fkPetArticleId);
 		return petArticlePhotoDao.selectByPetArticleId(fkPetArticleId);
 	}
 	public PetArticlePhotoBean create(String json) {

@@ -14,5 +14,9 @@ public interface CommentsLikesDao {
 	
 	public abstract boolean delete(Integer fkMemberId, Integer fkCommentId);
 	
+	public abstract List<Integer> commentLike(Integer fkMemberId);
+	
+	public abstract List<Integer> commentUnlike(Integer fkMemberId);
+	
 	
 }

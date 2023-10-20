@@ -35,8 +35,8 @@ public class PetArticleOrderView {
 	@Column(name="unlike_count")
 	private Integer unLikeCount;
 	
-	@Column(name="lasttime", insertable = false)
-	private Timestamp lastTime;
+	@Column(name="create_at", insertable = false)
+	private Timestamp createAt;
 	
 	@Column(name="img")
 	private String img;
@@ -48,7 +48,7 @@ public class PetArticleOrderView {
 	public String toString() {
 		return "PetArticleOrderView [id=" + id + ", fkMemberId=" + fkMemberId + ", title=" + title + ", type=" + type
 				+ ", petArticleText=" + petArticleText + ", likeCount=" + likeCount + ", unLikeCount=" + unLikeCount
-				+ ", lastTime=" + lastTime + ", img=" + img + ", main=" + main + "]";
+				+ ", createAt=" + createAt + ", img=" + img + ", main=" + main + "]";
 	}
 
 	public Integer getId() {
@@ -107,12 +107,12 @@ public class PetArticleOrderView {
 		this.unLikeCount = unLikeCount;
 	}
 
-	public Timestamp getLastTime() {
-		return lastTime;
+	public Timestamp getCreateAt() {
+		return createAt;
 	}
 
-	public void setLastTime(Timestamp lastTime) {
-		this.lastTime = lastTime;
+	public void setCreateAt(Timestamp createAt) {
+		this.createAt = createAt;
 	}
 
 	public String getImg() {
@@ -132,8 +132,5 @@ public class PetArticleOrderView {
 	}
 	
 	
-
 	
-
-	
-}
+	}

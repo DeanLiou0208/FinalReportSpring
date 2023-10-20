@@ -75,7 +75,7 @@ public class PetArticleSpeciesMidAjaxService {
 					integerValues.add(intValue);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-					System.err.println("Invalid integer value: " + value);
+//					System.err.println("Invalid integer value: " + value);
 				}
 			}
 			

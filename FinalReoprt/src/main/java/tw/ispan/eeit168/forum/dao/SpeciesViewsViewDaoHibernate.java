@@ -74,4 +74,14 @@ public class SpeciesViewsViewDaoHibernate implements SpeciesViewsViewDao {
 			return null;
 		}
 	}
+	@Override
+	public List<SpeciesViewsView> selectByArticleIds(Integer fkPetArticleId){
+		if(fkPetArticleId!= null) {
+			List<SpeciesViewsView> list = this.getSession().createQuery("FROM SpeciesViewsView WHERE fkPetArticleId= :fkPetArticleId", SpeciesViewsView.class)
+			.setParameter("fkPetArticleId", fkPetArticleId)
+			.list();
+			return list;
+		}
+		return null;
+	}
 }

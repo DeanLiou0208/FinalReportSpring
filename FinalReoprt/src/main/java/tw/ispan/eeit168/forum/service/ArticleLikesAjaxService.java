@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.ispan.eeit168.forum.dao.ArticleLikesBeanDao;
+import tw.ispan.eeit168.forum.dao.ArticleLikesDao;
 import tw.ispan.eeit168.forum.dao.PetArticleDao;
 import tw.ispan.eeit168.forum.domain.ArticleLikesBean;
 import tw.ispan.eeit168.forum.domain.PetArticleBean;
@@ -20,7 +20,7 @@ import tw.ispan.eeit168.shop.util.DoublePrimaryKey;
 @Transactional(rollbackFor = {Exception.class})
 public class ArticleLikesAjaxService {
 	@Autowired
-	private ArticleLikesBeanDao articleLikesBeanDao;
+	private ArticleLikesDao articleLikesBeanDao;
 	@Autowired
 	private MemberDAO memberDAO;
 	@Autowired
@@ -40,7 +40,7 @@ public class ArticleLikesAjaxService {
 			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
 			Integer fkPetArticleId = obj.isNull("fkPetArticleId") ? null : obj.getInt("fkPetArticleId");
 			Boolean likeOrUnlike = obj.isNull("likeOrUnlike") ? null : obj.getBoolean("likeOrUnlike");
-			System.out.println("1="+fkMemberId);
+//			System.out.println("1="+fkMemberId);
 			MemberBean memberId = memberDAO.select(fkMemberId);
 			PetArticleBean petArticleId = petArticleDao.select(fkPetArticleId);
 			if(memberId!= null && petArticleId!= null) {
@@ -56,19 +56,18 @@ public class ArticleLikesAjaxService {
 		}
 		return null;
 	}
-	public Boolean remove(String json) {
-        JSONObject obj = new JSONObject(json);
-        Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
-		Integer fkPetArticleId = obj.isNull("fkPetArticleId") ? null : obj.getInt("fkPetArticleId");
-		System.out.println("1="+fkMemberId);
-		List<ArticleLikesBean> byMemberId = articleLikesBeanDao.selectLikeByMemberId(fkMemberId);
-		List<ArticleLikesBean> byPetArticleId = articleLikesBeanDao.selectLikeByFkPetArticleId(fkPetArticleId);
-		if(byMemberId!=null && byPetArticleId!=null) {
-			DoublePrimaryKey bean = new DoublePrimaryKey();
-			bean.setFkMemberId(fkMemberId);
-			bean.setFkPetArticleId(fkPetArticleId);
-			return articleLikesBeanDao.delete(bean);
+	
+	public Boolean remove(Integer id) {
+       
+		try {
+			if(id!=null) {
+				
+				return articleLikesBeanDao.delete(id);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
+
 }

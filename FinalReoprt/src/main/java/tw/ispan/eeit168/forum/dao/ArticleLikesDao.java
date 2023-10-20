@@ -5,7 +5,7 @@ import java.util.List;
 import tw.ispan.eeit168.forum.domain.ArticleLikesBean;
 import tw.ispan.eeit168.shop.util.DoublePrimaryKey;
 
-public interface ArticleLikesBeanDao {
+public interface ArticleLikesDao {
 	public abstract List<ArticleLikesBean> select();
 	
 	public abstract List<ArticleLikesBean> selectLikeByMemberId(Integer fkMemberId);
@@ -16,5 +16,10 @@ public interface ArticleLikesBeanDao {
 	
 	public abstract ArticleLikesBean update(ArticleLikesBean bean);
 	
-	public abstract boolean delete(DoublePrimaryKey bean);
+	public abstract List<Integer> petArticleLike(Integer fkMemberId);
+	
+	public abstract List<Integer> petArticleUnlike(Integer fkMemberId);
+	
+	public abstract Boolean delete(Integer fkPetArticleId);
+
 }

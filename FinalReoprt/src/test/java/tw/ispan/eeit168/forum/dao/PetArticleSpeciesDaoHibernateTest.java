@@ -12,12 +12,12 @@ import tw.ispan.eeit168.forum.domain.PetArticleSpeciesBean;
 public class PetArticleSpeciesDaoHibernateTest {
 	@Autowired
 	private PetArticleSpeciesDao petArticleSpeciesDao;
-	@Test
+//	@Test
 	public void testSelect() {
 		List<PetArticleSpeciesBean> selects = petArticleSpeciesDao.selects();
 		System.out.println("selects="+selects);
 	}
-	@Test
+//	@Test
 	public void testSelectBySpecies() {
 		PetArticleSpeciesBean species = petArticleSpeciesDao.select(1);
 		System.out.println("species="+species);

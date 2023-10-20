@@ -69,7 +69,7 @@ public class PetArticleDaoHibernate implements PetArticleDao {
 		.setParameter("currentDate", now+"%")
 		.setMaxResults(10)
 		.getResultList();
-		System.out.println(resultList);
+//		System.out.println(resultList);
 		return resultList;
 		
 	}

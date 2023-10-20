@@ -1,4 +1,4 @@
-package tw.ispan.eeit168.member.domain;
+package tw.ispan.eeit168.forum.domain;
 
 import java.sql.Timestamp;
 
@@ -39,117 +39,121 @@ public class PetArticlePostView {
 	private Integer likeCount;
 	
 	@Column(name="unlike_count")
-	private Integer unlike_count;
+	private Integer unlikeCount;
 	
 	@Column(name="total_comments")
 	private Integer totalComments;
-
 	
-	public Integer getPetArticleId() {
-		return petArticleId;
-	}
-
-
-	public void setPetArticleId(Integer petArticleId) {
-		this.petArticleId = petArticleId;
-	}
-
-
-	public String getUid() {
-		return uid;
-	}
-
-
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
-
-
-	public String getType() {
-		return type;
-	}
-
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-
-	public String getTitle() {
-		return title;
-	}
-
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
-	public String getPetArticleText() {
-		return petArticleText;
-	}
-
-
-	public void setPetArticleText(String petArticleText) {
-		this.petArticleText = petArticleText;
-	}
-
-
-	public Timestamp getCreateAt() {
-		return createAt;
-	}
-
-
-	public void setCreateAt(Timestamp createAt) {
-		this.createAt = createAt;
-	}
-
-
-	public String getUserName() {
-		return userName;
-	}
-
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-
-	public Integer getLikeCount() {
-		return likeCount;
-	}
-
-
-	public void setLikeCount(Integer likeCount) {
-		this.likeCount = likeCount;
-	}
-
-
-	public Integer getUnlike_count() {
-		return unlike_count;
-	}
-
-
-	public void setUnlike_count(Integer unlike_count) {
-		this.unlike_count = unlike_count;
-	}
-
-
-	public Integer getTotalComments() {
-		return totalComments;
-	}
-
-
-	public void setTotalComments(Integer totalComments) {
-		this.totalComments = totalComments;
-	}
-
+	@Column(name="img" ,columnDefinition = "varchar")
+	private String img;
+	
+	@Column(name="member_id")
+	private Integer memberId;
 
 	@Override
 	public String toString() {
 		return "PetArticlePostView [petArticleId=" + petArticleId + ", uid=" + uid + ", type=" + type + ", title="
 				+ title + ", petArticleText=" + petArticleText + ", createAt=" + createAt + ", userName=" + userName
-				+ ", likeCount=" + likeCount + ", unlike_count=" + unlike_count + ", totalComments=" + totalComments
-				+ "]";
-	}	
-}
+				+ ", likeCount=" + likeCount + ", unlikeCount=" + unlikeCount + ", totalComments=" + totalComments
+				+ ", img=" + img + ", memberId=" + memberId + "]";
+	}
+
+	public Integer getPetArticleId() {
+		return petArticleId;
+	}
+
+	public void setPetArticleId(Integer petArticleId) {
+		this.petArticleId = petArticleId;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getPetArticleText() {
+		return petArticleText;
+	}
+
+	public void setPetArticleText(String petArticleText) {
+		this.petArticleText = petArticleText;
+	}
+
+	public Timestamp getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(Timestamp createAt) {
+		this.createAt = createAt;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public Integer getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(Integer likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public Integer getUnlikeCount() {
+		return unlikeCount;
+	}
+
+	public void setUnlikeCount(Integer unlikeCount) {
+		this.unlikeCount = unlikeCount;
+	}
+
+	public Integer getTotalComments() {
+		return totalComments;
+	}
+
+	public void setTotalComments(Integer totalComments) {
+		this.totalComments = totalComments;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public Integer getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
+	}
+	
+	
+
+	}

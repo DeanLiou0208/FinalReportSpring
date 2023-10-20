@@ -29,9 +29,9 @@ public class CommentsLikesAjaxController {
 		JSONObject responseJson = new JSONObject();
 		
 		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-			Map<String, Object> jsonObject = objectMapper.readValue(json, Map.class);
-			Integer fkMemberId = (Integer)jsonObject.get("fkMemberId");
+
+			JSONObject obj = new JSONObject(json);
+			Integer fkMemberId = obj.isNull("fkMemberId")? null : obj.getInt("fkMemberId");
 			
 			JSONArray array = new JSONArray();
 			List<CommentsLikesBean> result = commentsLikesAjaxService.select(fkMemberId);
@@ -46,9 +46,6 @@ public class CommentsLikesAjaxController {
 				}
 			}
 			responseJson.put("list", array);
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}return responseJson.toString();

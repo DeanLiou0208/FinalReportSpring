@@ -28,15 +28,24 @@ public class PetArticleOrderViewAjaxController {
 		List<PetArticleOrderView> list = petArticleOrderViewAjaxService.findAll();
 		if(list!=null) {
 			for(PetArticleOrderView petArticle : list) {
+//				判斷按讚數是否為空值
+				Integer likeCount = petArticle.getLikeCount();
+				if(likeCount == null) {
+					likeCount = 0;
+				}
+				Integer unlikeCount = petArticle.getUnLikeCount();;
+				if(unlikeCount == null) {
+					unlikeCount = 0;
+				}
 				JSONObject item = new JSONObject()
 						.put("id", petArticle.getId())
 						.put("fkMemberId", petArticle.getFkMemberId())
 						.put("title", petArticle.getTitle())
 						.put("type", petArticle.getType())
 						.put("petArticleText", petArticle.getPetArticleText())
-						.put("likeCount", petArticle.getLikeCount())
-						.put("unLikeCount", petArticle.getUnLikeCount())
-						.put("lastTime", petArticle.getLastTime())
+						.put("likeCount", likeCount)
+						.put("unLikeCount", unlikeCount)
+						.put("lastTime", petArticle.getCreateAt())
 						.put("img", petArticle.getImg())
 						.put("mian",petArticle.getMain());
 				array = array.put(item);
@@ -48,24 +57,35 @@ public class PetArticleOrderViewAjaxController {
 	@PostMapping(path = "/PetArticleOrderView/find")
 	public String find(@RequestBody String body) {
 		JSONObject responseJson = new JSONObject();
+		long count = petArticleOrderViewAjaxService.count(body);
+		responseJson.put("count", count);
 		JSONArray array = new JSONArray();
 		List<PetArticleOrderView> find = petArticleOrderViewAjaxService.find(body);
-		System.out.println(find);
+		
 		if(find!=null && !find.isEmpty()) {
 			for(PetArticleOrderView petArticle :find) {
+//			判斷按讚數是否為空值
+				Integer likeCount = petArticle.getLikeCount();
+				if(likeCount == null) {
+					likeCount = 0;
+				}
+				Integer unlikeCount = petArticle.getUnLikeCount();;
+				if(unlikeCount == null) {
+					unlikeCount = 0;
+				}
 				JSONObject item = new JSONObject()
 						.put("id", petArticle.getId())
 						.put("fkMemberId", petArticle.getFkMemberId())
 						.put("title", petArticle.getTitle())
 						.put("type", petArticle.getType())
 						.put("petArticleText", petArticle.getPetArticleText())
-						.put("likeCount", petArticle.getLikeCount())
-						.put("unLikeCount", petArticle.getUnLikeCount())
-						.put("lastTime", petArticle.getLastTime())
+						.put("likeCount", likeCount)
+						.put("unLikeCount", unlikeCount)
+						.put("lastTime", petArticle.getCreateAt())
 						.put("img", petArticle.getImg())
 						.put("mian",petArticle.getMain());
 				array = array.put(item);
-				System.out.println("array="+array);
+//				System.out.println("array="+array);
 			}
 		}
 		responseJson.put("list", array);
@@ -86,7 +106,7 @@ public class PetArticleOrderViewAjaxController {
 						.put("petArticleText", bean.getPetArticleText())
 						.put("likeCount", bean.getLikeCount())
 						.put("unLikeCount", bean.getUnLikeCount())
-						.put("lastTime", bean.getLastTime())
+						.put("lastTime", bean.getCreateAt())
 						.put("img", bean.getImg())
 						.put("mian",bean.getMain());
 							

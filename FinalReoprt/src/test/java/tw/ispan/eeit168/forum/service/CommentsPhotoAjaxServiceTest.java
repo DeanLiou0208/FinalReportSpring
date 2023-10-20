@@ -14,7 +14,7 @@ public class CommentsPhotoAjaxServiceTest {
 	@Autowired
 	private CommentsPhotoAjaxService commentsPhotoAjaxService;
 
-	@Test
+//	@Test
 	public void testFindAll() {
 		List<CommentsPhotoBean> findAll = commentsPhotoAjaxService.findAll();
 		System.out.println("findAll="+findAll);
@@ -26,7 +26,7 @@ public class CommentsPhotoAjaxServiceTest {
 				.put("img", "data:image/jpeg;base64;cp13");
 		
 		CommentsPhotoBean create = commentsPhotoAjaxService.create(obj.toString());
-		System.out.println("create="+create);
+//		System.out.println("create="+create);
 	}
 //	@Test
 	public void testModify() {

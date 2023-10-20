@@ -29,6 +29,34 @@ public class PetArticleOrderViewAjaxService {
 		return list;
 	}
 	
+	public long count (String json) {
+		try {
+			JSONObject obj = new JSONObject(json);
+			
+			JSONArray speciesIdArray = obj.optJSONArray("speciesId");
+			
+			String speciesIdString=null;
+			if (speciesIdArray != null&&!speciesIdArray.isEmpty()) {
+	            // 如果存在，将其转换为一个 List<Integer>
+	            List<Integer> speciesIds = new ArrayList<>();
+	            for (int i = 0; i < speciesIdArray.length(); i++) {
+	                speciesIds.add(speciesIdArray.getInt(i));
+	            }
+//	            使用Java 8引入的串流（Stream）操作，將speciesIds中的整數轉換為字符串
+	            speciesIdString = speciesIds.stream()
+	            		.map(Object::toString)
+	            		.collect(Collectors.joining(","));
+//	            System.out.println(speciesIdString); 
+	            }
+			List<Integer> petArticleIdRecord = speciesViewsViewDao.selectBySpeciesIds(speciesIdString);
+			return petArticleOrderViewDao.count(petArticleIdRecord,obj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+		
 	public List<PetArticleOrderView> find (String json){
 		
 			try {
@@ -36,9 +64,9 @@ public class PetArticleOrderViewAjaxService {
 //				String speciesId = obj.isNull("speciesId") ? null: obj.getString("speciesId");
 //			"species" 跟前端一樣
 				JSONArray speciesIdArray = obj.optJSONArray("speciesId");
-				System.out.println("speciesIdArray:"+ 111);
+			
 				String speciesIdString=null;
-				if (speciesIdArray != null) {
+				if (speciesIdArray != null&&!speciesIdArray.isEmpty()) {
 		            // 如果存在，将其转换为一个 List<Integer>
 		            List<Integer> speciesIds = new ArrayList<>();
 		            for (int i = 0; i < speciesIdArray.length(); i++) {
@@ -48,9 +76,9 @@ public class PetArticleOrderViewAjaxService {
 		            speciesIdString = speciesIds.stream()
 		            		.map(Object::toString)
 		            		.collect(Collectors.joining(","));
-		            System.out.println(speciesIdString); 
+//		            System.out.println(speciesIdString); 
 		            }
-
+				
 				
 //			藉由species找出寵物fkPetArticleId
 				List<Integer> petArticleIdRecord = speciesViewsViewDao.selectBySpeciesIds(speciesIdString);

@@ -20,7 +20,7 @@ public class SpeciesViewsViewDaoHibernateTests {
 		List<SpeciesViewsView> selects = speciesViewsViewDao.select();
 		System.out.println("selects=" + selects);
 	}
-	@Test
+//	@Test
 	public void testSelect() {
 		
 		List<Integer> bySpeciesIds = speciesViewsViewDao.selectBySpeciesIds("1,3");

@@ -91,6 +91,23 @@ public class PetArticlePhotoDaoHibernate implements PetArticlePhotoDao {
 		}
 		return false;
 	}
+	@Override
+	public Boolean deleteByPetArticleId(Integer fkPetArticleId){
+		if(fkPetArticleId!= null) {
+			List<PetArticlePhotoBean> list = this.getSession().createQuery("FROM PetArticlePhotoBean WHERE fkPetArticleId = :fkPetArticleId", PetArticlePhotoBean.class)
+			.setParameter("fkPetArticleId", fkPetArticleId)
+			.list();
+//			System.out.println(list);
+			if(!list.isEmpty()) {
+				for(PetArticlePhotoBean photo : list) {
+					
+					this.getSession().remove(photo);
+				}
+				return true;
+		}
+		}
+		return false;
+	}
 
 
 }

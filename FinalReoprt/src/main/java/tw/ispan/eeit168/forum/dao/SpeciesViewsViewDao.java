@@ -11,4 +11,8 @@ public interface SpeciesViewsViewDao {
 	public abstract List<SpeciesViewsView> select();
 	
 	public abstract List<Integer> selectBySpeciesIds(String fkPetArticleSpeciesId);
+	
+	public abstract List<SpeciesViewsView> selectByArticleIds(Integer fkPetArticleId);
+	
+	
 }

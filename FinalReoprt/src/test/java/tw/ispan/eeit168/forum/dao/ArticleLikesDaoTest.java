@@ -7,18 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import jakarta.transaction.Transactional;
-import tw.ispan.eeit168.forum.dao.ArticleLikesBeanDao;
+import tw.ispan.eeit168.forum.dao.ArticleLikesDao;
 import tw.ispan.eeit168.forum.domain.ArticleLikesBean;
 import tw.ispan.eeit168.shop.util.DoublePrimaryKey;
 
 @SpringBootTest
 @Transactional
-public class ArticleLikesBeanDaoTest {
+public class ArticleLikesDaoTest {
 	
 	@Autowired
-	private ArticleLikesBeanDao articleLikesBeanDao;
+	private ArticleLikesDao articleLikesBeanDao;
 	
-	//@Test
+	@Test
 	public void select() {
 		List<ArticleLikesBean> select = articleLikesBeanDao.select();
 		System.out.println(select);
@@ -55,13 +55,13 @@ public class ArticleLikesBeanDaoTest {
 		System.out.println(result);
 	}
 	
-	@Test
+//	@Test
 	public void delete() {
-		DoublePrimaryKey delete = new DoublePrimaryKey();
-		delete.setFkMemberId(1);
-		delete.setFkPetArticleId(1);
+//		DoublePrimaryKey delete = new DoublePrimaryKey();
+//		delete.setFkMemberId(1);
+//		delete.setFkPetArticleId(1);
 		
-		boolean result = articleLikesBeanDao.delete(delete);
+		boolean result = articleLikesBeanDao.delete(10);
 		System.out.println(result);
 	}
 }

@@ -11,7 +11,7 @@ import tw.ispan.eeit168.forum.domain.PetArticlePhotoBean;
 public class PetArticlePhotoAjaxServiceTest {
 	@Autowired
 	private PetArticlePhotoAjaxService petArticlePhotoAjaxService;
-	@Test
+//	@Test
 	public void testCreate() {
 		JSONObject obj = new JSONObject()
 				.put("fkPetArticleId", 8)

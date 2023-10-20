@@ -72,7 +72,7 @@ public class PetArticleSpeciesMidAjaxController {
 			Boolean petArticleSpeciesMid = null;
 			try {
 				petArticleSpeciesMid = petArticleSpeciesMidAjaxService.modify(body);
-				System.out.println(petArticleSpeciesMid);
+//				System.out.println(petArticleSpeciesMid);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

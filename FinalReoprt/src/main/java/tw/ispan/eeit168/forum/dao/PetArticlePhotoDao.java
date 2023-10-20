@@ -17,5 +17,6 @@ public interface PetArticlePhotoDao {
 	
 	public abstract boolean delete(Integer id);
 	
+	public abstract Boolean deleteByPetArticleId(Integer fkPetArticleId);
 
 }

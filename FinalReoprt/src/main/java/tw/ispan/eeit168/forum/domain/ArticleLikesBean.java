@@ -1,6 +1,8 @@
 package tw.ispan.eeit168.forum.domain;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,8 +15,8 @@ import tw.ispan.eeit168.shop.util.DoublePrimaryKey;
 
 @Entity
 @Table(name="article_likes")
-@IdClass(DoublePrimaryKey.class)
-public class ArticleLikesBean {
+@IdClass(ArticleLikesBean.DoublePrimaryKey.class)
+public class ArticleLikesBean implements Serializable {
 	
 	@Id
 	@Column(name="fk_member_id")
@@ -67,4 +69,36 @@ public class ArticleLikesBean {
 		return "ArticleLikesBean [fkMemberId=" + fkMemberId + ", fkPetArticleId=" + fkPetArticleId + ", createAt="
 				+ createAt + ", likeOrUnlike=" + likeOrUnlike + "]";
 	}
+	public static class DoublePrimaryKey implements Serializable {
+		private Integer fkMemberId;
+		public Integer getFkMemberId() {
+			return fkMemberId;
+		}
+		public void setFkMemberId(Integer fkMemberId) {
+			this.fkMemberId = fkMemberId;
+		}
+		public Integer getFkPetArticleId() {
+			return fkPetArticleId;
+		}
+		public void setFkPetArticleId(Integer fkPetArticleId) {
+			this.fkPetArticleId = fkPetArticleId;
+		}
+		private Integer fkPetArticleId;
+		@Override
+		public int hashCode() {
+			return Objects.hash(fkMemberId, fkPetArticleId);
+		}
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			DoublePrimaryKey other = (DoublePrimaryKey) obj;
+			return Objects.equals(fkMemberId, other.fkMemberId) && Objects.equals(fkPetArticleId, other.fkPetArticleId);
+		}	
+	}
+	
 }

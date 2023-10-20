@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import tw.ispan.eeit168.forum.domain.CommentsBean;
 import tw.ispan.eeit168.forum.service.CommentsAjaxService;
@@ -19,7 +21,7 @@ import tw.ispan.eeit168.forum.service.CommentsAjaxService;
 public class CommentsAjaxController {
 	@Autowired
 	private CommentsAjaxService commentsAjaxService;
-	@PostMapping(path = "/Comments")
+	@PostMapping(path = "/CommentsCreate")
 	public String create(@RequestBody String body) {
 		JSONObject responseJson = new JSONObject();
 		CommentsBean commentsBean = null;
@@ -38,7 +40,7 @@ public class CommentsAjaxController {
 		return responseJson.toString();
 	}
 	@PutMapping(path = "/CommentsModify")
-	public String modify(@RequestBody String body) {
+	public String modify(@RequestParam(value = "file",required = false) MultipartFile file, String body) {
 		JSONObject responseJson = new JSONObject();
 		JSONObject obj = new JSONObject(body);
 		Integer id = obj.isNull("id") ? null: obj.getInt("id");
@@ -48,7 +50,7 @@ public class CommentsAjaxController {
 		}else {
 			CommentsBean commentsBean = null;
 			try {
-				commentsBean = commentsAjaxService.modify(body);
+				commentsBean = commentsAjaxService.modify(body,file);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}if(commentsBean==null) {

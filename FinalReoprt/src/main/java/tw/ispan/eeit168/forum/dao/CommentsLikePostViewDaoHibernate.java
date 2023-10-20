@@ -34,7 +34,7 @@ public class CommentsLikePostViewDaoHibernate implements CommentsLikePostViewDao
 //      SELECT * FROM comments_like_post WHERE　fk_pet_article_id = 2 ORDER BY create_at DESC
 	@Override
 	public List<CommentsLikePostView> selectByPetArticleId(JSONObject obj){
-		Integer fkPetArticleId = obj.isNull("fkPetArticleId")? null: obj.getInt("fkPetArticleId");
+		Integer fkPetArticleId = obj.isNull("petArticleId")? null: obj.getInt("petArticleId");
 		
 		String sort = obj.isNull("sort") ? "createAt" : obj.getString("sort");
 		String order = obj.isNull("order")? "desc" : obj.getString("order");

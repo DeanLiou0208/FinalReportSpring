@@ -74,7 +74,7 @@ public class PetArticlePhotoAjaxController {
 		JSONObject obj = new JSONObject(body);
 		Integer fkPetArticleId = obj.isNull("fkPetArticleId") ? null : obj.getInt("fkPetArticleId");
 		if(!petArticleAjaxService.exists(fkPetArticleId)) {
-			System.out.println(fkPetArticleId);
+//			System.out.println(fkPetArticleId);
 			responseJson.put("message", "資料不存在");
 			responseJson.put("success", false);
 		}else {

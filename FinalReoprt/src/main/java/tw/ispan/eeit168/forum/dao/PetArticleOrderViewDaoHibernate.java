@@ -48,6 +48,55 @@ public class PetArticleOrderViewDaoHibernate implements PetArticleOrderViewDao {
 		return null;
 	}
 	@Override
+	public Long count (List<Integer> petArticleIdRecord,JSONObject obj){
+//		模糊查詢title
+		String title = obj.isNull("title") ? null : obj.getString("title");
+//		挑選文章類型
+		String type = obj.isNull("type") ? null : obj.getString("type");
+		
+
+//		SELECT count(*)FROM pet_article_order WHERE type =('寵物用品')
+//		AND petArticleId in ('1','3')
+//		AND title like '%貓%'
+		
+		CriteriaBuilder builder = this.getSession().getCriteriaBuilder();
+		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+
+//		FROM pet_article_order
+		Root<PetArticleOrderView> root = criteria.from(PetArticleOrderView.class);
+//		select count(*)
+		criteria = criteria.select(builder.count(root));
+//		WHERE
+		List<Predicate> predicates = new ArrayList<>();
+//		type = ('寵物用品')
+		if(type!=null) {
+			predicates.add(builder.equal(root.get("type"), type));
+		}
+//		species in ('狗狗家族','貓貓家族')
+//		System.out.println("petArticleIdRecord="+petArticleIdRecord);
+		if(!petArticleIdRecord.isEmpty()) {
+			In<Object> in = builder.in(root.get("id"));
+			for(Integer item : petArticleIdRecord) {
+				in.value(item);
+			}
+			predicates.add(in);
+		}
+//		title like '%狗%'
+		if(title != null && title.length()!=0) {
+			predicates.add(builder.like(root.get("title"), "%"+title+"%"));
+		}
+//	WHERE type in ('寵萌搞笑','寵物用品')AND title like '%狗%'	
+		if(predicates!=null && !predicates.isEmpty()) {
+			Predicate[] array = predicates.toArray(new Predicate[1]);
+			criteria = criteria.where(array);
+		}
+		TypedQuery<Long> typedQuery = this.getSession().createQuery(criteria);
+		return typedQuery.getSingleResult();
+		
+		
+	}
+	
+	@Override
 	public List<PetArticleOrderView> find (List<Integer> petArticleIdRecord,JSONObject obj){
 
 //		模糊查詢title
@@ -71,7 +120,7 @@ public class PetArticleOrderViewDaoHibernate implements PetArticleOrderViewDao {
 //		AND title like '%貓%'
 //		ORDER BY like_count desc
 //	    ORDER BY unlike_count desc
-//		ORDER BY lasttime desc
+//		ORDER BY createAt desc
 		
 		CriteriaBuilder builder = this.getSession().getCriteriaBuilder();
 		CriteriaQuery<PetArticleOrderView> criteria = builder.createQuery(PetArticleOrderView.class);
@@ -85,7 +134,7 @@ public class PetArticleOrderViewDaoHibernate implements PetArticleOrderViewDao {
 			predicates.add(builder.equal(root.get("type"), type));
 		}
 //		species in ('狗狗家族','貓貓家族')
-		System.out.println("petArticleIdRecord="+petArticleIdRecord);
+//		System.out.println("petArticleIdRecord="+petArticleIdRecord);
 		if(!petArticleIdRecord.isEmpty()) {
 			In<Object> in = builder.in(root.get("id"));
 			for(Integer item : petArticleIdRecord) {
@@ -104,7 +153,7 @@ public class PetArticleOrderViewDaoHibernate implements PetArticleOrderViewDao {
 		}
 //		ORDER BY like_count desc
 //	    ORDER BY unlike_count desc
-//		ORDER BY lasttime desc
+//		ORDER BY createAt desc
 	
 		if("desc".equals(order)) {
 			criteria.orderBy(builder.desc(root.get(sort)));
