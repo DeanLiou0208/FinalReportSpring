@@ -1,5 +1,6 @@
 package tw.ispan.eeit168.shop.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -60,6 +61,24 @@ public class ShoppingCartBeanDaoHibernate implements ShoppingCartBeanDao {
 		return null;
 	}
 	
+	
+	public boolean CheckShoppingCartExit(Integer id, Integer ids) {
+		String hql = "FROM shoppingCart WHERE fkMemberId = :id AND fkProductId = :ids;";
+		List<ShoppingCartBean> arrayList = new ArrayList<ShoppingCartBean>();
+		if(id != null && ids != null) {
+					arrayList = 
+					this.getSession()
+					.createQuery(hql, ShoppingCartBean.class)
+					.setParameter("id", id)
+					.setParameter("ids", ids)
+					.list();
+			if(arrayList != null && !arrayList.isEmpty()) {
+				return true; 
+			}
+			return false;
+		}
+		return false;
+	}
 	
 	
 }

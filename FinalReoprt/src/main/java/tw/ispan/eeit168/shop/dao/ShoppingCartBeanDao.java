@@ -17,5 +17,7 @@ public interface ShoppingCartBeanDao {
 	
 	public abstract ShoppingCartBean update(ShoppingCartBean bean);
 	
+	public abstract boolean CheckShoppingCartExit(Integer id, Integer ids);
+	
 	
 }
