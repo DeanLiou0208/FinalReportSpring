@@ -1,5 +1,6 @@
 package tw.ispan.eeit168.shop.controller;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import tw.ispan.eeit168.shop.dao.ShoppingCartBeanDao;
 import tw.ispan.eeit168.shop.domain.ShoppingCartBean;
 import tw.ispan.eeit168.shop.service.ShopCartViewService;
 import tw.ispan.eeit168.shop.service.ShoppingCartService;
@@ -27,6 +29,9 @@ public class ShoppingCartController {
 	
 	@Autowired
 	private ShopCartViewService shopCartViewService;
+	
+	@Autowired
+	private ShoppingCartBeanDao shoppingCartBeanDao;
 
 	@PutMapping(path = "/product/addShoppingCart")
 	public String addShoppingCart(@RequestBody String json) {
@@ -147,4 +152,55 @@ public class ShoppingCartController {
 		
 		return findMemberCart;
 	}
+	
+	@PostMapping(path = "/member/addshoppingcartmore")
+	public boolean addShoppingCartMore(@RequestBody String json) {
+		
+		boolean checkShoppingCartExits = shoppingCartService.CheckShoppingCartExits(json);
+		return checkShoppingCartExits;
+	}
+	
+//	還沒寫完
+//	@PostMapping(path = "/member/addshoppingcartplus")
+//	public String addshoppingCartPlus(@RequestBody String json) {
+//		JSONObject responseJson = new JSONObject();
+//		boolean checkShoppingCartExits = shoppingCartService.CheckShoppingCartExits(json);
+//		JSONObject obj = new JSONObject(json);
+//		
+//		Integer fkMemberId = obj.isNull("fkMember") ? null : obj.getInt("fkMember");
+//		Integer fkProductId = obj.isNull("fkProductId") ? null : obj.getInt("fkProductId");
+//		Integer count = obj.isNull("count") ? null : obj.getInt("count");
+//		
+//		
+//		if (fkMemberId == null || !shoppingCartService.memberExists(fkMemberId)) {
+//			responseJson.put("message", "會員不存在");
+//			responseJson.put("success", false);
+//		}
+//
+//		else if (fkProductId == null || !shoppingCartService.productExists(fkProductId)) {
+//			responseJson.put("message", "商品不存在");
+//			responseJson.put("success", false);
+//		} else {
+//			ShoppingCartBean addShoppingCart = null;
+//			try {
+//				if(checkShoppingCartExits == false) {
+//					addShoppingCart = shoppingCartService.addShoppingCart(json);
+//				}
+//				
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			if (addShoppingCart == null) {
+//				responseJson.put("message", "新增失敗");
+//				responseJson.put("success", false);
+//			} else {
+//				responseJson.put("message", "新增成功");
+//				responseJson.put("success", true);
+//			}
+//
+//		}
+//		return responseJson.toString();
+//		
+//	}
+	
 }

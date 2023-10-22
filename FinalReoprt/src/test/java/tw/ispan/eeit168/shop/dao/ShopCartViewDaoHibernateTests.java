@@ -27,4 +27,6 @@ public class ShopCartViewDaoHibernateTests {
 		ShopCartView select = shopCartViewDao.select(10);
 		System.out.println("select=" + select);
 	}
+	
+
 }

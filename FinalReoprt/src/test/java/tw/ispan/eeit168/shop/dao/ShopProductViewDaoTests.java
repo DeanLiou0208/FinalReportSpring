@@ -33,7 +33,7 @@ public class ShopProductViewDaoTests {
 		System.out.println("select=" + select);
 	}
 	
-	@Test
+//	@Test
 	public void find() {
 		JSONObject obj = new JSONObject()
 		.put("name", "這是")

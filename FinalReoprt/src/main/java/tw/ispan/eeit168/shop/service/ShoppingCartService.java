@@ -109,4 +109,16 @@ public class ShoppingCartService {
 		}
 		return false;
 	}
+	
+	public boolean CheckShoppingCartExits(String json) {
+		JSONObject obj = new JSONObject(json);
+		Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
+		Integer fkProductId = obj.isNull("fkProductId") ? null : obj.getInt("fkProductId");
+		
+		if(fkMemberId != null && fkMemberId != 0 && fkProductId != null && fkProductId != 0) {
+			boolean checkShoppingCartExit = shoppingCartBeanDao.CheckShoppingCartExit(fkMemberId, fkProductId);
+			return checkShoppingCartExit;
+		}
+		return false;
+	}
 }

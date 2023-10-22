@@ -25,6 +25,7 @@ public class ShoppingCartBeanDaoHibernate implements ShoppingCartBeanDao {
 	public List<ShoppingCartBean> select() {
 		return this.getSession().createQuery("from ShoppingCartBean", ShoppingCartBean.class).list();
 	}
+
 	@Override
 	public ShoppingCartBean selectById(Integer id) {
 		if (id != null) {
@@ -32,53 +33,65 @@ public class ShoppingCartBeanDaoHibernate implements ShoppingCartBeanDao {
 		} else
 			return null;
 	}
+
 	@Override
-	public ShoppingCartBean insert (ShoppingCartBean bean) {
+	public ShoppingCartBean insert(ShoppingCartBean bean) {
 		if (bean != null) {
-				this.getSession().persist(bean);
-				return bean;
-			}
+			this.getSession().persist(bean);
+			return bean;
+		}
 		return null;
 	}
+
+	@Override
 	public boolean delect(Integer id) {
-		if(id != null) {
+		if (id != null) {
 			ShoppingCartBean temp = this.getSession().get(ShoppingCartBean.class, id);
-			if(temp != null) {
+			if (temp != null) {
 				this.getSession().remove(temp);
 				return true;
-			}			
+			}
 		}
 		return false;
 	}
-	
+
+	@Override
 	public ShoppingCartBean update(ShoppingCartBean bean) {
-		if(bean != null && bean.getId() != null) {
+		if (bean != null && bean.getId() != null) {
 			ShoppingCartBean temp = this.getSession().get(ShoppingCartBean.class, bean.getId());
-			if(temp != null) {
-				 return (ShoppingCartBean)this.getSession().merge(temp);
+			if (temp != null) {
+				return (ShoppingCartBean) this.getSession().merge(temp);
 			}
 		}
 		return null;
 	}
-	
-	
+
+	@Override
 	public boolean CheckShoppingCartExit(Integer id, Integer ids) {
-		String hql = "FROM shoppingCart WHERE fkMemberId = :id AND fkProductId = :ids;";
+
+		String hql = "FROM ShoppingCartBean WHERE fkMemberId = :id AND fkProductId = :ids";
 		List<ShoppingCartBean> arrayList = new ArrayList<ShoppingCartBean>();
-		if(id != null && ids != null) {
-					arrayList = 
-					this.getSession()
-					.createQuery(hql, ShoppingCartBean.class)
-					.setParameter("id", id)
-					.setParameter("ids", ids)
-					.list();
-			if(arrayList != null && !arrayList.isEmpty()) {
-				return true; 
+		if (id != null && ids != null) {
+			arrayList = this.getSession().createQuery(hql, ShoppingCartBean.class).setParameter("id", id)
+					.setParameter("ids", ids).list();
+			if (arrayList != null && !arrayList.isEmpty()) {
+				return true;
 			}
 			return false;
 		}
 		return false;
 	}
-	
-	
+
+	@Override
+	public ShoppingCartBean selectTheMenmberCart(Integer id, Integer ids) {
+		String hql = "FROM ShoppingCartBean WHERE fkMemberId = :id AND fkProductId = :ids";
+		ShoppingCartBean shoppingCartBean = null;
+		if (id != null && ids != null) {
+			shoppingCartBean = this.getSession().createQuery(hql, ShoppingCartBean.class).setParameter("id", id)
+					.setParameter("ids", ids).getSingleResultOrNull();
+			return shoppingCartBean;
+		}
+		return null;
+	}
+
 }
