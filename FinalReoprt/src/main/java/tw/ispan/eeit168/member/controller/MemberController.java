@@ -149,7 +149,7 @@ public class MemberController {
 			}else {
 				responseJson.put("gender", member.getGender());								
 			}
-			System.out.println(member.getGender());
+
 			//將資料庫的時間改成字串送給前端
 			if(member.getBirth() != null) {
 				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  

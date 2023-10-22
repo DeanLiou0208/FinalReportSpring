@@ -113,7 +113,7 @@ public class MemberDAOHibernate implements MemberDAO {
 			.setParameter("account", account)
 			.setParameter("password", password)
 			.executeUpdate();
-			System.out.println(result);
+			System.out.println("更改密碼結果"+result);
 			if(result==1) {
 				return true;
 			}
