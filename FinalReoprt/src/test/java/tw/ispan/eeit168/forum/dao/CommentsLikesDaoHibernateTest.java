@@ -42,10 +42,10 @@ public class CommentsLikesDaoHibernateTest {
 		
 	}
 //	@Test
-	public void testDelete() {
-		boolean delete = commentsLikesDao.delete(5, 18);
-		System.out.println("delete="+delete);
-	}
-	
+//	public void testDelete() {
+//		boolean delete = commentsLikesDao.delete(5, 18);
+//		System.out.println("delete="+delete);
+//	}
+//	
 	
 	}

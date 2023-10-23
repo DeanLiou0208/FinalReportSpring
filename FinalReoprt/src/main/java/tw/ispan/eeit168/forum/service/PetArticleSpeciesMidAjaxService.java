@@ -89,7 +89,7 @@ public class PetArticleSpeciesMidAjaxService {
 				}return true;
 		}else {
 			// Handle the case when 'fkPetArticleSpeciesId' is null
-			System.out.println("fkPetArticleSpeciesId is null");
+//			System.out.println("fkPetArticleSpeciesId is null");
 		}
 		return false;	
 	}

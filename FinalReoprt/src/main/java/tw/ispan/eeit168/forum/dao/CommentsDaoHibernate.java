@@ -43,13 +43,10 @@ public class CommentsDaoHibernate implements CommentsDao {
 	}
 	@Override
 	public CommentsBean insert(CommentsBean bean) {
-		if(bean.getFkMemberId()!=null && bean.getFkPetArticleId()!= null) {
-			CommentsBean temp1 = this.getSession().get(CommentsBean.class,bean.getFkMemberId());
-			CommentsBean temp2 = this.getSession().get(CommentsBean.class,bean.getFkPetArticleId());
-		   if(temp1!=null && temp2!=null) {
+		if(bean !=null) {
 			   this.getSession().persist(bean);
 			   return bean;			   
-		   }			
+		   			
 		}
 		return null;
 	}
@@ -63,7 +60,7 @@ public class CommentsDaoHibernate implements CommentsDao {
 		}
 		return null;
 	}
-	
+	@Override
 	public boolean delete(Integer id) {
 		if(id!= null) {
 			CommentsBean temp = this.getSession().get(CommentsBean.class, id);
@@ -71,6 +68,21 @@ public class CommentsDaoHibernate implements CommentsDao {
 				this.getSession().remove(temp);
 				return true;
 			}
+		}
+		return false;
+	}
+	@Override
+	public boolean deleteByPetArticleId(Integer fkPetArticleId) {
+		if(fkPetArticleId!=null) {
+			List<CommentsBean> list = this.getSession().createQuery("FROM CommentsBean WHERE fkPetArticleId = :fkPetArticleId",CommentsBean.class)
+			.setParameter("fkPetArticleId", fkPetArticleId)
+			.list();
+			if(list!=null && !list.isEmpty()) {
+				for(CommentsBean comment : list) {
+					this.getSession().remove(comment);
+					return true;
+				}
+		    }
 		}
 		return false;
 	}

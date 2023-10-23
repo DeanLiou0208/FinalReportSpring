@@ -5,9 +5,11 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import tw.ispan.eeit168.forum.service.CommentsLikesAjaxService;
 @RestController
 @RequestMapping(path = "/pages/ajax")
 @CrossOrigin
+//@Transactional
 public class CommentsLikesAjaxController {
 	@Autowired
 	private CommentsLikesAjaxService commentsLikesAjaxService;
@@ -99,16 +102,13 @@ public class CommentsLikesAjaxController {
 		return responseJson.toString();
 	}
 	
-	@DeleteMapping(path = "/commentsLikes/commentsLikesRemove")
-	public String remove (@RequestBody String json) {
+	@DeleteMapping(path = "/commentsLikes/commentsLikesRemove/{fkCommentId}")
+	public String remove (@PathVariable("fkCommentId") Integer fkCommentId) {
 		
 		JSONObject responseJson = new JSONObject();
 		try {
-			JSONObject obj = new JSONObject(json);
-			Integer fkMemberId = obj.isNull("fkMemberId")? null : obj.getInt("fkMemberId");
-			Integer fkCommentId = obj.isNull("fkCommentId")? null : obj.getInt("fkCommentId");
 		
-		if(commentsLikesAjaxService.remove(fkMemberId,fkCommentId)) {
+		if(commentsLikesAjaxService.remove(fkCommentId)) {
 			responseJson.put("message", "刪除成功");
 			responseJson.put("success", true);
 		}else {
@@ -120,4 +120,28 @@ public class CommentsLikesAjaxController {
 	    }
 	return responseJson.toString();
 }
+	
+	@DeleteMapping(path = "/commentDislike/{fkCommentId}/{fkMemberId}")
+	public String removeLike(@PathVariable Integer fkCommentId,@PathVariable Integer fkMemberId) {
+		JSONObject responseJson = new JSONObject();
+		boolean result = false;
+		try {
+			result = commentsLikesAjaxService.removeLike(fkCommentId, fkMemberId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(result) {
+			responseJson.put("message", "已取消愛心");
+			responseJson.put("success", true);
+		}else {
+			responseJson.put("message", "取消失敗");
+			responseJson.put("success", false);
+		}
+		return responseJson.toString();
+	}
+	
+	
+	
+	
+	
 }

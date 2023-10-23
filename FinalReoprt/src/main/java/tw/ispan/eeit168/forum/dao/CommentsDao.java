@@ -17,4 +17,6 @@ public abstract CommentsBean insert(CommentsBean bean);
 public abstract CommentsBean update(CommentsBean bean);
 
 public abstract boolean delete(Integer id);
+
+public abstract boolean deleteByPetArticleId(Integer fkPetArticleId);
 }

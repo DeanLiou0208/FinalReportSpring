@@ -52,7 +52,7 @@ public class SpeciesViewsViewDaoHibernate implements SpeciesViewsViewDao {
 //		WHERE
 		List<Predicate> predicates = new ArrayList<>();	
 //		[fk_pet_article_species_id] in (1,3)
-		System.out.println(speciesIdList);
+//		System.out.println(speciesIdList);
 		if(speciesIdList!=null) {
 			In<Object> in = builder.in(root.get("fkPetArticleSpeciesId"));
 			for(String speciesId : speciesIdList) {

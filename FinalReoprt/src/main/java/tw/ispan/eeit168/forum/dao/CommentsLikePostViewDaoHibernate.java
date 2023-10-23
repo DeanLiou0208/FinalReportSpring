@@ -69,4 +69,18 @@ public class CommentsLikePostViewDaoHibernate implements CommentsLikePostViewDao
 		}
 		
 	}
+//    SELECT * FROM comments_like_post WHERE　fk_pet_article_id = ?
+	@Override
+	public List<CommentsLikePostView> selectByPetArticleId(Integer fkPetArticleId){
+		if(fkPetArticleId != null) {
+			String sql = "FROM CommentsLikePostView WHERE fkPetArticleId = :fkPetArticleId";
+			List<CommentsLikePostView> list = this.getSession().createQuery(sql, CommentsLikePostView.class)
+			.setParameter( "fkPetArticleId", fkPetArticleId)
+			.list();
+//			System.out.println("list:"+list);
+		return list;
+			
+		}
+		return null;
+	}
 }

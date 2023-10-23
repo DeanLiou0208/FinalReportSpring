@@ -90,6 +90,7 @@ public class CommentsLikesDaoHibernate implements CommentsLikesDao {
 		if(bean!=null) {
 			Integer fkMemberId =bean.getFkMemberId();
 			Integer fkCommentId =bean.getFkCommentId();
+			
 			List<CommentsLikesBean> list = this.getSession().createQuery("from CommentsLikesBean WHERE fkMemberId = :fkMemberId AND fkCommentId = :fkCommentId", CommentsLikesBean.class)
 			.setParameter("fkMemberId", fkMemberId)
 			.setParameter("fkCommentId", fkCommentId)
@@ -102,18 +103,36 @@ public class CommentsLikesDaoHibernate implements CommentsLikesDao {
 		return null;
 	}
 	@Override
-	public boolean delete(Integer fkMemberId, Integer fkCommentId) {
-		if(fkMemberId!= null && fkCommentId!=null) {
+	public boolean delete(Integer fkCommentId) {
+		if(fkCommentId!=null) {
 		
-			List<CommentsLikesBean> list = this.getSession().createQuery("FROM CommentsLikesBean WHERE fkMemberId = :fkMemberId AND fkCommentId= :fkCommentId", CommentsLikesBean.class)
-			.setParameter("fkMemberId", fkMemberId)
+			List<CommentsLikesBean> list = this.getSession().createQuery("FROM CommentsLikesBean WHERE fkCommentId= :fkCommentId", CommentsLikesBean.class)
 			.setParameter("fkCommentId", fkCommentId)
 			.list();
 			
-			if(!list.isEmpty()) {
-				this.getSession().remove(list.get(0));
+			if(list!=null && !list.isEmpty()) {
+				for(CommentsLikesBean comment : list)
+				
+				this.getSession().remove(comment);
+				return true; 
+			}
+		}
+		return false;
+	}
+	@Override
+	public boolean deleteLike (Integer fkCommentId,Integer fkMemberId) {
+		if(fkCommentId!=null && fkMemberId!=null) {
+			String sql = "FROM CommentsLikesBean WHERE fkCommentId = :fkCommentId AND fkMemberId = :fkMemberId";
+			CommentsLikesBean likeBean = this.getSession().createQuery(sql, CommentsLikesBean.class)
+			.setParameter("fkCommentId", fkCommentId)
+			.setParameter("fkMemberId", fkMemberId)
+			.uniqueResult();
+			
+			if(likeBean!=null) {
+				this.getSession().remove(likeBean);
 				return true;
 			}
+			
 		}
 		return false;
 	}

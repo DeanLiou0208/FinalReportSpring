@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,7 +78,7 @@ public class ArticleLikesAjaxController {
 		JSONObject responseJson = new JSONObject();
 		ArticleLikesBean articleLikesBean = null;
 		try {
-			articleLikesBean = articleLikesAjaxService.create(body);
+			articleLikesBean = articleLikesAjaxService.createLike(body);
 //			System.out.println("2="+articleLikesBean);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,6 +92,27 @@ public class ArticleLikesAjaxController {
 		}
 		return responseJson.toString();
 	}
+	@PutMapping(path = "/articleLikesModify")
+	public String modifyLike(@RequestBody String body) {
+		JSONObject responseJson = new JSONObject();
+		ArticleLikesBean articleLikesBean = null;
+		try {
+			articleLikesBean = articleLikesAjaxService.modifyLike(body);
+//			System.out.println("2="+articleLikesBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(articleLikesBean==null) {
+			responseJson.put("message", "新增失敗");
+			responseJson.put("success", false);
+		}else {
+			responseJson.put("message", "新增成功");
+			responseJson.put("success", true);
+		}
+		return responseJson.toString();
+	}
+		
+	
 	@DeleteMapping(path = "/articleLikesRemove/{id}")
 	public String remove (@PathVariable("id") Integer id) {
 		JSONObject responseJson = new JSONObject();
@@ -107,6 +129,26 @@ public class ArticleLikesAjaxController {
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
+		}
+		return responseJson.toString();
+	}
+	@DeleteMapping(path = "/dislike/{fkMemberId}/{petArticleId}")
+	public String dislike(@PathVariable Integer fkMemberId,@PathVariable Integer petArticleId) {
+		JSONObject responseJson = new JSONObject();
+		System.out.println(fkMemberId);
+		System.out.println(petArticleId);
+		boolean result = false;
+		try {
+			result = articleLikesAjaxService.removeLike(fkMemberId, petArticleId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(result) {
+			responseJson.put("message", "已取消愛心");
+			responseJson.put("success", true);
+		} else {
+			responseJson.put("message", "取消失敗");
+			responseJson.put("success", false);
 		}
 		return responseJson.toString();
 	}

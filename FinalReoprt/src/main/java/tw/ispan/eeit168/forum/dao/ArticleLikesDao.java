@@ -2,6 +2,8 @@ package tw.ispan.eeit168.forum.dao;
 
 import java.util.List;
 
+import org.json.JSONObject;
+
 import tw.ispan.eeit168.forum.domain.ArticleLikesBean;
 import tw.ispan.eeit168.shop.util.DoublePrimaryKey;
 
@@ -14,6 +16,8 @@ public interface ArticleLikesDao {
 	
 	public abstract ArticleLikesBean insert(ArticleLikesBean bean);
 	
+	public abstract Boolean deleteLike(Integer petArticleId , Integer fkMemberId );
+	
 	public abstract ArticleLikesBean update(ArticleLikesBean bean);
 	
 	public abstract List<Integer> petArticleLike(Integer fkMemberId);
@@ -21,5 +25,6 @@ public interface ArticleLikesDao {
 	public abstract List<Integer> petArticleUnlike(Integer fkMemberId);
 	
 	public abstract Boolean delete(Integer fkPetArticleId);
+	
 
 }

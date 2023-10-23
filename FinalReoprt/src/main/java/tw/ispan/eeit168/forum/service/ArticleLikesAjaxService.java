@@ -34,16 +34,15 @@ public class ArticleLikesAjaxService {
 		return articleLikesBeanDao.selectLikeByFkPetArticleId(fkPetArticleId);
 	}
 	
-	public ArticleLikesBean create(String json) {
+	public ArticleLikesBean createLike(String json) {
 		try {
 			JSONObject obj = new JSONObject(json);
 			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
-			Integer fkPetArticleId = obj.isNull("fkPetArticleId") ? null : obj.getInt("fkPetArticleId");
+			Integer fkPetArticleId = obj.isNull("petArticleId") ? null : obj.getInt("petArticleId");
 			Boolean likeOrUnlike = obj.isNull("likeOrUnlike") ? null : obj.getBoolean("likeOrUnlike");
 //			System.out.println("1="+fkMemberId);
-			MemberBean memberId = memberDAO.select(fkMemberId);
-			PetArticleBean petArticleId = petArticleDao.select(fkPetArticleId);
-			if(memberId!= null && petArticleId!= null) {
+			
+			if(fkMemberId!= null && fkPetArticleId!= null) {
 				ArticleLikesBean insert = new ArticleLikesBean();
 				insert.setFkPetArticleId(fkPetArticleId);
 				insert.setFkMemberId(fkMemberId);
@@ -56,8 +55,29 @@ public class ArticleLikesAjaxService {
 		}
 		return null;
 	}
+	public ArticleLikesBean modifyLike(String json) {
+		try {
+			JSONObject obj = new JSONObject(json);
+			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
+			Integer fkPetArticleId = obj.isNull("petArticleId") ? null : obj.getInt("petArticleId");
+			Boolean likeOrUnlike = obj.isNull("likeOrUnlike") ? null : obj.getBoolean("likeOrUnlike");
+//			System.out.println("1="+fkMemberId);
+			
+			if(fkMemberId!= null && fkPetArticleId!= null) {
+				ArticleLikesBean update = new ArticleLikesBean();
+				update.setFkPetArticleId(fkPetArticleId);
+				update.setFkMemberId(fkMemberId);
+				update.setLikeOrUnlike(likeOrUnlike);
+				
+				return articleLikesBeanDao.update(update);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
-	public Boolean remove(Integer id) {
+	public Boolean remove(Integer id ) {
        
 		try {
 			if(id!=null) {
@@ -69,5 +89,17 @@ public class ArticleLikesAjaxService {
 		}
 		return false;
 	}
+	
+	public boolean removeLike(Integer fkMemberId, Integer petArticleId) {
+		try {
+			if(fkMemberId!=null && petArticleId!=null) {
+				return articleLikesBeanDao.deleteLike(fkMemberId, petArticleId);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 }
+

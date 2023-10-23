@@ -15,10 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import tw.ispan.eeit168.Base64Utils;
+import tw.ispan.eeit168.forum.dao.ArticleLikesDao;
+import tw.ispan.eeit168.forum.dao.CommentsDao;
+import tw.ispan.eeit168.forum.dao.CommentsLikesDao;
 import tw.ispan.eeit168.forum.dao.PetArticleDao;
 import tw.ispan.eeit168.forum.dao.PetArticlePhotoDao;
 import tw.ispan.eeit168.forum.dao.PetArticleSpeciesMidDao;
 import tw.ispan.eeit168.forum.dao.SpeciesViewsViewDao;
+import tw.ispan.eeit168.forum.domain.CommentsBean;
 import tw.ispan.eeit168.forum.domain.PetArticleBean;
 import tw.ispan.eeit168.forum.domain.PetArticlePhotoBean;
 import tw.ispan.eeit168.forum.domain.PetArticleSpeciesMidBean;
@@ -39,6 +43,12 @@ public class PetArticleAjaxService {
 	private PetArticlePhotoDao petArticlePhotoDao;
 	@Autowired
 	private SpeciesViewsViewDao speciesViewsViewDao;
+	@Autowired
+	private CommentsLikesDao commentsLikesDao;
+	@Autowired
+	private ArticleLikesDao articleLikesDao;
+	@Autowired
+	private CommentsDao commentsDao;
 	
 
 	
@@ -199,6 +209,13 @@ public class PetArticleAjaxService {
 	public boolean remove(Integer id) {
 		try {
 			if (id != null) {
+				List<CommentsBean> comments = commentsDao.selectByPetArticleId(id);
+			    for(CommentsBean comment : comments) {
+			    	Integer commentId = comment.getId();
+			    	commentsLikesDao.delete(commentId);
+			    }
+			    commentsDao.deleteByPetArticleId(id);
+			    articleLikesDao.delete(id);
 				petArticleSpeciesMidDao.deleteByArticleId(id);
 				petArticlePhotoDao.deleteByPetArticleId(id);
 				return petArticleDao.delete(id);

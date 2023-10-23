@@ -3,11 +3,12 @@ package tw.ispan.eeit168.forum.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
 import tw.ispan.eeit168.forum.domain.ArticleLikesBean;
-import tw.ispan.eeit168.shop.util.DoublePrimaryKey;
+import tw.ispan.eeit168.member.domain.PetLikesBean;
 
 @Repository
 public class ArticleLikesDaoHibernate implements ArticleLikesDao{
@@ -80,16 +81,16 @@ public class ArticleLikesDaoHibernate implements ArticleLikesDao{
 	@Override
 	public ArticleLikesBean insert(ArticleLikesBean bean) {
 		if(bean != null) {
-			Integer mid = bean.getFkMemberId();
+			Integer fkMemberId = bean.getFkMemberId();
 //			System.out.println(mid);
-			Integer pAid = bean.getFkPetArticleId();
+			Integer fkPetArticleId = bean.getFkPetArticleId();
 //			System.out.println(pAid);
-			if(mid != null && pAid != null) {
-				String hql = "from ArticleLikesBean where fkMemberId =:mid and fkPetArticleId = :pAid";
+			if(fkMemberId != null && fkPetArticleId != null) {
+				String hql = "from ArticleLikesBean where fkMemberId =:fkMemberId and fkPetArticleId = :fkPetArticleId";
 				ArticleLikesBean result = this.getSession()
 												.createQuery(hql, ArticleLikesBean.class)
-												.setParameter("mid", mid)
-												.setParameter("pAid", pAid)
+												.setParameter("fkMemberId", fkMemberId)
+												.setParameter("fkPetArticleId", fkPetArticleId)
 												.uniqueResult();
 				//.uniqueResult 是回傳單的一的物件,但不能用isEmpity, 只能用==null
 //				System.out.println(result);
@@ -101,17 +102,17 @@ public class ArticleLikesDaoHibernate implements ArticleLikesDao{
 		}
 			return null;
 	}
-	
+	@Override
 	public ArticleLikesBean update(ArticleLikesBean bean) {
 		if(bean != null) {
-		Integer mid = bean.getFkMemberId();
-		Integer pAid = bean.getFkPetArticleId();
-		if(mid != null && pAid != null) {
-			String hql ="from ArticleLikesBean where fkMemberId = :mid and fkPetArticleId = :pAid";
+		Integer fkMemberId = bean.getFkMemberId();
+		Integer fkPetArticleId = bean.getFkPetArticleId();
+		if(fkMemberId != null && fkPetArticleId != null) {
+			String hql ="from ArticleLikesBean where fkMemberId = :fkMemberId and fkPetArticleId = :fkPetArticleId";
 			ArticleLikesBean result = this.getSession()
 										.createQuery(hql, ArticleLikesBean.class)
-										.setParameter("mid", mid)
-										.setParameter("pAid", pAid)
+										.setParameter("fkMemberId", fkMemberId)
+										.setParameter("fkPetArticleId", fkPetArticleId)
 										.uniqueResult();
 			if(result != null) {
 				this.getSession().merge(bean);
@@ -123,22 +124,36 @@ public class ArticleLikesDaoHibernate implements ArticleLikesDao{
 	}
 	
 	@Override
-	public  Boolean delete(Integer id) {
-		if(id!= null) {
-			String hql = "FROM ArticleLikesBean WHERE fkPetArticleId = :fkPetArticleId";
-			List<ArticleLikesBean> list = this.getSession().createQuery(hql, ArticleLikesBean.class)
-			.setParameter("fkPetArticleId", id)
-			.list();
+	public  Boolean delete(Integer fkPetArticleId ) {
+		if(fkPetArticleId!=null) {
+			String hql = "FROM ArticleLikesBean WHERE fkPetArticleId = :fkPetArticleId ";
+			ArticleLikesBean result = this.getSession().createQuery(hql, ArticleLikesBean.class)
+			.setParameter("fkPetArticleId", fkPetArticleId)
+			
+			.uniqueResult();
 //			System.out.println(list);
-			if(list != null && !list.isEmpty()) {
-				for(ArticleLikesBean articleLike : list) {
-					
-					this.getSession().remove(articleLike);
+			if(result != null) {
+					this.getSession().remove(result);
+					return true;
 				}
-				return true;
-			}
 		}
 		return false;
 	}
-	
-}
+	@Override
+	public  Boolean deleteLike(Integer fkMemberId,Integer petArticleId ) {
+		if(petArticleId!=null && fkMemberId!=null) {
+			String collectionsql = "FROM ArticleLikesBean WHERE fkMemberId = :fkMemberId AND fkPetArticleId = :fkPetArticleId";
+			 ArticleLikesBean likesBean = this.getSession()
+	                    .createQuery(collectionsql, ArticleLikesBean.class)
+	                    .setParameter("fkMemberId", fkMemberId)
+	                    .setParameter("fkPetArticleId", petArticleId)
+	                    .uniqueResult();
+			if(likesBean!=null) {
+				this.getSession().remove(likesBean);
+				return true;
+			}
+			}
+		return false;
+		}
+	}
+

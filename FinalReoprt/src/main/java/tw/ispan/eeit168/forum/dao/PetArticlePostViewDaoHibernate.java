@@ -46,7 +46,7 @@ public class PetArticlePostViewDaoHibernate implements PetArticlePostViewDao{
 			Long count = this.getSession().createQuery(hql,Long.class)
 			.setParameter("memberId", memberId)
 			.uniqueResult();
-			System.out.println(count);
+//			System.out.println(count);
 			return count;
 		}
 		return null;

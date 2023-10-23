@@ -20,11 +20,11 @@ public class CommentsLikePostViewDaoHibernateTest {
 	}
 	@Test
 	public void testSelectByPetArticleId() {
-		JSONObject obj = new JSONObject()
-				.put("fkPetArticleId", 2)
-				.put("sort", "createAt")
-				.put("order", "desc");
-		List<CommentsLikePostView> byPetArticleId = commentsLikePostDao.selectByPetArticleId(obj);
+//		JSONObject obj = new JSONObject()
+//				.put("fkPetArticleId", 2);
+//				.put("sort", "createAt")
+//				.put("order", "desc");
+		List<CommentsLikePostView> byPetArticleId = commentsLikePostDao.selectByPetArticleId(2);
 		for(CommentsLikePostView bean : byPetArticleId ) {
 			System.out.println("bean="+bean);
 		}

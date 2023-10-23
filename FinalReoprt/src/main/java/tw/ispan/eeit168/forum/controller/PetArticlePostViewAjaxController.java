@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import tw.ispan.eeit168.forum.domain.CommentsLikePostView;
 import tw.ispan.eeit168.forum.domain.PetArticleBean;
 import tw.ispan.eeit168.forum.domain.PetArticlePhotoBean;
 import tw.ispan.eeit168.forum.domain.SpeciesViewsView;
@@ -32,6 +33,7 @@ public class PetArticlePostViewAjaxController {
 		JSONObject obj = new JSONObject(body);
 		Integer id = obj.isNull("petArticleId") ? null : obj.getInt("petArticleId");
 		PetArticlePostView articlePost = petArticlePostViewAjaxService.findById(id);
+		
 		if(articlePost!=null) {
 			//拿出寵物文章的所有照片資料
 			List<PetArticlePhotoBean> myPetArticlePhotos = petArticlePostViewAjaxService.findMyPetArticlePhoto(id);
@@ -63,6 +65,7 @@ public class PetArticlePostViewAjaxController {
 			}
 			JSONObject memberId = new JSONObject(body);
 			Integer fkMemberId = memberId.isNull("fkMemberId") ? null : memberId.getInt("fkMemberId");
+			
 			boolean containsLikeTarget =false;
 			boolean containsUnlikeTarget= false;
 			if(fkMemberId!=null) {
@@ -82,6 +85,10 @@ public class PetArticlePostViewAjaxController {
 			if(unlikeCount == null) {
 				unlikeCount = 0;
 			}
+			Integer totalComments = articlePost.getTotalComments();
+			if(totalComments == null) {
+				totalComments = 0;
+			}
 			
 			String createAt = DatetimeConverter.toString(
 					articlePost.getCreateAt(), "yyyy-MM-dd");
@@ -93,11 +100,13 @@ public class PetArticlePostViewAjaxController {
 			responseJson.put("userName", articlePost.getUserName());
 			responseJson.put("likeCount", likeCount);
 			responseJson.put("unlikeCount", unlikeCount);
-			responseJson.put("totalComments", articlePost.getTotalComments());
+			responseJson.put("totalComments",totalComments);
 			responseJson.put("img", articlePost.getImg());
 			responseJson.put("photo",arrayPhotos);
 			responseJson.put("species",arraySpecies);
 			responseJson.put("memberId",articlePost.getMemberId());
+			
+			
 			
 			if(containsLikeTarget) {
 				responseJson.put("likeRecord",true);
@@ -124,12 +133,13 @@ public class PetArticlePostViewAjaxController {
 		Integer id = obj.isNull("memberId") ? null : obj.getInt("memberId");
 		long count = petArticlePostViewAjaxService.count(id);
 		responseJson.put("count", count);
+//		System.out.println("count:"+count);
 		JSONArray array = new JSONArray();
 		List<PetArticlePostView> byMemberId = petArticlePostViewAjaxService.findByMemberId(body);
 	
 		if(byMemberId!=null) {
 			for(PetArticlePostView bean : byMemberId) {
-				
+//				寵物文章照片
 	            List<PetArticlePhotoBean> myPetArticlePhotos = petArticlePostViewAjaxService.findMyPetArticlePhoto(bean.getPetArticleId());
 	        	
 	            String firstPhoto = null;
@@ -137,8 +147,38 @@ public class PetArticlePostViewAjaxController {
 	            	
 	 	            	PetArticlePhotoBean firstPhotoBean = myPetArticlePhotos.get(0); // 取得第一張照片
 	 	                firstPhoto = firstPhotoBean.getImg();
-	            		
+	 	                
 	            }  
+//	            寵物文章貼文按讚數和倒讚數
+	            List<CommentsLikePostView> commentLikes = petArticlePostViewAjaxService.selectByPetArticleId(bean.getPetArticleId());
+//	            System.out.println("commentLikes:"+commentLikes);
+	            Integer commentLikeCount = 0;
+	            Integer commentUnlikeCount = 0;
+	            if(commentLikes!=null) {
+	            	for(CommentsLikePostView commentLike : commentLikes) {
+	            		commentLikeCount = commentLike.getLikeCount();
+	            		commentUnlikeCount = commentLike.getUnlikeCount();
+	            		if(commentLikeCount == null) {
+	            			commentLikeCount = 0;
+	            		}
+	            		if(commentUnlikeCount == null) {
+	            			commentUnlikeCount = 0;
+	            		}
+	            	}
+	            }
+	            Integer likeCount = bean.getLikeCount();
+	            if(likeCount == null) {
+	            	likeCount = 0;	            
+	            }
+	            Integer unLikeCount = bean.getUnlikeCount();
+	            if(unLikeCount == null) {
+	            	unLikeCount = 0;	            
+	            }
+	            Integer totalComments = bean.getTotalComments();
+	            if(totalComments == null) {
+	            	totalComments = 0;	            
+	            }
+	            
 	            JSONObject item = new JSONObject()
 	                    .put("id", bean.getPetArticleId())
 	                    .put("memberId", bean.getMemberId())
@@ -148,10 +188,13 @@ public class PetArticlePostViewAjaxController {
 	                    .put("userName", bean.getUserName())
 	                    .put("createAt", bean.getCreateAt())
 	                    .put("img", bean.getImg())
-	                    .put("likeCount", bean.getLikeCount())
-	                    .put("unLikeCount", bean.getUnlikeCount())
+	                    .put("likeCount", likeCount)
+	                    .put("unLikeCount", unLikeCount)
 	                    .put("totalComments", bean.getTotalComments())
-	                    .put("main", firstPhoto);
+	                    .put("main", firstPhoto)
+	                    .put("commentLikeCount",commentLikeCount)
+	                    .put("commentUnlikeCount",commentUnlikeCount);
+	                    
 	            		array = array.put(item);
 	        }
 			}

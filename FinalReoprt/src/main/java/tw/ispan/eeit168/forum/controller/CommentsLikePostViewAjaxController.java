@@ -99,4 +99,6 @@ public class CommentsLikePostViewAjaxController {
 		return responseJson.toString();
 		
 	}
+	
+	
 }

@@ -50,13 +50,16 @@ public class CommentsAjaxService {
 			MemberBean memberId = memberDAO.select(fkMemberId);
 			PetArticleBean petArticleId = petArticleDao.select(fkPetArticleId);
 //			CommentsBean newComment = null;
-			if(memberId!= null && petArticleId!= null) {
-				CommentsBean insert = new CommentsBean();
-				insert.setFkMemberId(fkMemberId);
-				insert.setFkPetArticleId(fkPetArticleId);
-				insert.setCommentsText(commentsText);
-				return commentsDao.insert(insert);			
-			}
+			if(memberId!= null && petArticleId!= null ) {
+//				if(commentsText!=null && !commentsText.isEmpty()) {
+					CommentsBean insert = new CommentsBean();
+					insert.setFkMemberId(fkMemberId);
+					insert.setFkPetArticleId(fkPetArticleId);
+					insert.setCommentsText(commentsText);
+					return commentsDao.insert(insert);			
+					
+				}
+//			}
 //			Integer commentId = newComment.getId();
 //			String photo = null;
 //			if(file != null) {
@@ -115,6 +118,18 @@ public class CommentsAjaxService {
 				return true;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean removeByPetArticleId(Integer fkPetArticleId) {
+		try {
+			if(fkPetArticleId!=null) {
+				return commentsDao.deleteByPetArticleId(fkPetArticleId);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;

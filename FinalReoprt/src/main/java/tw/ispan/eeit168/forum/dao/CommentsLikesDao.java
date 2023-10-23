@@ -12,7 +12,9 @@ public interface CommentsLikesDao {
 	
 	public abstract CommentsLikesBean insert(CommentsLikesBean bean);
 	
-	public abstract boolean delete(Integer fkMemberId, Integer fkCommentId);
+	public abstract boolean delete(Integer fkCommentId);
+	
+	public abstract boolean deleteLike (Integer fkCommentId,Integer fkMemberId);
 	
 	public abstract List<Integer> commentLike(Integer fkMemberId);
 	

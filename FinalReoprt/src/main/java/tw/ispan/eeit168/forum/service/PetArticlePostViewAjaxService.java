@@ -36,6 +36,8 @@ public class PetArticlePostViewAjaxService {
 	@Autowired
 	private PetArticleDao petArticleDao;
 	
+	
+	
 	public PetArticlePostView findById(Integer id) {
 		PetArticlePostView byId = petArticlePostViewDao.selectById(id);
 		return byId;
@@ -74,7 +76,10 @@ public class PetArticlePostViewAjaxService {
 		}
 		return null;
 	}
-	
+	//找出寵物文章下面的留言的按讚倒讚數
+	public List<CommentsLikePostView> selectByPetArticleId(Integer fkPetArticleId){
+		 return commentsLikePostViewDao.selectByPetArticleId(fkPetArticleId);
+	}
 	public List<Integer> likeRecord(String json){
 		try {
 			JSONObject obj = new JSONObject(json);

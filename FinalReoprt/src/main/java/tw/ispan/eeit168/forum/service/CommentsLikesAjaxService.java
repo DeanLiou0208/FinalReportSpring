@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.ispan.eeit168.forum.dao.CommentsDao;
 import tw.ispan.eeit168.forum.dao.CommentsLikesDao;
 import tw.ispan.eeit168.forum.domain.CommentsLikesBean;
 
@@ -16,6 +17,7 @@ import tw.ispan.eeit168.forum.domain.CommentsLikesBean;
 public class CommentsLikesAjaxService {
 	@Autowired
 	private CommentsLikesDao commentsLikesDao;
+	
 	
 	public List<CommentsLikesBean> select(Integer fkMemberId){
 		return commentsLikesDao.select(fkMemberId);
@@ -42,9 +44,20 @@ public class CommentsLikesAjaxService {
 		return null;
 		
 	}
-	public boolean remove(Integer fkMemberId, Integer fkCommentId) {
+	public boolean remove(Integer fkCommentId) {
 		try {
-			return commentsLikesDao.delete(fkMemberId, fkCommentId);
+			return commentsLikesDao.delete(fkCommentId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean removeLike (Integer fkCommentId,Integer fkMemberId) {
+		try {
+			if(fkCommentId!=null && fkMemberId!=null) {
+				return commentsLikesDao.deleteLike(fkCommentId, fkMemberId);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
