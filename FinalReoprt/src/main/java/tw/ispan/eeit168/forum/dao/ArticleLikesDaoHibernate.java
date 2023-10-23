@@ -127,14 +127,18 @@ public class ArticleLikesDaoHibernate implements ArticleLikesDao{
 	public  Boolean delete(Integer fkPetArticleId ) {
 		if(fkPetArticleId!=null) {
 			String hql = "FROM ArticleLikesBean WHERE fkPetArticleId = :fkPetArticleId ";
-			ArticleLikesBean result = this.getSession().createQuery(hql, ArticleLikesBean.class)
+			List<ArticleLikesBean> list = this.getSession().createQuery(hql, ArticleLikesBean.class)
 			.setParameter("fkPetArticleId", fkPetArticleId)
 			
-			.uniqueResult();
+			.list();
 //			System.out.println(list);
-			if(result != null) {
-					this.getSession().remove(result);
-					return true;
+			if(list != null) {
+				for(ArticleLikesBean articleLike : list) {
+					
+					this.getSession().remove(articleLike);
+//					System.out.println(articleLike);
+				}
+				return true;
 				}
 		}
 		return false;
