@@ -210,16 +210,19 @@ public class PetArticleAjaxService {
 		try {
 			if (id != null) {
 				List<CommentsBean> comments = commentsDao.selectByPetArticleId(id);
+//				刪除commentsLike
 			    for(CommentsBean comment : comments) {
 			    	Integer commentId = comment.getId();
 			    	commentsLikesDao.delete(commentId);
 			    }
 			    commentsDao.deleteByPetArticleId(id);
+			    
 			    articleLikesDao.delete(id);
 				petArticleSpeciesMidDao.deleteByArticleId(id);
 				petArticlePhotoDao.deleteByPetArticleId(id);
-				return petArticleDao.delete(id);
-			}
+				petArticleDao.delete(id);
+				return true;
+							}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

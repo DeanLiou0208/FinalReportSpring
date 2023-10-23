@@ -114,8 +114,8 @@ public class CommentsLikesDaoHibernate implements CommentsLikesDao {
 				for(CommentsLikesBean comment : list)
 				
 				this.getSession().remove(comment);
-				return true; 
 			}
+			return true; 
 		}
 		return false;
 	}
