@@ -189,7 +189,7 @@ public class ShopProductViewDaoImpl implements ShopProductViewDao {
 //			productId = ?
 			if(productId != null) {
 				predicate.add(builder.equal(root.get("productId"), productId));
-				System.out.println(predicate);
+//				System.out.println(predicate);
 			}
 			
 //			id = ?

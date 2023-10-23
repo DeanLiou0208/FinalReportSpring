@@ -36,7 +36,7 @@ public class ShopProductController {
 		JSONObject responseJson = new JSONObject();
 		long count = shopProductService.count(json);
 		responseJson.put("count", count);
-		System.out.println(json);
+//		System.out.println(json);
 		JSONArray array = new JSONArray();
 		List<ShopProductView> find = shopProductService.find(json);
 		if (find != null && !find.isEmpty()) {
