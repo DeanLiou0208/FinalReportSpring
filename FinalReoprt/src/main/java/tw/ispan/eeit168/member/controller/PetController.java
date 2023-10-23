@@ -80,7 +80,7 @@ public class PetController {
 	
 	//新增寵物
 	@PostMapping(path = "/newPet")
-	public String newPet(@RequestParam("files") MultipartFile[] files, String body) {
+	public String newPet(@RequestParam(value = "files", required = false) MultipartFile[] files, String body) {
 		JSONObject responseJson = new JSONObject();
 		PetBean pet = null;
 		try {
