@@ -137,8 +137,8 @@ public class ArticleLikesDaoHibernate implements ArticleLikesDao{
 					
 					this.getSession().remove(articleLike);
 //					System.out.println(articleLike);
-				}
-				return true;
+				}		
+			return true;
 				}
 		}
 		return false;
