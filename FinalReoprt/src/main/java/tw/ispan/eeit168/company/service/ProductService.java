@@ -84,8 +84,10 @@ public class ProductService {
 	}
 
 	public ProductBean create(String json) {
+		
 		try {
 			JSONObject obj = new JSONObject(json);
+			
 			
 			Integer fkCompanyId = obj.isNull("fkCompanyId") ? null : obj.getInt("fkCompanyId");
 			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
