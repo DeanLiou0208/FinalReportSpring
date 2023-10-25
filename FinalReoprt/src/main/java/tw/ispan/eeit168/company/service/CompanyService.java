@@ -69,6 +69,9 @@ public class CompanyService {
 			String photo = null;
 			if (file != null && !file.isEmpty()) {
 				photo = Base64Utils.convertToBase64(file);
+			}else {
+				photo=companyDao.select(id).getImg();
+				
 			}
 			CompanyBean update = companyDao.select(id);
 			update.setPhone(phone);

@@ -87,7 +87,7 @@ public class ProductService {
 		
 		try {
 			JSONObject obj = new JSONObject(json);
-			
+			System.out.println(json);
 			
 			Integer fkCompanyId = obj.isNull("fkCompanyId") ? null : obj.getInt("fkCompanyId");
 			Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
