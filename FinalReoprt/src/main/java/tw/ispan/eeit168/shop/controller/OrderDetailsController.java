@@ -148,7 +148,7 @@ public class OrderDetailsController {
 	        String payprice = totalPrice.toString();
 		
 		AioCheckOutALL check = new AioCheckOutALL();
-		check.setMerchantTradeNo("10000000");
+		check.setMerchantTradeNo(autoID+cusId);
 		System.out.println("10000000");
 		check.setMerchantTradeDate(formattedDate);
 		System.out.println(formattedDate);
@@ -156,9 +156,9 @@ public class OrderDetailsController {
 		System.out.println(payprice);
 		check.setTradeDesc("信用卡一次付清");
 		check.setItemName("寵物飼集消費明細請見訂單=>");
-		check.setReturnURL("http://localhost:5173/membershoppingcart");
+		check.setReturnURL("http://192.168.34.74:8081/membershoppingcart");
 		System.out.println(3);
-		check.setClientBackURL("http://localhost:5173/membershoppingcart");
+		check.setClientBackURL("http://192.168.34.74:8081/membershoppingcart");
 		System.out.println(4);
 		check.setNeedExtraPaidInfo("N");
 		System.out.println(5);
