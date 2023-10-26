@@ -196,6 +196,7 @@ public class MemberController {
 			} else {
 				responseJson.put("message", "資料已更新");
 				responseJson.put("success", true);
+				responseJson.put("img", member.getImg());			
 			}
 		}
 		return responseJson.toString();
