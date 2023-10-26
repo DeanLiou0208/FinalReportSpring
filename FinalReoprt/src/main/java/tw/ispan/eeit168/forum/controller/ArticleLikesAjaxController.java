@@ -135,8 +135,8 @@ public class ArticleLikesAjaxController {
 	@DeleteMapping(path = "/dislike/{fkMemberId}/{petArticleId}")
 	public String dislike(@PathVariable Integer fkMemberId,@PathVariable Integer petArticleId) {
 		JSONObject responseJson = new JSONObject();
-		System.out.println(fkMemberId);
-		System.out.println(petArticleId);
+//		System.out.println(fkMemberId);
+//		System.out.println(petArticleId);
 		boolean result = false;
 		try {
 			result = articleLikesAjaxService.removeLike(fkMemberId, petArticleId);
