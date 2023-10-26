@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://192.168.34.74:7828",allowCredentials = "true")
+@CrossOrigin(origins = "http://192.168.34.74:8081",allowCredentials = "true")
 public class TestController {
     @Autowired
     private WebSocket webSocket;

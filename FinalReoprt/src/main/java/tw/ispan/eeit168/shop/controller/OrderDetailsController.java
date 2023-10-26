@@ -151,8 +151,8 @@ public class OrderDetailsController {
 		check.setTotalAmount(payprice);
 		check.setTradeDesc("信用卡一次付清");
 		check.setItemName("寵物飼集消費明細請見訂單=>");
-		check.setReturnURL("http://localhost:5173/membershoppingcart");
-		check.setClientBackURL("http://localhost:5173/membershoppingcart");
+		check.setReturnURL("http://192.168.34.74:8081/membershoppingcart");
+		check.setClientBackURL("http://192.168.34.74:8081/membershoppingcart");
 		check.setNeedExtraPaidInfo("N");
 		
 		String from = allInOne.aioCheckOut(check, null);
