@@ -149,7 +149,7 @@ public class PetArticlePostViewAjaxController {
 	 	                firstPhoto = firstPhotoBean.getImg();
 	 	                
 	            }  
-//	            寵物文章貼文按讚數和倒讚數
+//	            寵物文章留言按讚數和倒讚數
 	            List<CommentsLikePostView> commentLikes = petArticlePostViewAjaxService.selectByPetArticleId(bean.getPetArticleId());
 //	            System.out.println("commentLikes:"+commentLikes);
 	            Integer commentLikeCount = 0;
