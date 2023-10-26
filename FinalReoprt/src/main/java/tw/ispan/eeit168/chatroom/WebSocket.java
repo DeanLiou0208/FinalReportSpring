@@ -7,6 +7,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;
@@ -19,6 +20,7 @@ import tw.ispan.eeit168.member.service.MemberService;
 
 @Component
 @ServerEndpoint("/websocket/{ConnectId}")
+@CrossOrigin(origins = "http://192.168.34.74:8081",allowCredentials = "true")
 //此注解相当于设置访问URL
 public class WebSocket {
 	@Autowired

@@ -31,7 +31,7 @@ import tw.ispan.eeit168.shop.repository.OrderListBeanRepostiory;
 
 @RestController
 @CrossOrigin
-@RequestMapping(path = "/")
+@RequestMapping(path = "/pet_web")
 public class OrderDetailsController {
 
 	@Autowired
@@ -46,7 +46,7 @@ public class OrderDetailsController {
 	@Autowired
 	private MemberDAO memberDAO;
 
-	@PostMapping(path = "shoppingcart/payment")
+	@PostMapping(path = "/shoppingcart/payment")
 	@Transactional
 	public String createOrderList(@RequestBody String json) {
 		System.out.println(json);//確認傳入格式無誤
@@ -121,7 +121,7 @@ public class OrderDetailsController {
 	
 	@PostMapping(path = "/paybycredit")
 	public String creadieCard(@RequestBody String json) {
-		
+		System.out.println(1);
 		JSONObject obj = new JSONObject(json);
 		Integer totalPrice = obj.isNull("totalPrice") ? null : obj.getInt("totalPrice");
 		Integer fkMemberId = obj.isNull("fkMemberId") ? null : obj.getInt("fkMemberId");
@@ -135,7 +135,9 @@ public class OrderDetailsController {
 		String formattedDate = dateFormat.format(currentDate);
 		
 		Random random = new Random();
-        
+		
+		System.out.println(2);
+		
 		 StringBuilder randomString = new StringBuilder();
 	        for (int i = 0; i < 10; i++) {
 	            int digit = random.nextInt(10); // 生成0到9之間的隨機數
@@ -146,17 +148,23 @@ public class OrderDetailsController {
 	        String payprice = totalPrice.toString();
 		
 		AioCheckOutALL check = new AioCheckOutALL();
-		check.setMerchantTradeNo(cusId+autoID);
+		check.setMerchantTradeNo("10000000");
+		System.out.println("10000000");
 		check.setMerchantTradeDate(formattedDate);
+		System.out.println(formattedDate);
 		check.setTotalAmount(payprice);
+		System.out.println(payprice);
 		check.setTradeDesc("信用卡一次付清");
 		check.setItemName("寵物飼集消費明細請見訂單=>");
-		check.setReturnURL("http://192.168.34.74:8081/membershoppingcart");
-		check.setClientBackURL("http://192.168.34.74:8081/membershoppingcart");
+		check.setReturnURL("http://localhost:5173/membershoppingcart");
+		System.out.println(3);
+		check.setClientBackURL("http://localhost:5173/membershoppingcart");
+		System.out.println(4);
 		check.setNeedExtraPaidInfo("N");
+		System.out.println(5);
 		
 		String from = allInOne.aioCheckOut(check, null);
-		
+		System.out.println(from);
 		
 		return from;
 	}
