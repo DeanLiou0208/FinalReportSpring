@@ -57,6 +57,7 @@ public class OrderDetailsController {
 		Integer totalPrice = obj.isNull("totalPrice") ? null : obj.getInt("totalPrice");
 //		Integer bonus = obj.isNull("bonus") ? null : obj.getInt("bonus");
 		JSONArray productList = obj.isNull("productList") ? new JSONArray() : obj.getJSONArray("productList");
+		System.out.println(productList);
 		
 		Integer orderListId = null;
 		if (fkMemberId != null && totalPrice != 0) {
@@ -77,15 +78,18 @@ public class OrderDetailsController {
 //			Integer orderListId = orderListBeanRepostiory.findOrderId(fkMemberId);
 			System.out.println(orderListId);
 			
-			OrderDetailsBean orderDetailsBean = new OrderDetailsBean();
+			
 			if (productList.length() != 0 && !productList.isEmpty()) {
 				for (int i = 0; productList.length() > i; i++) {
 					JSONObject detailObject = productList.getJSONObject(i);
+					System.out.println(detailObject);
 					Integer id = detailObject.getInt("id");
 					Integer productId = detailObject.getInt("productId");
 					Integer count = detailObject.getInt("count");
 					String shopName = detailObject.getString("shopName");
-
+					
+					OrderDetailsBean orderDetailsBean = new OrderDetailsBean();
+					
 					orderDetailsBean.setFkOrderId(orderListId);
 					orderDetailsBean.setProductId(productId);
 					orderDetailsBean.setQuantity(count);
@@ -93,6 +97,7 @@ public class OrderDetailsController {
 					orderDetailsBean.setState("訂單已成立");
 					orderDetailsBean.setStateChangeTime(new Timestamp(System.currentTimeMillis()));
 					OrderDetailsBean detailSave = orderDetailsBeanDaoRepository.save(orderDetailsBean);
+					System.out.println(detailSave);
 					if (detailSave != null) {
 						shoppingCartBeanDao.delect(id);
 					}
